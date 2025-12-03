@@ -524,6 +524,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Powered By section (names only, official fonts where available) */}
+      <section className="powered-by" aria-label="Powered by">
+        <div className="powered-inner">
+          <h4 className="powered-title">Powered By</h4>
+
+          <div className="partners-grid" role="list" aria-label="Partner names">
+            <a
+              className="partner partner--microsoft"
+              href="https://www.microsoft.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              aria-label="Microsoft"
+            >
+              <span className="partner-name">Microsoft</span>
+            </a>
+
+            <a
+              className="partner partner--pinecone"
+              href="https://www.pinecone.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              aria-label="Pinecone"
+            >
+              <span className="partner-name">Pinecone</span>
+            </a>
+
+            <a
+              className="partner partner--vercel"
+              href="https://vercel.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              aria-label="Vercel"
+            >
+              <span className="partner-name">Vercel</span>
+            </a>
+
+            <a
+              className="partner partner--openai"
+              href="https://openai.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              aria-label="OpenAI"
+            >
+              <span className="partner-name">OpenAI</span>
+            </a>
+
+            <a
+              className="partner partner--convex"
+              href="https://convex.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              aria-label="Convex"
+            >
+              <span className="partner-name">Convex</span>
+            </a>
+
+            <a
+              className="partner partner--hostinger"
+              href="https://www.hostinger.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              aria-label="Hostinger"
+            >
+              <span className="partner-name">Hostinger</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="site-footer" aria-label="Site footer">
         <div className="footer-inner">
@@ -1006,7 +1081,7 @@ export default function Home() {
           gap: 8px;
           align-items: center;
           justify-content: center;
-          margin: 10px 0 0;
+          margin: 10px 0 18px;
         }
         .synthesis-cta-line {
           margin: 14px 0 0;
@@ -1104,6 +1179,80 @@ export default function Home() {
           100% { transform: translateY(0); }
         }
 
+        /* Powered By section */
+        .powered-by {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          padding: 36px 20px;
+          z-index: 10;
+          background: linear-gradient(180deg, rgba(255,255,255,0.005), transparent 30%);
+        }
+        .powered-inner {
+          width: 100%;
+          max-width: 1100px;
+          text-align: center;
+        }
+        .powered-title {
+          margin: 0 0 18px;
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: #eaf0ff;
+          letter-spacing: 0.02em;
+        }
+        .partners-grid {
+          display: flex;
+          gap: 18px;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        /* Partner name-only layout */
+        .partner {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 18px;
+          border-radius: 12px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+          border: 1px solid rgba(255,255,255,0.04);
+          color: #eef0f6;
+          text-decoration: none;
+          transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+          min-width: 120px;
+        }
+        .partner:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 40px rgba(2,6,23,0.45);
+          border-color: rgba(124,58,237,0.12);
+        }
+        .partner-name {
+          font-weight: 800;
+          color: #eaf0ff;
+          font-size: 1rem;
+          letter-spacing: 0.02em;
+          display: inline-block;
+        }
+
+        /*
+          Attempt to use each vendor's preferred/official font where commonly known.
+          These are fallbacks only — if you host the official font files (or load them via your font provider),
+          the partner names will render in the exact brand font.
+        */
+        .partner--microsoft .partner-name {
+          font-family: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        }
+        .partner--pinecone .partner-name,
+        .partner--vercel .partner-name,
+        .partner--openai .partner-name,
+        .partner--convex .partner-name {
+          font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .partner--hostinger .partner-name {
+          font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
         /* Footer */
         .site-footer {
           width: 100%;
@@ -1161,6 +1310,9 @@ export default function Home() {
           .prompt-chip { padding: 7px 10px; font-size: 0.88rem; }
           .trust-card { padding: 28px 20px; }
           .trust-title { font-size: clamp(1.4rem, 4vw, 2rem); }
+          .partners-grid { gap: 12px; }
+          .partner { padding: 8px 10px; border-radius: 10px; min-width: 84px; }
+          .partner-name { font-size: 0.92rem; }
         }
       `}</style>
     </div>
