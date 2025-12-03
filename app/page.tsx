@@ -183,7 +183,7 @@ export default function Home() {
             </a>
           </div>
 
-          <p className="footnote">Free plan • No credit card required • Enterprise-ready</p>
+          <p className="footnote">Start Free • No credit card required • Enterprise-ready</p>
         </div>
       </main>
 
