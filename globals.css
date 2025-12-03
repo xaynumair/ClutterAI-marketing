@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+--background: #ffffff;
+--foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+:root {
+--background: #0a0a0a;
+--foreground: #ededed;
+}
+}
+
+body {
+color: var(--foreground);
+background: var(--background);
+font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom utilities */
+@layer utilities {
+/* Balance text utility */
+.text-balance {
+text-wrap: balance;
+}
+
+/* Unified neon hover class for headings only */
+h1.neon-hover, h2.neon-hover, h3.neon-hover, h4.neon-hover, h5.neon-hover, h6.neon-hover {
+transition: all 0.3s ease-in-out;
+}
+
+h1.neon-hover:hover, h2.neon-hover:hover, h3.neon-hover:hover, h4.neon-hover:hover, h5.neon-hover:hover, h6.neon-hover:hover {
+color: #9b30ff !important; /* dark purple */
+animation: pulseNeon 1.5s infinite alternate;
+}
+}
+
+/* Neon hover effect for nav links (outside @layer utilities) */
+nav a.neon-hover {
+transition: all 0.3s ease-in-out;
+}
+
+nav a.neon-hover:hover {
+color: #9b30ff !important;
+animation: pulseNeon 1.5s infinite alternate;
+}
+
+/* Keyframes for pulsing neon glow */
+@keyframes pulseNeon {
+0%, 100% {
+text-shadow:
+0 0 5px #9b30ff,
+0 0 10px #9b30ff,
+0 0 20px #9b30ff,
+0 0 40px #9b30ff;
+}
+50% {
+text-shadow:
+0 0 10px #d580ff,
+0 0 20px #d580ff,
+0 0 30px #d580ff,
+0 0 50px #d580ff;
+}
+}
