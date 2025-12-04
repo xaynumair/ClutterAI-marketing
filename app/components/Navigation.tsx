@@ -19,7 +19,7 @@ export const Navigation: React.FC = () => {
     return pathname.startsWith(href);
   };
 
-  // Refs for logo measurement / star placement (do not touch the logo visuals)
+  // Refs for logo measurement / star placement
   const svgRef = useRef<SVGSVGElement | null>(null);
   const aiTspanRef = useRef<SVGTSpanElement | null>(null);
   const starRef = useRef<SVGGElement | null>(null);
@@ -146,30 +146,43 @@ export const Navigation: React.FC = () => {
               </svg>
             </Link>
 
-            <div className="desktop-menu" role="navigation" aria-label="Main navigation">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`nav-link ${isActive(link.href) ? "active" : ""}`}
-                >
-                  <span className="link-inner">
-                    <span className="link-text">{link.label}</span>
-                    <span className="link-underline" aria-hidden="true" />
-                  </span>
-                </Link>
-              ))}
-            </div>
+            {/* Right side: links + login + mobile toggle */}
+            <div className="nav-right">
+              <div className="desktop-menu" role="navigation" aria-label="Main navigation">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`nav-link ${isActive(link.href) ? "active" : ""}`}
+                  >
+                    <span className="link-inner">
+                      <span className="link-text">{link.label}</span>
+                      <span className="link-underline" aria-hidden="true" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
 
-            <button
-              className="mobile-menu-button"
-              onClick={() => setMobileMenuOpen((s) => !s)}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-menu"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
+              <a
+                className="login-button"
+                href="https://app.clutter-ai.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open ClutterAI app"
+              >
+                Log in
+              </a>
+
+              <button
+                className="mobile-menu-button"
+                onClick={() => setMobileMenuOpen((s) => !s)}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? "✕" : "☰"}
+              </button>
+            </div>
           </div>
 
           {mobileMenuOpen && (
@@ -185,6 +198,17 @@ export const Navigation: React.FC = () => {
                   <span className="mobile-link-underline" aria-hidden="true" />
                 </Link>
               ))}
+
+              <a
+                className="mobile-login"
+                href="https://app.clutter-ai.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Open ClutterAI app"
+              >
+                Log in
+              </a>
             </div>
           )}
         </div>
@@ -208,33 +232,22 @@ export const Navigation: React.FC = () => {
           pointer-events: auto;
         }
 
-        /*
-          Ultra-modern glassy container:
-          - increased corner radius for a very rounded look
-          - reduced vertical padding to lower overall height
-          - ensure text isn't crushed by keeping comfortable horizontal padding
-        */
+        /* Container: ultra-rounded glass with balanced padding */
         .nav-container {
           display: flex;
-          justify-content: space-between;
           align-items: center;
           gap: 12px;
-          padding: 8px 18px; /* reduced vertical padding to lower height */
-          border-radius: 40px; /* very rounded edges */
+          padding: 8px 18px;
+          border-radius: 40px;
           background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
           border: 1px solid rgba(255, 255, 255, 0.06);
-          box-shadow: 0 10px 40px rgba(2, 6, 23, 0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+          box-shadow: 0 10px 40px rgba(2,6,23,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
           backdrop-filter: blur(14px) saturate(140%);
-          transition: transform 220ms ease, box-shadow 220ms ease;
         }
 
-        .nav-container:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 18px 48px rgba(2, 6, 23, 0.55);
-        }
-
+        /* Left logo */
         .logo {
-          display: flex;
+          display: inline-flex;
           align-items: center;
           text-decoration: none;
           transition: transform 220ms ease, filter 220ms ease;
@@ -243,7 +256,6 @@ export const Navigation: React.FC = () => {
           transform: translateY(-1px);
           filter: drop-shadow(0 8px 28px rgba(147, 51, 234, 0.35));
         }
-        /* slightly reduced logo height so it fits the shorter nav without crowding */
         .logo-svg {
           height: 44px;
           width: auto;
@@ -251,42 +263,50 @@ export const Navigation: React.FC = () => {
           overflow: visible;
         }
 
-        /* Desktop menu sits inside the glass card */
-        .desktop-menu {
-          display: flex;
-          gap: 10px;
+        /* Right cluster: pushes links to far right and aligns items */
+        .nav-right {
+          display: inline-flex;
           align-items: center;
+          gap: 14px;
+          margin-left: auto; /* push to far right */
         }
 
+        /* Desktop links group: equal spacing and perfect vertical alignment */
+        .desktop-menu {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px; /* consistent spacing between names */
+        }
+
+        /* Aesthetic alignment for page names: same heights, padding, typography */
         :global(.nav-link) {
           position: relative;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          height: 36px; /* reduced height to match the slimmer nav */
-          padding: 0 14px; /* keep horizontal padding so text doesn't get crushed */
-          border-radius: 20px; /* pill-like buttons */
+          height: 36px;
+          padding: 0 14px;
+          border-radius: 18px;
           text-decoration: none;
-          color: #eef0f6;
+          color: #eaeefb;
           font-weight: 700;
-          font-size: 0.98rem;
-          line-height: 1; /* ensure single-line layout */
+          font-size: 0.96rem;
+          letter-spacing: 0.01em;
+          line-height: 1; /* avoid vertical wobble */
           transition: transform 160ms ease, color 160ms ease, box-shadow 160ms ease, background 160ms ease;
-          isolation: isolate;
-          background: transparent;
-          border: none;
-          white-space: nowrap; /* prevent wrapping that could look cramped */
+          white-space: nowrap; /* no wrapping of names */
         }
 
+        /* Inner layout (keeps underline centered and text crisp) */
         .nav-link .link-inner {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
+          gap: 8px;
           position: relative;
         }
         .nav-link .link-text {
           position: relative;
-          z-index: 2;
+          top: 0.5px; /* micro adjust for optical baseline */
         }
         .nav-link .link-underline {
           position: absolute;
@@ -301,36 +321,35 @@ export const Navigation: React.FC = () => {
           transition: width 220ms ease, opacity 160ms ease;
         }
 
+        /* Hover/active states: subtle, consistent elevation */
         :global(.nav-link::before) {
           content: "";
           position: absolute;
           inset: 0;
-          border-radius: 20px;
-          background: linear-gradient(90deg, rgba(124,58,237,0.06), rgba(91,33,182,0.04));
+          border-radius: 18px;
+          background: linear-gradient(90deg, rgba(124,58,237,0.08), rgba(91,33,182,0.06));
           background-size: 200% 100%;
           opacity: 0;
-          z-index: 0;
           transition: opacity 160ms ease;
         }
-
         :global(.nav-link:hover) {
           color: #ffffff;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(2,6,23,0.45);
+          transform: translateY(-1px);
+          box-shadow: 0 8px 26px rgba(2,6,23,0.42);
         }
         :global(.nav-link:hover::before) {
           opacity: 1;
           animation: shimmer 1800ms linear infinite;
         }
         .nav-link:hover .link-underline {
-          width: 64%;
+          width: 54%;
           opacity: 1;
         }
 
         :global(.nav-link.active) {
           color: #ffffff;
           background: linear-gradient(180deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08));
-          box-shadow: 0 12px 36px rgba(2,6,23,0.45);
+          box-shadow: 0 10px 30px rgba(2,6,23,0.45);
           border: 1px solid rgba(124,58,237,0.18);
         }
         :global(.nav-link.active::after) {
@@ -343,10 +362,32 @@ export const Navigation: React.FC = () => {
           height: 3px;
           border-radius: 999px;
           background: linear-gradient(90deg, #ffd6ff, #b78bff, #7c3aed);
-          filter: drop-shadow(0 8px 18px rgba(124,58,237,0.4));
+          filter: drop-shadow(0 6px 14px rgba(124,58,237,0.35));
         }
 
-        /* Mobile menu button */
+        /* Login button: matches link height and baseline */
+        .login-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 36px;
+          padding: 0 16px;
+          border-radius: 18px;
+          background: linear-gradient(90deg, #7c3aed, #5b21b6);
+          border: 1px solid rgba(124,58,237,0.22);
+          color: #fff;
+          font-weight: 800;
+          font-size: 0.94rem;
+          text-decoration: none;
+          transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+        }
+        .login-button:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 28px rgba(2,6,23,0.45);
+          filter: brightness(1.06);
+        }
+
+        /* Mobile menu toggle */
         .mobile-menu-button {
           display: none;
           background: linear-gradient(180deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08));
@@ -369,6 +410,21 @@ export const Navigation: React.FC = () => {
           display: none;
         }
 
+        .mobile-login {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 14px;
+          margin: 6px 10px 12px;
+          border-radius: 12px;
+          background: linear-gradient(180deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08));
+          border: 1px solid rgba(124,58,237,0.28);
+          color: #fff;
+          text-decoration: none;
+          font-weight: 800;
+          text-align: center;
+        }
+
         @media (max-width: 768px) {
           .desktop-menu {
             display: none;
@@ -381,7 +437,6 @@ export const Navigation: React.FC = () => {
           .nav-shell {
             padding: 0 12px;
           }
-          /* keep mobile container rounded but slightly less tall */
           .nav-container {
             padding: 8px 12px;
             border-radius: 32px;
@@ -396,7 +451,7 @@ export const Navigation: React.FC = () => {
             margin-top: 12px;
             background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
             border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 28px; /* very rounded */
+            border-radius: 28px;
             padding: 10px;
             box-shadow: 0 14px 40px rgba(2,6,23,0.45);
             backdrop-filter: blur(12px) saturate(120%);
