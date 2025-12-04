@@ -30,6 +30,14 @@ export default function About() {
     return () => io.disconnect();
   }, []);
 
+  const collect = (el: HTMLElement | null) => {
+    if (!el) return;
+    // Prevent duplicates on re-renders
+    if (!sectionsRef.current.includes(el)) {
+      sectionsRef.current.push(el);
+    }
+  };
+
   return (
     <div className="about-page">
       {/* Ultra-modern background: multi-layer parallax gradients + morphing metaballs */}
@@ -58,10 +66,7 @@ export default function About() {
 
         <article className="article">
           {/* Hero */}
-          <header
-            className="hero section-reveal"
-            ref={(el) => el && sectionsRef.current.push(el)}
-          >
+          <header className="hero section-reveal" ref={collect}>
             <h1 className="headline">
               About <span className="gradient">ClutterAI</span>
               <span className="headline-underline" aria-hidden="true" />
@@ -74,10 +79,7 @@ export default function About() {
           </header>
 
           {/* Mission */}
-          <section
-            className="section"
-            ref={(el) => el && sectionsRef.current.push(el as HTMLElement)}
-          >
+          <section className="section" ref={collect}>
             <div className="section-head">
               <h2 className="title-underline">Our Mission</h2>
               <span className="section-badge" aria-hidden="true">Vision & Impact</span>
@@ -98,10 +100,7 @@ export default function About() {
           </section>
 
           {/* How It Works */}
-          <section
-            className="section"
-            ref={(el) => el && sectionsRef.current.push(el as HTMLElement)}
-          >
+          <section className="section" ref={collect}>
             <div className="section-head">
               <h2 className="title-underline">How It Works</h2>
               <span className="section-badge" aria-hidden="true">One-click, secure</span>
@@ -127,10 +126,7 @@ export default function About() {
           </section>
 
           {/* Privacy & Security */}
-          <section
-            className="section"
-            ref={(el) => el && sectionsRef.current.push(el as HTMLElement)}
-          >
+          <section className="section" ref={collect}>
             <div className="section-head">
               <h2 className="title-underline">Privacy & Security</h2>
               <span className="section-badge" aria-hidden="true">Enterprise-grade</span>
@@ -154,10 +150,7 @@ export default function About() {
           </section>
 
           {/* Contact */}
-          <section
-            className="section"
-            ref={(el) => el && sectionsRef.current.push(el as HTMLElement)}
-          >
+          <section className="section" ref={collect}>
             <div className="section-head">
               <h2 className="title-underline">Contact Us</h2>
               <span className="section-badge" aria-hidden="true">We’re listening</span>
@@ -330,23 +323,21 @@ export default function About() {
           border: 1px solid var(--glass-border);
           border-radius: 16px; padding: 18px;
           box-shadow:
-            0 14px 40px rgba(2,6,23,0.45),          /* depth */
-            inset 0 0 0 1px rgba(255,255,255,0.04), /* subtle inner stroke */
-            0 0 0 0 transparent;                    /* placeholder for hover glow */
+            0 14px 40px rgba(2,6,23,0.45),
+            inset 0 0 0 1px rgba(255,255,255,0.04),
+            0 0 0 0 transparent;
           backdrop-filter: blur(8px) saturate(120%);
           overflow: hidden;
         }
-        /* Replace spinning span with a fixed rim-light via ::after */
         .glass::after {
           content: "";
           position: absolute; inset: 0;
           border-radius: 16px;
           pointer-events: none;
-          /* Soft outer glow hugging the border */
           box-shadow:
-            0 0 0 2px var(--rim-soft), /* soft color wash */
-            0 0 26px var(--rim);        /* outer glow */
-          opacity: 0.35;               /* tasteful default */
+            0 0 0 2px var(--rim-soft),
+            0 0 26px var(--rim);
+          opacity: 0.35;
           transition: opacity 200ms ease, box-shadow 200ms ease;
         }
         .glass:hover::after {
