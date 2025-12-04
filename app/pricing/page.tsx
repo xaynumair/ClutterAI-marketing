@@ -20,7 +20,7 @@ export default function Pricing() {
         "Calendar integration",
         "Email support",
       ],
-      cta: "Start Free Trial",
+      cta: "Start For Free",
       popular: false,
     },
     {
@@ -134,9 +134,15 @@ export default function Pricing() {
               )}
 
               <a
-                href={plan.name === "Team" ? "/contact" : "https://app.clutter-ai.com/signup"}
+                href={
+                  plan.name === "Team"
+                    ? "https://app.clutter-ai.com"
+                    : "https://app.clutter-ai.com/signup"
+                }
                 className={`cta-button ${plan.popular ? "primary" : "secondary"}`}
                 role="button"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {plan.cta}
               </a>
