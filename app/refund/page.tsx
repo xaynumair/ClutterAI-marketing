@@ -23,28 +23,28 @@ export default function Refund() {
           <section>
             <h2>30-Day Money-Back Guarantee</h2>
             <p>
-              At ClutterAI, we stand behind our product. We offer a <strong>30-day money-back 
-              guarantee</strong> for all new paid subscriptions. If you're not satisfied with our 
-              Service for any reason, we'll refund your payment in full—no questions asked.
+              We offer a 30‑day money‑back guarantee for new paid subscriptions purchased through our FastSpring checkout. If you are not satisfied, request a refund within 30 days of your initial payment and we will evaluate and, if approved, refund the purchase amount to your original payment method.
             </p>
           </section>
           
           <section>
             <h2>Eligibility</h2>
-            <p>You are eligible for a refund if:</p>
+            <p>To be eligible for a refund you must:</p>
             <ul>
-              <li>You are a first-time subscriber to a paid plan</li>
-              <li>You request a refund within 30 days of your initial payment</li>
-              <li>Your account is in good standing (no violations of our Terms of Service)</li>
+              <li>Be a first‑time paying subscriber for the specific ClutterAI account and plan purchased (conversions from a free trial to the same paid plan do not automatically qualify as a new first‑time purchase).
+</li>
+              <li>Submit a refund request within 30 days of the initial payment date.</li>
+              <li>Have an account in good standing (no unresolved Terms of Service violations or fraud).
+</li>
             </ul>
             
             <p><strong>Refunds are NOT available for:</strong></p>
             <ul>
-              <li>Renewals or subsequent billing cycles (only the first month/year)</li>
-              <li>Free tier users (no payment made)</li>
-              <li>Accounts terminated for Terms of Service violations</li>
-              <li>Partial refunds for unused portions of a subscription period</li>
-              <li>Requests made after 30 days from the initial payment date</li>
+              <li>Renewals or subsequent billing cycles for the same account and plan;</li>
+              <li>Free tier accounts (no payment made);</li>
+              <li>Accounts terminated for Terms violations;</li>
+              <li>Requests submitted after 30 days from the initial payment date;</li>
+              <li>Purchases made through third parties (e.g., app stores or resellers) unless that third party’s policy allows refunds—contact the third party for those refunds.</li>
             </ul>
           </section>
           
@@ -67,10 +67,9 @@ export default function Refund() {
               <div className="step">
                 <div className="step-number">2</div>
                 <div className="step-content">
-                  <h3>Provide Information</h3>
+                  <h3>Provide required information</h3>
                   <p>
-                    Include your account email, reason for refund (optional), and order/transaction ID 
-                    if available
+                    Include your account email, order/transaction ID (from FastSpring receipt), purchase date, and reason (optional).
                   </p>
                 </div>
               </div>
@@ -78,9 +77,9 @@ export default function Refund() {
               <div className="step">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>Confirmation</h3>
+                  <h3>Verification</h3>
                   <p>
-                    We'll review your request and respond within 2 business days with confirmation
+                    We may request additional information to verify account ownership or detect abuse.
                   </p>
                 </div>
               </div>
@@ -88,9 +87,9 @@ export default function Refund() {
               <div className="step">
                 <div className="step-number">4</div>
                 <div className="step-content">
-                  <h3>Processing</h3>
+                  <h3>Decision</h3>
                   <p>
-                    Once approved, refunds are processed within 5-10 business days via FastSpring
+                    We will acknowledge receipt within 2 business days and provide a decision within 5 business days.
                   </p>
                 </div>
               </div>
@@ -99,31 +98,14 @@ export default function Refund() {
           
           <section>
             <h2>Refund Processing</h2>
-            <p>
-              <strong>All refunds are processed through FastSpring</strong>, our payment processor. 
-              Once we approve your refund:
-            </p>
-            <ul>
-              <li>FastSpring will process the refund to your original payment method</li>
-              <li>Processing typically takes 5-10 business days</li>
-              <li>The exact timeframe depends on your bank or card issuer</li>
-              <li>You'll receive a confirmation email from FastSpring when processed</li>
-            </ul>
-            <p>
-              For questions about refund status, you can contact FastSpring support at: 
-              <a href="https://fastspring.com/contact/" target="_blank" rel="noopener">https://fastspring.com/contact/</a>
-            </p>
+            <p>If we approve a refund, we will instruct FastSpring to process the refund to the original payment method. FastSpring typically completes refunds within 5–10 business days, but the exact timing depends on the payment method and bank. You will receive confirmation from both ClutterAI and FastSpring when the refund is processed. Refunds may reverse any taxes collected where applicable. If a chargeback or dispute is open, we may withhold refund processing until the dispute is resolved.</p>
+              
           </section>
           
           <section>
             <h2>What Happens After a Refund</h2>
             <p>Once your refund is processed:</p>
-            <ul>
-              <li>Your paid subscription will be canceled immediately</li>
-              <li>Your account will revert to the free tier (3 questions per 12 hours)</li>
-              <li>You'll retain access to your connected data and integrations</li>
-              <li>You can upgrade again at any time</li>
-            </ul>
+            <p>Upon approval of a refund, your paid subscription will be canceled immediately and your account will revert to the free tier. You will retain access to your connected data and integrations for 30 days after refund processing to allow export or migration; after that period we may delete or anonymize data in accordance with our Data Retention policy. If you prefer immediate deletion, contact support and we will process your request subject to legal and fraud‑prevention checks.</p>
           </section>
           
           <section>
@@ -131,42 +113,30 @@ export default function Refund() {
             <p>
               For Team plan subscriptions:
             </p>
-            <ul>
-              <li>Only the account administrator can request a refund</li>
-              <li>The refund applies to all team members</li>
-              <li>Refunds are prorated based on the number of active members</li>
-              <li>Individual team members cannot request separate refunds</li>
-            </ul>
+            <p>Only the account administrator may request a refund for a Team plan. We will verify administrator status before processing. Refunds for Team plans are applied to the team subscription and, if approved, will be prorated based on the number of active seats and the unused portion of the billing period using the following formula: (Annual or monthly fee ÷ number of days in billing period) × unused days × active seats. Individual team members cannot request separate refunds unless authorized by the administrator.</p>
           </section>
           
           <section>
             <h2>Abuse Prevention</h2>
             <p>
-              While we offer generous refund terms, we reserve the right to deny refunds for:
+              We reserve the right to deny refunds in cases of suspected abuse or fraud. Examples include:
             </p>
             <ul>
-              <li>Repeated refund requests (multiple subscriptions/cancellations)</li>
-              <li>Excessive usage before requesting refund (e.g., asking 1000+ questions then requesting refund)</li>
-              <li>Fraudulent activity or payment disputes</li>
-              <li>Attempts to abuse the refund policy</li>
+              <li>More than 3 refund requests from the same account or payment method within a 12‑month period;</li>
+              <li>Excessive usage clearly inconsistent with normal evaluation (e.g., automated bulk queries or usage exceeding 1,000 queries within the refund window);</li>
+              <li>Evidence of fraudulent activity or chargeback abuse.</li>
+            
             </ul>
+            <p>
+We will notify you if we deny a refund and provide the reason.</p>
           </section>
           
           <section>
             <h2>Cancellation Without Refund</h2>
             <p>
-              You can cancel your subscription at any time from your account settings. When you cancel:
+              You can cancel your subscription at any time from your account settings. Cancelling a subscription stops future renewals but does not automatically trigger a refund. If you cancel, you retain paid access until the end of the current billing period and will not be charged on renewal. To request money back, follow the refund request process above.
             </p>
-            <ul>
-              <li>You retain access until the end of your current billing period</li>
-              <li>No refund is provided for the remaining time</li>
-              <li>Your subscription will not renew</li>
-              <li>Your account reverts to the free tier automatically</li>
-            </ul>
-            <p>
-              Cancellation is different from requesting a refund. See our 
-              <Link href="/terms">Terms of Service</Link> for more details.
-            </p>
+            
           </section>
           
           <section>
@@ -174,14 +144,11 @@ export default function Refund() {
             <p>
               For annual subscriptions:
             </p>
-            <ul>
-              <li>The 30-day refund window applies from your initial payment date</li>
-              <li>Full refund of the annual amount if requested within 30 days</li>
-              <li>No partial refunds for months 2-12</li>
-              <li>You may cancel at any time but receive no refund after 30 days</li>
-            </ul>
+            <p>The 30‑day refund window applies from the initial payment date for annual plans. If approved within 30 days, we will refund the full annual amount. After 30 days, no partial refunds will be issued for the remaining months, except as required by law or at our discretion.</p>
           </section>
           
+          <h2>Third‑Party Purchases and Chargebacks</h2>
+          <p>Purchases made through third parties (app stores, resellers) are subject to the third party’s refund policy. For chargebacks, FastSpring handles disputes as the merchant of record; we will cooperate with FastSpring in dispute resolution and may deny refunds while a dispute is pending.</p>
           <section>
             <h2>Questions?</h2>
             <p>

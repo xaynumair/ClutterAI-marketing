@@ -105,11 +105,12 @@ export default function Privacy() {
             
             <h3>4.1 Service Providers</h3>
             <ul>
-              <li><strong>FastSpring:</strong> Payment processing and subscription management</li>
+              <li><strong>FastSpring:</strong> Payment processing and merchant of record</li>
               <li><strong>Convex:</strong> Database and backend infrastructure</li>
               <li><strong>Vercel:</strong> Hosting and deployment</li>
               <li><strong>OpenAI:</strong> AI processing (prompts only, not stored content)</li>
               <li><strong>Pinecone:</strong> Vector search infrastructure</li>
+            
             </ul>
             
             <h3>4.2 Legal Requirements</h3>
@@ -117,7 +118,16 @@ export default function Privacy() {
               We may disclose your information if required by law, court order, or government request.
             </p>
             
-            <h3>4.3 Business Transfers</h3>
+            <h3>4.3 Legal Basis for Processing
+              <ul>
+              <p>If you are an EU/UK resident, we process personal data on the following legal bases:</p>
+              <li><strong>Contract:</strong>to provide the Service and perform our contract with you (account management, billing, access to connected services).</li>
+              <li><strong>Legitimate interest:</strong>to improve the Service, detect fraud, and ensure security (we balance these interests against your rights).</li>
+              <li><strong>Consent:</strong>where required (e.g., optional marketing communications or explicit opt‑in features).
+You may withdraw consent at any time where processing is based on consent.</li>
+</ul>
+            </h3>
+            <h3>4.4 Business Transfers</h3>
             <p>
               If ClutterAI is acquired or merged with another company, your information may be 
               transferred as part of that transaction.
@@ -127,15 +137,9 @@ export default function Privacy() {
           <section>
             <h2>5. Data Security</h2>
             <p>
-              We implement industry-standard security measures to protect your data:
+              We implement reasonable administrative, technical, and physical safeguards such as TLS in transit, encryption at rest, access controls, and regular security reviews. In the event of a data breach affecting personal data, we will notify affected users and regulators as required by law and, where applicable, within 72 hours of becoming aware of the breach.
             </p>
-            <ul>
-              <li>Encryption in transit (TLS/SSL)</li>
-              <li>Encryption at rest</li>
-              <li>Regular security audits</li>
-              <li>Access controls and authentication</li>
-              <li>Secure API integrations with OAuth 2.0</li>
-            </ul>
+            
             <p>
               However, no system is 100% secure. While we strive to protect your data, we cannot 
               guarantee absolute security.
@@ -145,29 +149,17 @@ export default function Privacy() {
           <section>
             <h2>6. Your Rights and Choices</h2>
             <p>You have the right to:</p>
-            <ul>
-              <li><strong>Access:</strong> Request a copy of your data</li>
-              <li><strong>Delete:</strong> Request deletion of your account and data</li>
-              <li><strong>Correct:</strong> Update inaccurate information</li>
-              <li><strong>Export:</strong> Download your data in a portable format</li>
-              <li><strong>Disconnect:</strong> Revoke access to connected services anytime</li>
-              <li><strong>Opt-out:</strong> Unsubscribe from marketing emails</li>
-            </ul>
-            <p>
-              To exercise these rights, email us at: <a href="mailto:support@clutter-ai.com">privacy@clutter-ai.com</a>
-            </p>
+            <p>Subject to local law, you have the right to: access, correct, delete, restrict processing, object to processing, receive a portable copy, and lodge a complaint with a supervisory authority. To exercise these rights, email <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> with “Data Request” in the subject and include your account email and a description of the request. We will acknowledge receipt within 5 business days and respond substantively within 30 days (or as required by applicable law). If we cannot comply, we will explain the reasons and any available remedies. EU/UK residents may also lodge a complaint with their local data protection authority.</p>
+            <p>If you are a California resident, you have additional rights under the CCPA/CPRA, including the right to know, delete, and opt out of the sale of personal information. We do not sell personal information as defined by the CCPA. To exercise California privacy rights, email support@clutter‑ai.com with “California Privacy Request.”</p>
+           
           </section>
           
           <section>
             <h2>7. Data Retention</h2>
             <p>
-              We retain your data as long as your account is active. If you delete your account:
+             We retain account data while your account is active. After account deletion or refund, we retain data for 30 days for recovery and fraud prevention and purge backups within 90 days, except for transaction records required for legal or tax purposes (retained by FastSpring). We may retain aggregated or anonymized data indefinitely. If you require earlier deletion or an export, contact <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>
             </p>
-            <ul>
-              <li>We delete your data within 30 days</li>
-              <li>Backups are purged within 90 days</li>
-              <li>Some transaction records may be retained for legal/tax purposes (via FastSpring)</li>
-            </ul>
+           
           </section>
           
           <section>
@@ -181,16 +173,14 @@ export default function Privacy() {
           <section>
             <h2>9. Children's Privacy</h2>
             <p>
-              ClutterAI is not intended for users under 13 years of age. We do not knowingly collect 
-              data from children under 13.
+             The Service is not intended for children under 13. If you are under the age of consent in your jurisdiction (for example, 16 in some EU countries), you must obtain parental consent before using the Service. If we learn we have collected personal data from a child without consent, we will delete it.
             </p>
           </section>
           
           <section>
             <h2>10. International Data Transfers</h2>
             <p>
-              Your data may be stored and processed in the United States or other countries where our 
-              service providers operate. By using ClutterAI, you consent to this transfer.
+              Your data may be transferred to and processed in the United States and other countries. Where transfers occur from the EEA/UK, we rely on appropriate safeguards such as Standard Contractual Clauses or other lawful transfer mechanisms. You may request a copy of the safeguards by contacting support@clutter‑ai.com.
             </p>
           </section>
           
