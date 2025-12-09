@@ -88,12 +88,12 @@ export default function Terms() {
             <h3>4.2 Payment Processing</h3>
             <p>
               <strong>
-                All payments for subscriptions are processed by Paddle, Inc. (“Paddle”).
+                All payments for subscriptions are processed by Paddle, Inc. ("Paddle").
               </strong>{" "}
               Paddle acts as our payment processor and is the merchant of record for purchases
               made through the Paddle checkout. Paddle issues receipts, handles payment
               disputes and chargebacks, and may collect applicable taxes. By purchasing, you agree to
-              Paddle’s terms:{" "}
+              Paddle's terms:{" "}
               <a
                 href="https://www.paddle.com/legal/terms"
                 target="_blank"
@@ -137,7 +137,7 @@ export default function Terms() {
               purchase; refunds will be processed via Paddle within 7–14 business days after
               approval. Partial‑period refunds for mid‑period cancellations are not provided except
               as required by law or at our discretion. Purchases made through third parties are
-              subject to the third party’s refund policy. See our{" "}
+              subject to the third party's refund policy. See our{" "}
               <a href="/refund" className="inline-link">Refund Policy</a> for details.
             </p>
           </section>
@@ -166,7 +166,7 @@ export default function Terms() {
               We use third‑party service providers to operate the Service (e.g., Paddle for
               payments; Google for integrations; OpenAI for AI features). Paddle acts as the
               merchant of record for purchases made through the Paddle checkout and may issue
-              receipts, handle disputes, and collect taxes; see Paddle’s legal pages for details.
+              receipts, handle disputes, and collect taxes; see Paddle's legal pages for details.
               A current list of processors is available in our Privacy Policy. You retain all
               ownership rights to content you upload or connect to ClutterAI. By using the Service,
               you grant us a limited license to:
@@ -308,15 +308,20 @@ export default function Terms() {
         </article>
       </div>
 
-      {/* Footer (exact copy from homepage) */}
-      <footer className="site-footer" aria-label="Site footer">
-        <div className="footer-inner">
-          <nav className="footer-nav" aria-label="Legal links">
-            <a className="footer-link" href="https://clutter-ai.com/terms">Privacy Policy</a>
-            <a className="footer-link" href="/refund">Refund Policy</a>
-            <a className="footer-link" href="/terms">Terms and Conditions</a>
-          </nav>
-          <p className="footer-copy">© {new Date().getFullYear()} ClutterAI</p>
+      {/* Glassmorphic Footer */}
+      <footer className="legal-footer">
+        <div className="footer-content">
+          <Link href="/terms" className="footer-link">
+            Terms & Conditions
+          </Link>
+          <span className="footer-separator">•</span>
+          <Link href="/privacy" className="footer-link">
+            Privacy Policy
+          </Link>
+          <span className="footer-separator">•</span>
+          <Link href="/refund" className="footer-link">
+            Refund Policy
+          </Link>
         </div>
       </footer>
 
@@ -459,63 +464,129 @@ export default function Terms() {
           font-weight: 600;
         }
 
-        /* Footer styles (exact copy from homepage) */
-        .site-footer {
-          width: 100%;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.02),
-            rgba(255, 255, 255, 0.015)
-          );
+        /* Footer Styles */
+        .legal-footer {
+          position: relative;
+          z-index: 10;
+          padding: 32px 20px;
+          backdrop-filter: blur(16px);
+          background: rgba(0, 0, 0, 0.4);
+          border-top: 1px solid rgba(139, 92, 246, 0.2);
         }
-        .footer-inner {
-          max-width: 1100px;
+        
+        .footer-content {
+          max-width: 900px;
           margin: 0 auto;
-          padding: 18px 20px 28px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          color: #cfd3e8;
-        }
-        .footer-nav {
           display: flex;
           flex-wrap: wrap;
-          gap: 12px;
           align-items: center;
+          justify-content: center;
+          gap: 16px 32px;
         }
+        
         .footer-link {
-          color: #e9ecf8;
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #d4d4d8;
           text-decoration: none;
-          font-weight: 600;
-          font-size: 0.95rem;
-          padding: 6px 10px;
-          border-radius: 8px;
-          transition: background 160ms ease, color 160ms ease;
+          transition: all 0.3s ease;
         }
+        
         .footer-link:hover {
-          background: rgba(124, 58, 237, 0.12);
-          color: #ffffff;
+          color: #c4b5fd;
+          text-decoration: none;
+          transform: scale(1.05);
         }
-        .footer-copy {
-          font-size: 0.9rem;
-          opacity: 0.9;
-        }
-        @media (max-width: 640px) {
-          .footer-inner {
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-          }
+        
+        .footer-separator {
+          color: #71717a;
+          font-size: 0.875rem;
         }
 
         @media (max-width: 768px) {
           h1 { font-size: 2rem; }
           h2 { font-size: 1.5rem; }
+          
+          .footer-separator {
+            display: none;
+          }
+          
+          .footer-content {
+            flex-direction: column;
+            gap: 16px;
+          }
         }
       `}</style>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

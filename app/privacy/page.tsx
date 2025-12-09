@@ -149,8 +149,8 @@ You may withdraw consent at any time where processing is based on consent.</li>
           <section>
             <h2>6. Your Rights and Choices</h2>
             <p>You have the right to:</p>
-            <p>Subject to local law, you have the right to: access, correct, delete, restrict processing, object to processing, receive a portable copy, and lodge a complaint with a supervisory authority. To exercise these rights, email <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> with “Data Request” in the subject and include your account email and a description of the request. We will acknowledge receipt within 5 business days and respond substantively within 30 days (or as required by applicable law). If we cannot comply, we will explain the reasons and any available remedies. EU/UK residents may also lodge a complaint with their local data protection authority.</p>
-            <p>If you are a California resident, you have additional rights under the CCPA/CPRA, including the right to know, delete, and opt out of the sale of personal information. We do not sell personal information as defined by the CCPA. To exercise California privacy rights, email support@clutter‑ai.com with “California Privacy Request.”</p>
+            <p>Subject to local law, you have the right to: access, correct, delete, restrict processing, object to processing, receive a portable copy, and lodge a complaint with a supervisory authority. To exercise these rights, email <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> with "Data Request" in the subject and include your account email and a description of the request. We will acknowledge receipt within 5 business days and respond substantively within 30 days (or as required by applicable law). If we cannot comply, we will explain the reasons and any available remedies. EU/UK residents may also lodge a complaint with their local data protection authority.</p>
+            <p>If you are a California resident, you have additional rights under the CCPA/CPRA, including the right to know, delete, and opt out of the sale of personal information. We do not sell personal information as defined by the CCPA. To exercise California privacy rights, email support@clutter‑ai.com with "California Privacy Request."</p>
            
           </section>
           
@@ -204,6 +204,23 @@ You may withdraw consent at any time where processing is based on consent.</li>
           </section>
         </article>
       </div>
+      
+      {/* Glassmorphic Footer */}
+      <footer className="legal-footer">
+        <div className="footer-content">
+          <Link href="/terms" className="footer-link">
+            Terms & Conditions
+          </Link>
+          <span className="footer-separator">•</span>
+          <Link href="/privacy" className="footer-link">
+            Privacy Policy
+          </Link>
+          <span className="footer-separator">•</span>
+          <Link href="/refund" className="footer-link">
+            Refund Policy
+          </Link>
+        </div>
+      </footer>
       
       <style jsx>{`
         .legal-page {
@@ -350,6 +367,45 @@ You may withdraw consent at any time where processing is based on consent.</li>
           font-weight: 600;
         }
         
+        /* Footer Styles */
+        .legal-footer {
+          position: relative;
+          z-index: 10;
+          padding: 32px 20px;
+          backdrop-filter: blur(16px);
+          background: rgba(0, 0, 0, 0.4);
+          border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .footer-content {
+          max-width: 900px;
+          margin: 0 auto;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 16px 32px;
+        }
+        
+        .footer-link {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #d4d4d8;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+          color: #c4b5fd;
+          text-decoration: none;
+          transform: scale(1.05);
+        }
+        
+        .footer-separator {
+          color: #71717a;
+          font-size: 0.875rem;
+        }
+        
         @media (max-width: 768px) {
           h1 {
             font-size: 2rem;
@@ -358,8 +414,83 @@ You may withdraw consent at any time where processing is based on consent.</li>
           h2 {
             font-size: 1.5rem;
           }
+          
+          .footer-separator {
+            display: none;
+          }
+          
+          .footer-content {
+            flex-direction: column;
+            gap: 16px;
+          }
         }
       `}</style>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

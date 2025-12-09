@@ -129,6 +129,23 @@ export default function Refund() {
         </article>
       </div>
       
+      {/* Glassmorphic Footer */}
+      <footer className="legal-footer">
+        <div className="footer-content">
+          <Link href="/terms" className="footer-link">
+            Terms & Conditions
+          </Link>
+          <span className="footer-separator">•</span>
+          <Link href="/privacy" className="footer-link">
+            Privacy Policy
+          </Link>
+          <span className="footer-separator">•</span>
+          <Link href="/refund" className="footer-link">
+            Refund Policy
+          </Link>
+        </div>
+      </footer>
+      
       <style jsx>{`
         .legal-page {
           min-height: 100vh;
@@ -317,6 +334,45 @@ export default function Refund() {
           margin-bottom: 0;
         }
         
+        /* Footer Styles */
+        .legal-footer {
+          position: relative;
+          z-index: 10;
+          padding: 32px 20px;
+          backdrop-filter: blur(16px);
+          background: rgba(0, 0, 0, 0.4);
+          border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .footer-content {
+          max-width: 900px;
+          margin: 0 auto;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 16px 32px;
+        }
+        
+        .footer-link {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #d4d4d8;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+          color: #c4b5fd;
+          text-decoration: none;
+          transform: scale(1.05);
+        }
+        
+        .footer-separator {
+          color: #71717a;
+          font-size: 0.875rem;
+        }
+        
         @media (max-width: 768px) {
           h1 {
             font-size: 2rem;
@@ -329,50 +385,17 @@ export default function Refund() {
           .step {
             flex-direction: column;
           }
+          
+          .footer-separator {
+            display: none;
+          }
+          
+          .footer-content {
+            flex-direction: column;
+            gap: 16px;
+          }
         }
       `}</style>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
