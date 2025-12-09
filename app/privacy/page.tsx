@@ -66,8 +66,8 @@ export default function Privacy() {
             
             <h3>2.4 Payment Information</h3>
             <p>
-              <strong>Payment processing is handled by FastSpring, our third-party payment processor.</strong> 
-              We do not store your credit card information. FastSpring collects and processes:
+              <strong>Payment processing is handled by Paddle, our third-party payment processor.</strong> 
+              We do not store your credit card information. Paddle collects and processes:
             </p>
             <ul>
               <li>Credit/debit card information</li>
@@ -75,8 +75,8 @@ export default function Privacy() {
               <li>Transaction history</li>
             </ul>
             <p>
-              FastSpring's use of your payment information is governed by their Privacy Policy, 
-              available at: <a href="https://fastspring.com/privacy/" target="_blank" rel="noopener">https://fastspring.com/privacy/</a>
+              Paddle's use of your payment information is governed by their Privacy Policy, 
+              available at: <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener">https://www.paddle.com/legal/privacy</a>
             </p>
           </section>
           
@@ -87,7 +87,7 @@ export default function Privacy() {
               <li>Provide and maintain the Service</li>
               <li>Process your questions through our AI engine</li>
               <li>Index and search your connected content</li>
-              <li>Process payments and manage subscriptions (via FastSpring)</li>
+              <li>Process payments and manage subscriptions (via Paddle)</li>
               <li>Send service updates and support communications</li>
               <li>Improve our Service and develop new features</li>
               <li>Detect and prevent fraud or abuse</li>
@@ -105,7 +105,7 @@ export default function Privacy() {
             
             <h3>4.1 Service Providers</h3>
             <ul>
-              <li><strong>FastSpring:</strong> Payment processing and merchant of record</li>
+              <li><strong>Paddle:</strong> Payment processing and merchant of record</li>
               <li><strong>Convex:</strong> Database and backend infrastructure</li>
               <li><strong>Vercel:</strong> Hosting and deployment</li>
               <li><strong>OpenAI:</strong> AI processing (prompts only, not stored content)</li>
@@ -157,7 +157,7 @@ You may withdraw consent at any time where processing is based on consent.</li>
           <section>
             <h2>7. Data Retention</h2>
             <p>
-             We retain account data while your account is active. After account deletion or refund, we retain data for 30 days for recovery and fraud prevention and purge backups within 90 days, except for transaction records required for legal or tax purposes (retained by FastSpring). We may retain aggregated or anonymized data indefinitely. If you require earlier deletion or an export, contact <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>
+             We retain account data while your account is active. After account deletion or refund, we retain data for 30 days for recovery and fraud prevention and purge backups within 90 days, except for transaction records required for legal or tax purposes (retained by Paddle). We may retain aggregated or anonymized data indefinitely. If you require earlier deletion or an export, contact <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>
             </p>
            
           </section>

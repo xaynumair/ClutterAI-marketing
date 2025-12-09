@@ -88,19 +88,19 @@ export default function Terms() {
             <h3>4.2 Payment Processing</h3>
             <p>
               <strong>
-                All payments for subscriptions are processed by FastSpring, Inc. (“FastSpring”).
+                All payments for subscriptions are processed by Paddle, Inc. (“Paddle”).
               </strong>{" "}
-              FastSpring acts as our payment processor and is the merchant of record for purchases
-              made through the FastSpring checkout. FastSpring issues receipts, handles payment
+              Paddle acts as our payment processor and is the merchant of record for purchases
+              made through the Paddle checkout. Paddle issues receipts, handles payment
               disputes and chargebacks, and may collect applicable taxes. By purchasing, you agree to
-              FastSpring’s terms:{" "}
+              Paddle’s terms:{" "}
               <a
-                href="https://fastspring.com/legal/"
+                href="https://www.paddle.com/legal/terms"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-link"
               >
-                https://fastspring.com/legal/
+                https://www.paddle.com/legal/terms
               </a>
             </p>
 
@@ -108,7 +108,7 @@ export default function Terms() {
             <ul>
               <li>Subscriptions are billed monthly or annually based on your selection</li>
               <li>Billing occurs automatically on your renewal date</li>
-              <li>You authorize FastSpring to charge your payment method</li>
+              <li>You authorize Paddle to charge your payment method</li>
               <li>Prices are subject to change with 30 days' notice</li>
               <li>Subscriptions automatically renew unless cancelled prior to the renewal date.</li>
               <li>
@@ -132,9 +132,9 @@ export default function Terms() {
             <h3>4.5 Refunds</h3>
             <p>
               We offer a 30‑day money‑back guarantee for new subscriptions purchased directly through
-              our FastSpring checkout. To request a refund, email{" "}
+              our Paddle checkout. To request a refund, email{" "}
               <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> within 30 days of
-              purchase; refunds will be processed via FastSpring within 7–14 business days after
+              purchase; refunds will be processed via Paddle within 7–14 business days after
               approval. Partial‑period refunds for mid‑period cancellations are not provided except
               as required by law or at our discretion. Purchases made through third parties are
               subject to the third party’s refund policy. See our{" "}
@@ -163,10 +163,10 @@ export default function Terms() {
 
             <h3>6.1 Your Content</h3>
             <p>
-              We use third‑party service providers to operate the Service (e.g., FastSpring for
-              payments; Google for integrations; OpenAI for AI features). FastSpring acts as the
-              merchant of record for purchases made through the FastSpring checkout and may issue
-              receipts, handle disputes, and collect taxes; see FastSpring’s legal pages for details.
+              We use third‑party service providers to operate the Service (e.g., Paddle for
+              payments; Google for integrations; OpenAI for AI features). Paddle acts as the
+              merchant of record for purchases made through the Paddle checkout and may issue
+              receipts, handle disputes, and collect taxes; see Paddle’s legal pages for details.
               A current list of processors is available in our Privacy Policy. You retain all
               ownership rights to content you upload or connect to ClutterAI. By using the Service,
               you grant us a limited license to:

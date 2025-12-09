@@ -23,7 +23,7 @@ export default function Refund() {
           <section>
             <h2>30-Day Money-Back Guarantee</h2>
             <p>
-              We offer a 30‑day money‑back guarantee for new paid subscriptions purchased through our FastSpring checkout. If you are not satisfied, request a refund within 30 days of your initial payment and we will evaluate and, if approved, refund the purchase amount to your original payment method.
+              We offer a 30‑day money‑back guarantee for new paid subscriptions purchased through our Paddle checkout. If you are not satisfied, request a refund within 30 days of your initial payment and we will evaluate and, if approved, refund the purchase amount to your original payment method.
             </p>
           </section>
           
@@ -69,7 +69,7 @@ export default function Refund() {
                 <div className="step-content">
                   <h3>Provide required information</h3>
                   <p>
-                    Include your account email, order/transaction ID (from FastSpring receipt), purchase date, and reason (optional).
+                    Include your account email, order/transaction ID (from Paddle receipt), purchase date, and reason (optional).
                   </p>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export default function Refund() {
           
           <section>
             <h2>Refund Processing</h2>
-            <p>If we approve a refund, we will instruct FastSpring to process the refund to the original payment method. FastSpring typically completes refunds within 5–10 business days, but the exact timing depends on the payment method and bank. You will receive confirmation from both ClutterAI and FastSpring when the refund is processed. Refunds may reverse any taxes collected where applicable. If a chargeback or dispute is open, we may withhold refund processing until the dispute is resolved.</p>
+            <p>If we approve a refund, we will instruct Paddle to process the refund to the original payment method. Paddle typically completes refunds within 5–10 business days, but the exact timing depends on the payment method and bank. You will receive confirmation from both ClutterAI and Paddle when the refund is processed. Refunds may reverse any taxes collected where applicable. If a chargeback or dispute is open, we may withhold refund processing until the dispute is resolved.</p>
               
           </section>
           
@@ -148,7 +148,7 @@ We will notify you if we deny a refund and provide the reason.</p>
           </section>
           
           <h2>Third‑Party Purchases and Chargebacks</h2>
-          <p>Purchases made through third parties (app stores, resellers) are subject to the third party’s refund policy. For chargebacks, FastSpring handles disputes as the merchant of record; we will cooperate with FastSpring in dispute resolution and may deny refunds while a dispute is pending.</p>
+          <p>Purchases made through third parties (app stores, resellers) are subject to the third party’s refund policy. For chargebacks, Paddle handles disputes as the merchant of record; we will cooperate with Paddle in dispute resolution and may deny refunds while a dispute is pending.</p>
           <section>
             <h2>Questions?</h2>
             <p>
