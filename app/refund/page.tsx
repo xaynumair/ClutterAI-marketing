@@ -18,48 +18,47 @@ export default function Refund() {
         
         <article>
           <h1>Refund Policy</h1>
-          <p className="last-updated">Last Updated: December 3, 2025</p>
+          <p className="last-updated">Last Updated: December 9, 2025</p>
           
           <section>
-            <h2>30-Day Money-Back Guarantee</h2>
+            <h2>Overview</h2>
             <p>
-              We offer a 30‑day money‑back guarantee for new paid subscriptions purchased through our Paddle checkout. If you are not satisfied, request a refund within 30 days of your initial payment and we will evaluate and, if approved, refund the purchase amount to your original payment method.
+              ClutterAI uses Paddle as our merchant of record for all subscription payments. All refund requests are subject to Paddle's refund policy and are processed at Paddle's discretion.
             </p>
           </section>
           
           <section>
-            <h2>Eligibility</h2>
-            <p>To be eligible for a refund you must:</p>
-            <ul>
-              <li>Be a first‑time paying subscriber for the specific ClutterAI account and plan purchased (conversions from a free trial to the same paid plan do not automatically qualify as a new first‑time purchase).
-</li>
-              <li>Submit a refund request within 30 days of the initial payment date.</li>
-              <li>Have an account in good standing (no unresolved Terms of Service violations or fraud).
-</li>
-            </ul>
-            
-            <p><strong>Refunds are NOT available for:</strong></p>
-            <ul>
-              <li>Renewals or subsequent billing cycles for the same account and plan;</li>
-              <li>Free tier accounts (no payment made);</li>
-              <li>Accounts terminated for Terms violations;</li>
-              <li>Requests submitted after 30 days from the initial payment date;</li>
-              <li>Purchases made through third parties (e.g., app stores or resellers) unless that third party’s policy allows refunds—contact the third party for those refunds.</li>
-            </ul>
+            <h2>Consumer Right to Cancel (14 Days)</h2>
+            <p>
+              If you are a consumer in a jurisdiction with consumer protection laws (such as the EU, UK, or similar regions), you have the right to cancel your subscription within 14 days of purchase without giving any reason, provided you have not accessed or used the digital service.
+            </p>
+            <p>
+              Once you access ClutterAI's features (such as connecting integrations, asking questions, or uploading files), you waive this 14-day cancellation right as permitted by law for digital content that has been accessed.
+            </p>
+          </section>
+          
+          <section>
+            <h2>General Refund Policy</h2>
+            <p>
+              For purchases where the 14-day consumer cancellation right does not apply (either because the period has expired or you have accessed the service), refund requests are handled by Paddle on a case-by-case basis at their sole discretion.
+            </p>
+            <p>
+              Paddle may refuse refund requests if they find evidence of fraud, refund abuse, or other manipulative behavior.
+            </p>
           </section>
           
           <section>
             <h2>How to Request a Refund</h2>
-            <p>To request a refund, follow these steps:</p>
+            <p>To request a refund:</p>
             
             <div className="steps">
               <div className="step">
                 <div className="step-number">1</div>
                 <div className="step-content">
-                  <h3>Contact Support</h3>
+                  <h3>Contact Paddle Support</h3>
                   <p>
-                    Email us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> with 
-                    the subject line "Refund Request"
+                    Visit <a href="https://paddle.com/support" target="_blank" rel="noopener noreferrer">paddle.com/support</a> or 
+                    contact us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>
                   </p>
                 </div>
               </div>
@@ -67,9 +66,9 @@ export default function Refund() {
               <div className="step">
                 <div className="step-number">2</div>
                 <div className="step-content">
-                  <h3>Provide required information</h3>
+                  <h3>Provide Information</h3>
                   <p>
-                    Include your account email, order/transaction ID (from Paddle receipt), purchase date, and reason (optional).
+                    Include your order number, email address used for purchase, and reason for refund request
                   </p>
                 </div>
               </div>
@@ -77,19 +76,9 @@ export default function Refund() {
               <div className="step">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>Verification</h3>
+                  <h3>Processing</h3>
                   <p>
-                    We may request additional information to verify account ownership or detect abuse.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="step">
-                <div className="step-number">4</div>
-                <div className="step-content">
-                  <h3>Decision</h3>
-                  <p>
-                    We will acknowledge receipt within 2 business days and provide a decision within 5 business days.
+                    Paddle will review your request and notify you of their decision. If approved, refunds are typically processed within 5-14 business days to your original payment method.
                   </p>
                 </div>
               </div>
@@ -97,69 +86,44 @@ export default function Refund() {
           </section>
           
           <section>
-            <h2>Refund Processing</h2>
-            <p>If we approve a refund, we will instruct Paddle to process the refund to the original payment method. Paddle typically completes refunds within 5–10 business days, but the exact timing depends on the payment method and bank. You will receive confirmation from both ClutterAI and Paddle when the refund is processed. Refunds may reverse any taxes collected where applicable. If a chargeback or dispute is open, we may withhold refund processing until the dispute is resolved.</p>
-              
-          </section>
-          
-          <section>
             <h2>What Happens After a Refund</h2>
-            <p>Once your refund is processed:</p>
-            <p>Upon approval of a refund, your paid subscription will be canceled immediately and your account will revert to the free tier. You will retain access to your connected data and integrations for 30 days after refund processing to allow export or migration; after that period we may delete or anonymize data in accordance with our Data Retention policy. If you prefer immediate deletion, contact support and we will process your request subject to legal and fraud‑prevention checks.</p>
-          </section>
-          
-          <section>
-            <h2>Team Plan Refunds</h2>
-            <p>
-              For Team plan subscriptions:
-            </p>
-            <p>Only the account administrator may request a refund for a Team plan. We will verify administrator status before processing. Refunds for Team plans are applied to the team subscription and, if approved, will be prorated based on the number of active seats and the unused portion of the billing period using the following formula: (Annual or monthly fee ÷ number of days in billing period) × unused days × active seats. Individual team members cannot request separate refunds unless authorized by the administrator.</p>
-          </section>
-          
-          <section>
-            <h2>Abuse Prevention</h2>
-            <p>
-              We reserve the right to deny refunds in cases of suspected abuse or fraud. Examples include:
-            </p>
+            <p>If your refund is approved by Paddle:</p>
             <ul>
-              <li>More than 3 refund requests from the same account or payment method within a 12‑month period;</li>
-              <li>Excessive usage clearly inconsistent with normal evaluation (e.g., automated bulk queries or usage exceeding 1,000 queries within the refund window);</li>
-              <li>Evidence of fraudulent activity or chargeback abuse.</li>
-            
+              <li>Your subscription will be canceled</li>
+              <li>You will lose access to paid features</li>
+              <li>Your account will revert to the free tier</li>
+              <li>You may retain access to export your data for a limited period</li>
             </ul>
-            <p>
-We will notify you if we deny a refund and provide the reason.</p>
           </section>
           
           <section>
-            <h2>Cancellation Without Refund</h2>
+            <h2>Subscriptions and Cancellations</h2>
             <p>
-              You can cancel your subscription at any time from your account settings. Cancelling a subscription stops future renewals but does not automatically trigger a refund. If you cancel, you retain paid access until the end of the current billing period and will not be charged on renewal. To request money back, follow the refund request process above.
+              You can cancel your subscription at any time from your account settings. Canceling stops future billing but does not automatically entitle you to a refund. You will retain access until the end of your current billing period.
             </p>
-            
+            <p>
+              There are no refunds for unused portions of subscription periods unless required by law or approved by Paddle.
+            </p>
           </section>
           
           <section>
-            <h2>Annual Subscriptions</h2>
+            <h2>Third-Party Purchases</h2>
             <p>
-              For annual subscriptions:
+              If you purchased through a third-party platform (such as an app store), that platform's refund policy applies instead of Paddle's. Contact the third party directly for refund requests.
             </p>
-            <p>The 30‑day refund window applies from the initial payment date for annual plans. If approved within 30 days, we will refund the full annual amount. After 30 days, no partial refunds will be issued for the remaining months, except as required by law or at our discretion.</p>
           </section>
           
-          <h2>Third‑Party Purchases and Chargebacks</h2>
-          <p>Purchases made through third parties (app stores, resellers) are subject to the third party’s refund policy. For chargebacks, Paddle handles disputes as the merchant of record; we will cooperate with Paddle in dispute resolution and may deny refunds while a dispute is pending.</p>
           <section>
             <h2>Questions?</h2>
             <p>
-              If you have questions about our refund policy or need assistance, contact us:
+              For questions about refunds or subscription billing, contact:
             </p>
             <ul>
-              <li>Email: <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a></li>
-              <li>Response time: Within 2 business days</li>
+              <li>Paddle Support: <a href="https://paddle.com/support" target="_blank" rel="noopener noreferrer">paddle.com/support</a></li>
+              <li>ClutterAI Support: <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a></li>
             </ul>
             <p>
-              We're committed to your satisfaction and will work with you to resolve any issues.
+              This policy is subject to Paddle's Terms of Service and applicable consumer protection laws in your jurisdiction.
             </p>
           </section>
         </article>
@@ -370,3 +334,45 @@ We will notify you if we deny a refund and provide the reason.</p>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
