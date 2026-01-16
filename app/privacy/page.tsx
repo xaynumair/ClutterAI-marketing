@@ -18,7 +18,7 @@ export default function Privacy() {
         
         <article>
           <h1>Privacy Policy</h1>
-          <p className="last-updated">Last Updated: December 21, 2025</p>
+          <p className="last-updated">Last Updated: January 16, 2026</p>
           
           <section>
             <h2>1. Introduction</h2>
@@ -67,9 +67,9 @@ export default function Privacy() {
             
             <h3>2.4 Payment and Transaction Information</h3>
             <p>
-              <strong>All payments are processed by Gumroad, which acts as our Merchant of Record.</strong> 
-              This means Gumroad, not ClutterAI, is the seller of record for all transactions. We do not 
-              store your credit card information. Gumroad collects and processes:
+              <strong>All payments are processed by Paddle, which acts as our Merchant of Record.</strong> 
+              This means Paddle, not ClutterAI, is the seller of record for all transactions. We do not 
+              store your credit card information. Paddle collects and processes:
             </p>
             <ul>
               <li>Payment information (credit/debit card details)</li>
@@ -79,11 +79,11 @@ export default function Privacy() {
               <li>Purchase metadata</li>
             </ul>
             <p>
-              Gumroad's use of your payment information is governed by their Privacy Policy, 
-              available at: <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">https://gumroad.com/privacy</a>
+              Paddle's use of your payment information is governed by their Privacy Policy, 
+              available at: <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">https://www.paddle.com/legal/privacy</a>
             </p>
             <p>
-              We receive limited transaction data from Gumroad (such as your email, subscription status, 
+              We receive limited transaction data from Paddle (such as your email, subscription status, 
               and purchase date) solely to provide you access to the Service. We do not receive your 
               full payment card details.
             </p>
@@ -94,50 +94,86 @@ export default function Privacy() {
             <p>We use collected information to:</p>
             <ul>
               <li>Provide and maintain the Service</li>
-              <li>Process your questions through our AI engine</li>
-              <li>Index and search your connected content</li>
-              <li>Verify subscription status and grant access (via Gumroad)</li>
+              <li>Process your questions through our AI-powered search engine</li>
+              <li>Index and enable semantic search across your connected content</li>
+              <li>Generate relevant search results using natural language processing</li>
+              <li>Verify subscription status and grant access (via Paddle)</li>
               <li>Send service updates and support communications</li>
               <li>Improve our Service and develop new features</li>
               <li>Detect and prevent fraud or abuse</li>
               <li>Comply with legal obligations</li>
             </ul>
+            
+            <h3>3.1 AI Processing</h3>
             <p>
-              <strong>We do NOT use your data to train AI models.</strong> Your content remains private 
-              and is only used to answer your specific questions.
+              To provide intelligent search functionality, we process your queries and content using:
+            </p>
+            <ul>
+              <li><strong>OpenAI GPT-4:</strong> Your search queries are sent to OpenAI to understand intent and generate responses. OpenAI processes queries in accordance with their data usage policies for API customers.</li>
+              <li><strong>Pinecone Vector Database:</strong> Your document content is converted to vector embeddings and stored in Pinecone to enable semantic search. This allows you to find information based on meaning, not just keywords.</li>
+            </ul>
+            <p>
+              <strong>Important: We do not use your data to train AI models.</strong> Your content is processed 
+              solely to provide search functionality to you. OpenAI's API does not use customer data submitted 
+              via API to train or improve their models. Your content remains private and is only used to answer 
+              your specific questions.
             </p>
           </section>
           
           <section>
-            <h2>4. Data Sharing and Disclosure</h2>
-            <p>We share your information only in these circumstances:</p>
+            <h2>4. Data Sharing and Third-Party Service Providers</h2>
+            <p>
+              To provide ClutterAI's functionality, we share your information with trusted third-party 
+              service providers. These providers process data only as necessary to deliver our Service 
+              and are bound by data processing agreements to protect your information.
+            </p>
             
-            <h3>4.1 Service Providers</h3>
+            <h3>4.1 Essential Service Providers</h3>
             <ul>
-              <li><strong>Gumroad:</strong> Merchant of record for all transactions, payment processing, tax handling, and subscription management</li>
-              <li><strong>Convex:</strong> Database and backend infrastructure</li>
-              <li><strong>Vercel:</strong> Hosting and deployment</li>
-              <li><strong>OpenAI:</strong> AI processing (prompts only, not stored content)</li>
-              <li><strong>Pinecone:</strong> Vector search infrastructure</li>
-              <li><strong>Microsoft Azure:</strong> OAuth authentication and connected services</li>
+              <li><strong>Paddle:</strong> Merchant of record for all transactions, payment processing, tax handling, and subscription management. <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><strong>Convex:</strong> Backend database and authentication infrastructure for storing your account data and preferences. <a href="https://www.convex.dev/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><strong>Vercel:</strong> Web hosting and deployment platform. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><strong>OpenAI:</strong> Natural language processing and AI-powered query understanding. Your search queries are sent to OpenAI's API to generate intelligent responses. OpenAI does not use API customer data for training. <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><strong>Pinecone:</strong> Vector database infrastructure for semantic search. Your document content is converted to vector embeddings and stored in Pinecone to enable meaning-based search across your connected services. <a href="https://www.pinecone.io/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
             </ul>
             
-            <h3>4.2 Legal Requirements</h3>
+            <h3>4.2 Data Processing Agreements</h3>
+            <p>
+              We have data processing agreements in place with all service providers listed above to ensure:
+            </p>
+            <ul>
+              <li>Your data is processed only for the purposes described in this policy</li>
+              <li>Appropriate security measures are maintained</li>
+              <li>Data is not used for their own purposes or shared with other parties</li>
+              <li>Compliance with applicable data protection regulations (GDPR, CCPA, etc.)</li>
+            </ul>
+            
+            <h3>4.3 What We Do NOT Do</h3>
+            <p><strong>We do not:</strong></p>
+            <ul>
+              <li>Sell your personal data to third parties</li>
+              <li>Use your data for advertising purposes</li>
+              <li>Share your data with non-essential third parties</li>
+              <li>Train AI models on your private content</li>
+              <li>Allow service providers to use your data for their own purposes</li>
+            </ul>
+            
+            <h3>4.4 Legal Requirements</h3>
             <p>
               We may disclose your information if required by law, court order, or government request, 
               or to protect our rights, property, or safety.
             </p>
             
-            <h3>4.3 Legal Basis for Processing (EU/UK Users)</h3>
+            <h3>4.5 Legal Basis for Processing (EU/UK Users)</h3>
             <p>If you are an EU/UK resident, we process personal data on the following legal bases:</p>
             <ul>
-              <li><strong>Contract:</strong> To provide the Service and perform our contract with you (account management, subscription access, connected services integration).</li>
+              <li><strong>Contract:</strong> To provide the Service and perform our contract with you (account management, subscription access, connected services integration, search functionality).</li>
               <li><strong>Legitimate Interest:</strong> To improve the Service, detect fraud, ensure security, and analyze usage patterns (we balance these interests against your rights).</li>
               <li><strong>Consent:</strong> Where required (e.g., optional marketing communications or explicit opt‑in features). You may withdraw consent at any time.</li>
               <li><strong>Legal Obligation:</strong> To comply with applicable laws and regulations.</li>
             </ul>
             
-            <h3>4.4 Business Transfers</h3>
+            <h3>4.6 Business Transfers</h3>
             <p>
               If ClutterAI is acquired or merged with another company, your information may be 
               transferred as part of that transaction. We will notify you via email and/or a prominent 
@@ -156,6 +192,7 @@ export default function Privacy() {
               <li>Access controls and authentication requirements</li>
               <li>Regular security audits and monitoring</li>
               <li>Secure credential storage (passwords are hashed and salted)</li>
+              <li>OAuth tokens encrypted and stored securely</li>
             </ul>
             <p>
               In the event of a data breach affecting personal data, we will notify affected users 
@@ -224,10 +261,22 @@ export default function Privacy() {
             
             <h3>6.5 Subscription and Payment Management</h3>
             <p>
-              For subscription changes, billing questions, or refund requests, please contact Gumroad 
-              directly or manage your subscription through your Gumroad account. You can also email 
-              us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> and we will assist you.
+              For subscription changes, billing questions, or refund requests, please manage your subscription 
+              through your Paddle account or email us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> 
+              and we will assist you.
             </p>
+            
+            <h3>6.6 Connected Services Management</h3>
+            <p>
+              You can disconnect any integrated service (Gmail, Google Drive, Slack, Calendar, Notion) at any 
+              time through your account settings. Disconnecting will:
+            </p>
+            <ul>
+              <li>Immediately revoke ClutterAI's access to that service</li>
+              <li>Stop syncing new content from that service</li>
+              <li>Retain previously indexed content for up to 30 days (for data recovery)</li>
+              <li>Permanently delete all associated data after 30 days</li>
+            </ul>
           </section>
           
           <section>
@@ -239,7 +288,8 @@ export default function Privacy() {
             <ul>
               <li><strong>Active Accounts:</strong> Data retained while your account is active</li>
               <li><strong>After Account Deletion:</strong> Most data deleted within 30 days; backups purged within 90 days</li>
-              <li><strong>Transaction Records:</strong> Retained by Gumroad as required for legal, tax, and accounting purposes (typically 7 years)</li>
+              <li><strong>Vector Embeddings:</strong> Deleted from Pinecone within 30 days of account deletion</li>
+              <li><strong>Transaction Records:</strong> Retained by Paddle as required for legal, tax, and accounting purposes (typically 7 years)</li>
               <li><strong>Legal Obligations:</strong> Data retained as required by law</li>
               <li><strong>Aggregated/Anonymized Data:</strong> May be retained indefinitely for analytics and service improvement</li>
             </ul>
@@ -312,7 +362,7 @@ export default function Privacy() {
             </ul>
             <p>
               We only access data you explicitly authorize through OAuth permissions. You can revoke 
-              our access at any time through your account settings or the third-party service.
+              our access at any time through your account settings or the third-party service directly.
             </p>
           </section>
           
@@ -347,8 +397,8 @@ export default function Privacy() {
               <li>Subject Line: "Privacy Inquiry"</li>
             </ul>
             <p>
-              For payment and subscription inquiries, contact Gumroad at: 
-              <a href="https://gumroad.com/contact" target="_blank" rel="noopener noreferrer">https://gumroad.com/contact</a>
+              For payment and subscription inquiries, contact Paddle support or manage your subscription 
+              at: <a href="https://www.paddle.com/support" target="_blank" rel="noopener noreferrer">https://www.paddle.com/support</a>
             </p>
           </section>
         </article>
