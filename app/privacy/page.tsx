@@ -67,9 +67,9 @@ export default function Privacy() {
             
             <h3>2.4 Payment and Transaction Information</h3>
             <p>
-              <strong>All payments are processed by Paddle, which acts as our Merchant of Record.</strong> 
-              This means Paddle, not ClutterAI, is the seller of record for all transactions. We do not 
-              store your credit card information. Paddle collects and processes:
+              <strong>All payments are processed by Gumroad, which acts as our Merchant of Record.</strong> 
+              This means Gumroad, not ClutterAI, is the seller of record for all transactions. We do not 
+              store your credit card information. Gumroad collects and processes:
             </p>
             <ul>
               <li>Payment information (credit/debit card details)</li>
@@ -79,11 +79,11 @@ export default function Privacy() {
               <li>Purchase metadata</li>
             </ul>
             <p>
-              Paddle's use of your payment information is governed by their Privacy Policy, 
-              available at: <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">https://www.paddle.com/legal/privacy</a>
+              Gumroad's use of your payment information is governed by their Privacy Policy, 
+              available at: <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">https://gumroad.com/privacy</a>
             </p>
             <p>
-              We receive limited transaction data from Paddle (such as your email, subscription status, 
+              We receive limited transaction data from Gumroad (such as your email, subscription status, 
               and purchase date) solely to provide you access to the Service. We do not receive your 
               full payment card details.
             </p>
@@ -130,7 +130,7 @@ export default function Privacy() {
             
             <h3>4.1 Essential Service Providers</h3>
             <ul>
-              <li><strong>Paddle:</strong> Merchant of record for all transactions, payment processing, tax handling, and subscription management. <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><strong>Gumroad:</strong> Merchant of record for all transactions, payment processing, tax handling, and subscription management. <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
               <li><strong>Convex:</strong> Backend database and authentication infrastructure for storing your account data and preferences. <a href="https://www.convex.dev/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
               <li><strong>Vercel:</strong> Web hosting and deployment platform. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
               <li><strong>OpenAI:</strong> Natural language processing and AI-powered query understanding. Your search queries are sent to OpenAI's API to generate intelligent responses. OpenAI does not use API customer data for training. <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
@@ -261,9 +261,9 @@ export default function Privacy() {
             
             <h3>6.5 Subscription and Payment Management</h3>
             <p>
-              For subscription changes, billing questions, or refund requests, please manage your subscription 
-              through your Paddle account or email us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> 
-              and we will assist you.
+              For subscription changes, billing questions, or refund requests, please contact Gumroad 
+              directly or manage your subscription through your Gumroad account. You can also email 
+              us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> and we will assist you.
             </p>
             
             <h3>6.6 Connected Services Management</h3>
@@ -289,7 +289,7 @@ export default function Privacy() {
               <li><strong>Active Accounts:</strong> Data retained while your account is active</li>
               <li><strong>After Account Deletion:</strong> Most data deleted within 30 days; backups purged within 90 days</li>
               <li><strong>Vector Embeddings:</strong> Deleted from Pinecone within 30 days of account deletion</li>
-              <li><strong>Transaction Records:</strong> Retained by Paddle as required for legal, tax, and accounting purposes (typically 7 years)</li>
+              <li><strong>Transaction Records:</strong> Retained by Gumroad as required for legal, tax, and accounting purposes (typically 7 years)</li>
               <li><strong>Legal Obligations:</strong> Data retained as required by law</li>
               <li><strong>Aggregated/Anonymized Data:</strong> May be retained indefinitely for analytics and service improvement</li>
             </ul>
@@ -397,8 +397,8 @@ export default function Privacy() {
               <li>Subject Line: "Privacy Inquiry"</li>
             </ul>
             <p>
-              For payment and subscription inquiries, contact Paddle support or manage your subscription 
-              at: <a href="https://www.paddle.com/support" target="_blank" rel="noopener noreferrer">https://www.paddle.com/support</a>
+              For payment and subscription inquiries, contact Gumroad at: 
+              <a href="https://gumroad.com/contact" target="_blank" rel="noopener noreferrer">https://gumroad.com/contact</a>
             </p>
           </section>
         </article>
