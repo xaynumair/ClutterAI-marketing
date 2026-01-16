@@ -23,100 +23,83 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
+      {/* Animated Background */}
       <div className="bg-visuals" aria-hidden="true">
-        <div className="orb orb-a" />
-        <div className="orb orb-b" />
-        <svg className="bg-lines" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="lg" x1="0" x2="1">
-              <stop offset="0" stopColor="#7c3aed" stopOpacity="0.12" />
-              <stop offset="1" stopColor="#5b21b6" stopOpacity="0.06" />
-            </linearGradient>
-          </defs>
-          <path d="M0 120 C200 20, 400 220, 600 120 C800 20, 1000 220, 1200 120 L1200 200 L0 200 Z" fill="url(#lg)" />
-        </svg>
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="grid-overlay" />
       </div>
 
       <main className="container" role="main">
-        <header className="top-row">
-          <Link href="/" className="back-link" aria-label="Back to home">
-            ← Back to Home
-          </Link>
-
-          <div className="page-badge" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 2v6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12 16v6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M4 8h16" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M4 16h16" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span>Contact</span>
-          </div>
-        </header>
-
-        <section className="content" aria-labelledby="contact-heading">
-          <div className="info-section">
+        {/* Main Content */}
+        <section className="content-wrapper" aria-labelledby="contact-heading">
+          <div className="hero-section">
+            <div className="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Get in Touch
+            </div>
+            
             <h1 id="contact-heading">
-              Get in <span className="gradient">Touch</span>
+              Let's <span className="gradient-text">Connect</span>
             </h1>
 
             <p className="subtitle">
-              Have a question, feedback, or a partnership idea? Tell us about it — we read every message and respond quickly.
+              Have questions or feedback? We're here to help and would love to hear from you.
             </p>
 
-            <div className="contact-grid" role="list">
-              <article className="method-card" role="listitem">
-                <div className="method-icon">📧</div>
-                <div className="method-body">
-                  <h3>Email</h3>
-                  <a href="mailto:hello@clutter-ai.com">hello@clutter-ai.com</a>
+            {/* Support Card - Only Email */}
+            <div className="support-card">
+              <div className="card-glow" aria-hidden="true"></div>
+              <div className="card-content">
+                <div className="icon-wrapper">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M22 6l-10 7L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
-              </article>
-
-              <article className="method-card" role="listitem">
-                <div className="method-icon">💬</div>
-                <div className="method-body">
-                  <h3>Support</h3>
-                  <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>
+                <div className="card-body">
+                  <h3>Email Support</h3>
+                  <p>Get help with anything ClutterAI related</p>
+                  <a href="mailto:support@clutter-ai.com" className="email-link">
+                    support@clutter-ai.com
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </a>
                 </div>
-              </article>
-
-              <article className="method-card" role="listitem">
-                <div className="method-icon">🏢</div>
-                <div className="method-body">
-                  <h3>Sales</h3>
-                  <a href="mailto:sales@clutter-ai.com">sales@clutter-ai.com</a>
-                </div>
-              </article>
-
-              <article className="method-card" role="listitem">
-                <div className="method-icon">⚖️</div>
-                <div className="method-body">
-                  <h3>Legal</h3>
-                  <a href="mailto:legal@clutter-ai.com">legal@clutter-ai.com</a>
-                </div>
-              </article>
+              </div>
             </div>
 
-            <div className="response-time" role="note">
-              <strong>Response Time:</strong> We typically reply within 24 hours on business days.
+            {/* Response Time */}
+            <div className="info-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <span>Typical response within 24 hours</span>
             </div>
           </div>
 
+          {/* Contact Form - Modern Floating Card */}
           <aside className="form-section" aria-labelledby="form-heading">
-            <div className="form-card" role="form" aria-describedby="form-desc">
+            <div className="form-card">
+              <div className="form-glow" aria-hidden="true"></div>
+              
               <div className="form-header">
-                <h2 id="form-heading">Send us a message</h2>
-                <p id="form-desc" className="form-desc">
-                  Short, clear messages get the fastest replies. Attachments and links are welcome in the message body.
+                <h2 id="form-heading">Send a Message</h2>
+                <p className="form-subtitle">
+                  Fill out the form below and we'll get back to you as soon as possible.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="contact-form" noValidate>
-                <div className="row">
-                  <label className="field">
-                    <span className="label-text">Name</span>
+                <div className="form-row">
+                  <div className="input-group">
+                    <label htmlFor="name">Name</label>
                     <input
+                      id="name"
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -124,62 +107,85 @@ export default function Contact() {
                       required
                       aria-required="true"
                     />
-                  </label>
+                  </div>
 
-                  <label className="field">
-                    <span className="label-text">Email</span>
+                  <div className="input-group">
+                    <label htmlFor="email">Email</label>
                     <input
+                      id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="you@company.com"
+                      placeholder="you@example.com"
                       required
                       aria-required="true"
                     />
-                  </label>
+                  </div>
                 </div>
 
-                <label className="field">
-                  <span className="label-text">Subject</span>
+                <div className="input-group">
+                  <label htmlFor="subject">Subject</label>
                   <select
+                    id="subject"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     required
                     aria-required="true"
                   >
-                    <option value="">Select a subject</option>
+                    <option value="">Choose a topic</option>
                     <option value="general">General Inquiry</option>
                     <option value="support">Technical Support</option>
                     <option value="billing">Billing Question</option>
-                    <option value="sales">Sales & Pricing</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="partnership">Partnership Opportunity</option>
+                    <option value="feedback">Product Feedback</option>
+                    <option value="partnership">Partnership</option>
+                    <option value="other">Other</option>
                   </select>
-                </label>
+                </div>
 
-                <label className="field">
-                  <span className="label-text">Message</span>
+                <div className="input-group">
+                  <label htmlFor="message">Message</label>
                   <textarea
+                    id="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us how we can help..."
-                    rows={6}
+                    placeholder="How can we help you?"
+                    rows={5}
                     required
                     aria-required="true"
                   />
-                </label>
-
-                <div className="form-actions">
-                  <button type="submit" className={`submit-button ${submitted ? "sent" : ""}`}>
-                    <span className="btn-inner">
-                      {submitted ? "Message Sent ✓" : "Send Message"}
-                    </span>
-                  </button>
                 </div>
 
+                <button 
+                  type="submit" 
+                  className={`submit-btn ${submitted ? "success" : ""}`}
+                  disabled={submitted}
+                >
+                  <span className="btn-content">
+                    {submitted ? (
+                      <>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                          <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Message Sent
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </>
+                    )}
+                  </span>
+                </button>
+
                 {submitted && (
-                  <div className="success-message" role="status" aria-live="polite">
-                    Thanks — we received your message and will reply shortly.
+                  <div className="success-banner" role="status" aria-live="polite">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Thank you! We'll respond to your message soon.</span>
                   </div>
                 )}
               </form>
@@ -188,313 +194,440 @@ export default function Contact() {
         </section>
       </main>
 
-      <footer className="footer" aria-hidden="true">
-        <div className="footer-inner">
-          <small>© {new Date().getFullYear()} ClutterAI</small>
-          <nav className="footer-links" aria-label="Footer links">
-            <Link href="/privacy-policy">Privacy</Link>
-            <Link href="/terms-and-conditions">Terms</Link>
-            <Link href="/about">About</Link>
-          </nav>
-        </div>
-      </footer>
-
       <style jsx>{`
-        :root {
-          --bg: #07060a;
-          --muted: #9aa0b4;
-          --glass: rgba(255,255,255,0.04);
-          --accent-1: #7c3aed;
-          --accent-2: #5b21b6;
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
         }
-
-        * { box-sizing: border-box; }
-        body, html, #__next { height: 100%; }
 
         .contact-page {
           min-height: 100vh;
-          background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.06), transparent 12%),
-                      linear-gradient(180deg, var(--bg) 0%, #05040a 100%);
-          color: #eef0f6;
+          background: #0a0a0a;
+          color: #fff;
           position: relative;
-          font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
           overflow-x: hidden;
         }
 
-        /* Background visuals */
-        .bg-visuals { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        /* Animated Background */
+        .bg-visuals {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+        }
+
         .orb {
           position: absolute;
           border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.9;
-          transform: translateZ(0);
+          filter: blur(120px);
+          opacity: 0.4;
         }
-        .orb-a {
-          width: 520px;
-          height: 520px;
-          left: -6%;
-          top: -8%;
-          background: radial-gradient(circle, rgba(124,58,237,0.22) 0%, rgba(124,58,237,0) 60%);
-          animation: floatSlow 18s ease-in-out infinite;
-        }
-        .orb-b {
-          width: 420px;
-          height: 420px;
-          right: -8%;
-          bottom: -6%;
-          background: radial-gradient(circle, rgba(91,33,182,0.18) 0%, rgba(91,33,182,0) 60%);
-          animation: floatSlow 22s ease-in-out infinite reverse;
-        }
-        .bg-lines { position: absolute; left: 0; right: 0; top: 12%; opacity: 0.9; transform: translateY(-6%); pointer-events: none; }
 
-        @keyframes floatSlow {
-          0% { transform: translateY(0) translateX(0); }
-          50% { transform: translateY(-18px) translateX(12px); }
-          100% { transform: translateY(0) translateX(0); }
+        .orb-1 {
+          width: 600px;
+          height: 600px;
+          top: -10%;
+          left: -5%;
+          background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent 70%);
+          animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+          width: 500px;
+          height: 500px;
+          bottom: -10%;
+          right: -5%;
+          background: radial-gradient(circle, rgba(124, 58, 237, 0.25), transparent 70%);
+          animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          33% { transform: translate(30px, -30px) rotate(5deg); }
+          66% { transform: translate(-20px, 20px) rotate(-5deg); }
+        }
+
+        .grid-overlay {
+          position: absolute;
+          inset: 0;
+          background-image: 
+            linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+          background-size: 80px 80px;
         }
 
         /* Layout */
         .container {
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
-          padding: 56px 24px;
+          padding: 120px 24px 60px;
           position: relative;
-          z-index: 2;
+          z-index: 1;
         }
 
-        .top-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 28px;
-        }
-
-        .back-link {
-          color: var(--muted);
-          text-decoration: none;
-          font-weight: 600;
-          padding: 8px 12px;
-          border-radius: 10px;
-          transition: color 180ms ease, background 180ms ease, transform 160ms ease;
-        }
-        .back-link:hover { color: #fff; background: rgba(255,255,255,0.02); transform: translateY(-2px); }
-
-        .page-badge {
-          display: inline-flex;
-          gap: 8px;
-          align-items: center;
-          color: #e9ecf8;
-          font-weight: 700;
-          background: linear-gradient(90deg, rgba(124,58,237,0.08), rgba(91,33,182,0.04));
-          padding: 8px 12px;
-          border-radius: 999px;
-          border: 1px solid rgba(255,255,255,0.03);
-        }
-        .page-badge svg { opacity: 0.95; }
-
-        .content {
+        .content-wrapper {
           display: grid;
-          grid-template-columns: 1fr 480px;
-          gap: 40px;
+          grid-template-columns: 1fr 540px;
+          gap: 60px;
           align-items: start;
         }
 
-        /* Info column */
-        .info-section { padding: 8px 4px; }
-        h1 {
-          margin: 0 0 12px 0;
-          font-size: clamp(2rem, 3.6vw, 3.2rem);
-          line-height: 1.05;
-          font-weight: 900;
-          letter-spacing: -0.02em;
+        /* Hero Section */
+        .hero-section {
+          padding-top: 20px;
         }
-        .gradient {
-          background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          border-radius: 100px;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.05));
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          color: #c4b5fd;
+          font-size: 0.85rem;
+          font-weight: 600;
+          margin-bottom: 24px;
+        }
+
+        h1 {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          line-height: 1.1;
+          margin-bottom: 20px;
+        }
+
+        .gradient-text {
+          background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #7c3aed 100%);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
         }
+
         .subtitle {
-          color: var(--muted);
-          margin: 0 0 22px 0;
-          font-size: 1.05rem;
+          font-size: 1.15rem;
+          color: rgba(255, 255, 255, 0.6);
           line-height: 1.6;
+          margin-bottom: 40px;
+          max-width: 500px;
         }
 
-        .contact-grid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0,1fr));
-          gap: 16px;
-          margin-bottom: 20px;
+        /* Support Card */
+        .support-card {
+          position: relative;
+          margin-bottom: 24px;
         }
 
-        .method-card {
+        .card-glow {
+          position: absolute;
+          inset: -40px;
+          background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15), transparent 60%);
+          filter: blur(40px);
+          opacity: 0;
+          transition: opacity 0.6s ease;
+        }
+
+        .support-card:hover .card-glow {
+          opacity: 1;
+        }
+
+        .card-content {
+          position: relative;
           display: flex;
-          gap: 14px;
-          align-items: flex-start;
-          padding: 14px;
+          gap: 20px;
+          padding: 28px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(10px);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .support-card:hover .card-content {
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(139, 92, 246, 0.3);
+          transform: translateY(-4px);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-wrapper {
+          width: 56px;
+          height: 56px;
           border-radius: 14px;
-          background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-          border: 1px solid rgba(255,255,255,0.03);
-          transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-        }
-        .method-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 18px 40px rgba(2,6,23,0.45);
-          border-color: rgba(124,58,237,0.12);
-        }
-        .method-icon {
-          width: 46px;
-          height: 46px;
-          border-radius: 10px;
-          display: inline-grid;
-          place-items: center;
-          font-size: 1.25rem;
-          background: linear-gradient(180deg, rgba(124,58,237,0.12), rgba(91,33,182,0.06));
-          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
+          border: 1px solid rgba(139, 92, 246, 0.3);
           flex-shrink: 0;
+          color: #c4b5fd;
         }
-        .method-body h3 {
-          margin: 0 0 6px 0;
-          font-size: 1rem;
-          color: #f3f4f8;
+
+        .card-body h3 {
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: 6px;
+          color: #fff;
         }
-        .method-body a {
-          color: #b78bff;
+
+        .card-body p {
+          font-size: 0.95rem;
+          color: rgba(255, 255, 255, 0.5);
+          margin-bottom: 12px;
+        }
+
+        .email-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          color: #a78bfa;
           text-decoration: none;
           font-weight: 600;
+          font-size: 1rem;
+          transition: all 0.3s ease;
         }
-        .method-body a:hover { color: #d6b8ff; }
 
-        .response-time {
-          margin-top: 8px;
-          padding: 14px;
-          border-radius: 12px;
-          background: linear-gradient(90deg, rgba(124,58,237,0.06), rgba(91,33,182,0.03));
-          border: 1px solid rgba(124,58,237,0.06);
-          color: #e6e9fb;
+        .email-link:hover {
+          color: #c4b5fd;
+          gap: 12px;
+        }
+
+        .info-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 20px;
+          border-radius: 100px;
+          background: rgba(139, 92, 246, 0.08);
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+
+        /* Form Section */
+        .form-section {
+          position: sticky;
+          top: 100px;
+        }
+
+        .form-card {
+          position: relative;
+          padding: 36px;
+          border-radius: 24px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(20px) saturate(180%);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-glow {
+          position: absolute;
+          inset: -60px;
+          background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1), transparent 50%);
+          filter: blur(60px);
+          opacity: 0.6;
+          pointer-events: none;
+        }
+
+        .form-header {
+          margin-bottom: 28px;
+        }
+
+        .form-header h2 {
+          font-size: 1.75rem;
+          font-weight: 700;
+          margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+          color: rgba(255, 255, 255, 0.5);
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+
+        /* Form Inputs */
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        label {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.9rem;
           font-weight: 600;
         }
-
-        /* Form column */
-        .form-section { display: flex; justify-content: flex-end; }
-        .form-card {
-          width: 100%;
-          max-width: 480px;
-          border-radius: 18px;
-          padding: 20px;
-          background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-          border: 1px solid rgba(255,255,255,0.04);
-          box-shadow: 0 18px 40px rgba(2,6,23,0.45);
-          backdrop-filter: blur(6px) saturate(120%);
-        }
-        .form-header h2 { margin: 0 0 6px 0; font-size: 1.25rem; }
-        .form-desc { margin: 0 0 14px 0; color: var(--muted); font-size: 0.95rem; }
-
-        .contact-form { display: flex; flex-direction: column; gap: 12px; }
-        .row { display: flex; gap: 12px; }
-        .field { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-        .label-text { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
 
         input, select, textarea {
           width: 100%;
-          padding: 12px 14px;
+          padding: 14px 16px;
           border-radius: 12px;
-          border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(255,255,255,0.02);
-          color: #eef0f6;
-          font-size: 0.98rem;
-          transition: box-shadow 160ms ease, border-color 160ms ease, transform 120ms ease;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #fff;
+          font-size: 0.95rem;
+          font-family: inherit;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        input::placeholder, textarea::placeholder { color: rgba(230,230,250,0.28); }
+
+        input::placeholder, textarea::placeholder {
+          color: rgba(255, 255, 255, 0.3);
+        }
 
         input:focus, select:focus, textarea:focus {
           outline: none;
-          border-color: rgba(183,139,255,0.9);
-          box-shadow: 0 8px 30px rgba(124,58,237,0.12);
-          transform: translateY(-2px);
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(139, 92, 246, 0.5);
+          box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
 
-        select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.12) 50%), linear-gradient(135deg, rgba(255,255,255,0.12) 50%, transparent 50%); background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px); background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; padding-right: 36px; }
+        select {
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23ffffff' stroke-opacity='0.5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 16px center;
+          padding-right: 44px;
+          cursor: pointer;
+        }
 
-        textarea { min-height: 140px; resize: vertical; }
+        textarea {
+          resize: vertical;
+          min-height: 120px;
+          font-family: inherit;
+        }
 
-        .form-actions { margin-top: 6px; display: flex; gap: 12px; align-items: center; }
+        /* Submit Button */
+        .submit-btn {
+          width: 100%;
+          padding: 16px 24px;
+          border-radius: 12px;
+          border: none;
+          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+          color: #fff;
+          font-size: 1rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+          position: relative;
+          overflow: hidden;
+        }
 
-        .submit-button {
-          display: inline-flex;
+        .submit-btn::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+          transform: translateX(100%);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
+        }
+
+        .submit-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.8;
+        }
+
+        .submit-btn.success {
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-content {
+          display: flex;
           align-items: center;
           justify-content: center;
           gap: 10px;
-          padding: 12px 18px;
-          border-radius: 12px;
-          border: none;
-          cursor: pointer;
-          font-weight: 800;
-          color: white;
-          background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-          box-shadow: 0 12px 36px rgba(91,33,182,0.22);
-          transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
-          width: 100%;
-        }
-        .submit-button:hover { transform: translateY(-3px); box-shadow: 0 20px 48px rgba(91,33,182,0.28); }
-        .submit-button.sent { background: linear-gradient(90deg, #10b981, #059669); box-shadow: 0 12px 36px rgba(6,95,70,0.18); }
-
-        .success-message {
-          margin-top: 12px;
-          padding: 12px;
-          border-radius: 10px;
-          background: linear-gradient(90deg, rgba(16,185,129,0.08), rgba(6,95,70,0.04));
-          border: 1px solid rgba(16,185,129,0.12);
-          color: #86efac;
-          font-weight: 700;
-          text-align: center;
-          animation: popIn 260ms ease;
-        }
-        @keyframes popIn {
-          from { transform: translateY(-6px) scale(0.98); opacity: 0; }
-          to { transform: translateY(0) scale(1); opacity: 1; }
+          position: relative;
+          z-index: 1;
         }
 
-        /* Footer */
-        .footer {
-          margin-top: 48px;
-          padding: 28px 24px;
-          border-top: 1px solid rgba(255,255,255,0.03);
-          background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-          z-index: 2;
-        }
-        .footer-inner {
-          max-width: 1200px;
-          margin: 0 auto;
+        /* Success Banner */
+        .success-banner {
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          color: var(--muted);
           gap: 12px;
-        }
-        .footer-links a {
-          color: var(--muted);
-          text-decoration: none;
-          margin-left: 12px;
+          padding: 16px;
+          border-radius: 12px;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.3);
+          color: #6ee7b7;
+          font-size: 0.95rem;
           font-weight: 600;
+          animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .footer-links a:hover { color: #fff; }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
         /* Responsive */
         @media (max-width: 1024px) {
-          .content { grid-template-columns: 1fr 420px; gap: 28px; }
+          .content-wrapper {
+            grid-template-columns: 1fr;
+            gap: 60px;
+          }
+
+          .form-section {
+            position: static;
+          }
         }
-        @media (max-width: 880px) {
-          .content { grid-template-columns: 1fr; }
-          .form-section { order: 2; }
-          .info-section { order: 1; }
-          .form-card { max-width: 100%; }
+
+        @media (max-width: 640px) {
+          .container {
+            padding: 60px 20px 40px;
+          }
+
+          .form-row {
+            grid-template-columns: 1fr;
+          }
+
+          .form-card {
+            padding: 24px;
+          }
+
+          h1 {
+            font-size: 2.5rem;
+          }
         }
+
         @media (prefers-reduced-motion: reduce) {
-          .orb-a, .orb-b, .bg-lines, .method-card, .submit-button { animation: none !important; transition: none !important; }
+          * {
+            animation: none !important;
+            transition: none !important;
+          }
         }
       `}</style>
     </div>
