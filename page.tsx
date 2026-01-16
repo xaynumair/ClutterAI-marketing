@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SiGoogledrive, SiGmail, SiSlack, SiGooglecalendar } from "react-icons/si";
+import { SiGoogledrive, SiGmail, SiSlack, SiGooglecalendar, SiNotion } from "react-icons/si";
 import {
   AiOutlineFileSearch,
   AiOutlineMail,
   AiOutlineMessage,
   AiOutlineCalendar,
   AiOutlineBulb,
+  AiOutlineThunderbolt,
+  AiOutlineClockCircle,
 } from "react-icons/ai";
-import { RiFileList2Line, RiScales3Line, RiSparklingFill } from "react-icons/ri";
+import { RiFileList2Line, RiScales3Line, RiSparklingFill, RiTeamLine, RiShieldCheckLine } from "react-icons/ri";
+import { HiOutlineLightningBolt, HiOutlineCheckCircle } from "react-icons/hi";
 
-/* Inline component to type out short prompt chips with a blinking cursor */
 function PromptTyper({
   text,
   startDelay = 400,
@@ -73,7 +75,27 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // Entrance animation: IntersectionObserver to add "in-view" class with stagger
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const elements = document.querySelectorAll(".scroll-animate");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const container = cardsRef.current;
     if (!container) return;
@@ -100,14 +122,13 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse tilt handlers (uses CSS variables for smooth GPU transforms)
   function handleMouseMove(e: React.MouseEvent, el: HTMLElement | null) {
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width; // 0..1
-    const py = (e.clientY - rect.top) / rect.height; // 0..1
-    const rx = (py - 0.5) * -8; // rotateX
-    const ry = (px - 0.5) * 10; // rotateY
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rx = (py - 0.5) * -8;
+    const ry = (px - 0.5) * 10;
     el.style.setProperty("--rx", `${rx}deg`);
     el.style.setProperty("--ry", `${ry}deg`);
     el.style.setProperty("--s", "1.03");
@@ -141,11 +162,15 @@ export default function Home() {
       desc: "Find events, meeting notes and schedule context without leaving the app.",
       Icon: SiGooglecalendar,
     },
+    {
+      name: "Notion",
+      desc: "Search your Notion workspace, pages, and databases with AI-powered answers.",
+      Icon: SiNotion,
+    },
   ];
 
   return (
     <div className="homepage">
-      {/* Decorative background layers */}
       <div className="bg-gradient" aria-hidden="true" />
       <div className="bg-grid" aria-hidden="true" />
       <div className="bg-orbs" aria-hidden="true">
@@ -155,52 +180,189 @@ export default function Home() {
       </div>
 
       <main className="hero">
-        <div className="card" role="region" aria-label="Hero">
-          <header className="hero-head">
-            <h1 className="title">
+        <div className="hero-content">
+          {/* Animated Badge */}
+          <div className="hero-badge">
+            <RiSparklingFill className="badge-icon" />
+            <span>AI-Powered Knowledge Search</span>
+          </div>
+
+          {/* Main Headline */}
+          <h1 className="title">
+            <span className="title-line">
               <span className="typed">{typedText}</span>
               <span className="cursor" aria-hidden="true">|</span>
-              <br />
-              <span className="accent">Start knowing</span>
-            </h1>
+            </span>
+            <span className="title-line accent">Start knowing</span>
+          </h1>
 
-            <p className="lead">
-              Connect Drive, Gmail, Slack and more. Ask questions in plain English and get instant answers with source links — no more wasting time.
-            </p>
-          </header>
+          {/* Subtitle */}
+          <p className="lead">
+            Connect Drive, Gmail, Slack, Notion and more. Ask questions in plain English and get instant answers with source links—no more wasting time searching.
+          </p>
 
+          {/* CTA Buttons */}
           <div className="actions" role="group" aria-label="Primary actions">
-            <a
-              href="https://app.clutter-ai.com/signup"
-              className="btn btn-primary"
-              rel="noopener noreferrer"
-            >
-              Start Free
+            <a href="https://app.clutter-ai.com/signup" className="btn btn-primary">
+              <span>Start Free</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </a>
-
             <a href="/pricing" className="btn btn-outline">
-              View Pricing
+              <span>View Pricing</span>
             </a>
           </div>
 
-          <p className="footnote">Free plan • No credit card required • Enterprise-ready</p>
+          {/* Trust Indicators */}
+          <div className="hero-trust">
+            <div className="trust-item">
+              <RiShieldCheckLine />
+              <span>No credit card required</span>
+            </div>
+            <div className="trust-divider">•</div>
+            <div className="trust-item">
+              <HiOutlineLightningBolt />
+              <span>2-minute setup</span>
+            </div>
+            <div className="trust-divider">•</div>
+            <div className="trust-item">
+              <RiScales3Line />
+              <span>Enterprise-ready</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Example Prompts */}
+        <div className="prompt-showcase">
+          <div className="prompt-card prompt-1">
+            <div className="prompt-icon">
+              <AiOutlineMail />
+            </div>
+            <PromptTyper text="Find Sarah's email about Q3 budget" startDelay={800} speed={30} />
+          </div>
+          
+          <div className="prompt-card prompt-2">
+            <div className="prompt-icon">
+              <AiOutlineFileSearch />
+            </div>
+            <PromptTyper text="Show me the Acme contract" startDelay={1400} speed={30} />
+          </div>
+          
+          <div className="prompt-card prompt-3">
+            <div className="prompt-icon">
+              <AiOutlineMessage />
+            </div>
+            <PromptTyper text="What did the team decide yesterday?" startDelay={2000} speed={30} />
+          </div>
+
+          <div className="prompt-card prompt-4">
+            <div className="prompt-icon">
+              <AiOutlineCalendar />
+            </div>
+            <PromptTyper text="When is my next meeting with John?" startDelay={2600} speed={30} />
+          </div>
         </div>
       </main>
 
-      {/* Integrations section (horizontal grid) */}
-      <section className="integrations" aria-label="Integrations">
+      <section className="how-it-works scroll-animate" aria-label="How It Works">
+        <div className="how-inner">
+          <h2 className="section-title">How It Works</h2>
+          <p className="section-sub">Three simple steps to transform how you work</p>
+
+          <div className="steps-grid">
+            <div className="step-card" data-step="1">
+              <div className="step-number">1</div>
+              <HiOutlineLightningBolt className="step-icon" />
+              <h3 className="step-title">Connect Your Tools</h3>
+              <p className="step-desc">
+                Link your Google Drive, Gmail, Slack, Notion, and Calendar in seconds. Secure OAuth authentication.
+              </p>
+            </div>
+
+            <div className="step-card" data-step="2">
+              <div className="step-number">2</div>
+              <RiSparklingFill className="step-icon" />
+              <h3 className="step-title">Ask Anything</h3>
+              <p className="step-desc">
+                Type natural language questions. ClutterAI searches across all your connected apps simultaneously.
+              </p>
+            </div>
+
+            <div className="step-card" data-step="3">
+              <div className="step-number">3</div>
+              <HiOutlineCheckCircle className="step-icon" />
+              <h3 className="step-title">Get Instant Answers</h3>
+              <p className="step-desc">
+                Receive AI-synthesized answers with direct source links. Click through to the exact document, email, or message.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="why-section scroll-animate" aria-label="Why ClutterAI">
+        <div className="why-inner">
+          <h2 className="section-title">Why ClutterAI?</h2>
+          <p className="section-sub">Stop context switching. Start achieving.</p>
+
+          <div className="benefits-grid">
+            <div className="benefit-card">
+              <div className="benefit-icon">
+                <AiOutlineClockCircle size={32} />
+              </div>
+              <h3 className="benefit-title">Save 10+ Hours Per Week</h3>
+              <p className="benefit-desc">
+                Stop hunting through tabs, folders, and apps. Get answers in seconds, not minutes.
+              </p>
+            </div>
+
+            <div className="benefit-card">
+              <div className="benefit-icon">
+                <AiOutlineThunderbolt size={32} />
+              </div>
+              <h3 className="benefit-title">AI-Powered Synthesis</h3>
+              <p className="benefit-desc">
+                Not just search — intelligent answers that connect dots across your entire workspace.
+              </p>
+            </div>
+
+            <div className="benefit-card">
+              <div className="benefit-icon">
+                <RiShieldCheckLine size={32} />
+              </div>
+              <h3 className="benefit-title">Your Data, Your Eyes Only</h3>
+              <p className="benefit-desc">
+                Enterprise-grade encryption. Your information never leaves your control. SOC 2 compliant.
+              </p>
+            </div>
+
+            <div className="benefit-card">
+              <div className="benefit-icon">
+                <RiTeamLine size={32} />
+              </div>
+              <h3 className="benefit-title">Built for Teams</h3>
+              <p className="benefit-desc">
+                Team plans with centralized billing, admin controls, and shared knowledge bases.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="integrations scroll-animate" aria-label="Integrations">
         <div className="integrations-inner">
           <h2 className="integrations-title">Integrations</h2>
           <p className="integrations-sub">
-            Connect the tools you already use. We surface answers from your files, mail, calendar and team chat.
+            Connect the tools you already use. We surface answers from your files, mail, calendar, Notion, and team chat.
           </p>
 
           <div className="integration-grid" role="list" ref={cardsRef}>
             {integrations.map((item, idx) => {
               const Icon = item.Icon;
               const style = {
-                ["--float-duration" as any]: `${6 + idx * 0.6}s`,
-                ["--float-distance" as any]: `${8 + idx * 2}px`,
+                ["--float-duration" as string]: `${6 + idx * 0.6}s`,
+                ["--float-distance" as string]: `${8 + idx * 2}px`,
               } as React.CSSProperties;
 
               return (
@@ -229,7 +391,6 @@ export default function Home() {
               );
             })}
 
-            {/* New card: More integrations coming soon (centered) */}
             <article
               className="integration-card coming-soon"
               role="listitem"
@@ -237,8 +398,8 @@ export default function Home() {
               data-index={integrations.length}
               style={
                 {
-                  ["--float-duration" as any]: `${6 + integrations.length * 0.6}s`,
-                  ["--float-distance" as any]: `10px`,
+                  ["--float-duration" as string]: `${6 + integrations.length * 0.6}s`,
+                  ["--float-distance" as string]: `10px`,
                 } as React.CSSProperties
               }
               onMouseMove={(e) => handleMouseMove(e, e.currentTarget as HTMLElement)}
@@ -248,7 +409,6 @@ export default function Home() {
             >
               <div className="integration-float">
                 <div className="integration-icon" aria-hidden="true">
-                  {/* plus icon */}
                   <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true" focusable="false">
                     <path fill="none" d="M0 0h24v24H0z" />
                     <path fill="#cfd3e8" d="M11 11V6h2v5h5v2h-5v5h-2v-5H6v-2z" />
@@ -264,8 +424,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Single Source of Truth section */}
-      <section className="ssot" aria-label="Single Source of Truth">
+      <section className="ssot scroll-animate" aria-label="Single Source of Truth">
         <div className="ssot-inner">
           <h2 className="ssot-title">The Single Source of Truth</h2>
 
@@ -285,7 +444,7 @@ export default function Home() {
           </div>
 
           <div className="ssot-table-wrap" role="region" aria-label="ClutterAI capabilities table">
-            <table className="ssot-table" summary="Tools connected, what ClutterAI understands, and engaging example prompts">
+            <table className="ssot-table">
               <thead>
                 <tr>
                   <th>Tool connected</th>
@@ -305,7 +464,7 @@ export default function Home() {
                   <td>
                     <div className="prompt-list">
                       <PromptTyper text="Find the Q4 competitive analysis spreadsheet" startDelay={500} speed={22} />
-                      <span className="prompt-chip">Open the latest “Roadmap” doc</span>
+                      <span className="prompt-chip">Open the latest &quot;Roadmap&quot; doc</span>
                       <span className="prompt-chip">Show files shared by Brian last week</span>
                     </div>
                   </td>
@@ -321,7 +480,7 @@ export default function Home() {
                   <td>
                     <div className="prompt-list">
                       <PromptTyper text="What delivery terms did Brian confirm?" startDelay={900} speed={24} />
-                      <span className="prompt-chip">Summarize yesterday’s thread with Alice</span>
+                      <span className="prompt-chip">Summarize yesterday&apos;s thread with Alice</span>
                       <span className="prompt-chip">Find invoices from October</span>
                     </div>
                   </td>
@@ -353,8 +512,24 @@ export default function Home() {
                   <td>
                     <div className="prompt-list">
                       <PromptTyper text="What action items did I commit to with Alex?" startDelay={1700} speed={24} />
-                      <span className="prompt-chip">Summarize last week’s leadership sync</span>
+                      <span className="prompt-chip">Summarize last week&apos;s leadership sync</span>
                       <span className="prompt-chip">Find meetings with agenda docs attached</span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div className="tool-cell">
+                      <span className="tool-icon"><SiNotion size={22} aria-hidden="true" /></span>
+                      <span className="tool-name">Notion</span>
+                    </div>
+                  </td>
+                  <td>Pages, databases, and workspace knowledge.</td>
+                  <td>
+                    <div className="prompt-list">
+                      <PromptTyper text="Find my project roadmap in Notion" startDelay={2100} speed={24} />
+                      <span className="prompt-chip">What&apos;s in my meeting notes database?</span>
+                      <span className="prompt-chip">Show recent updates to the wiki</span>
                     </div>
                   </td>
                 </tr>
@@ -364,21 +539,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Visually engaging bottom section: Context Synthesis */}
-      <section className="synthesis" aria-label="Context Synthesis">
+      <section className="synthesis scroll-animate" aria-label="Context Synthesis">
         <div className="synthesis-inner">
           <div className="synthesis-header">
             <span className="synthesis-badge" aria-hidden="true">
               <AiOutlineBulb size={18} />
               <span>ClutterAI synthesis</span>
             </span>
-            <h3 className="synthesis-title">But that’s not it</h3>
+            <h3 className="synthesis-title">But that&apos;s not it</h3>
             <p className="synthesis-sub">
               Beyond keyword search — turn scattered information into decisions.
             </p>
           </div>
 
-          {/* Icon-led feature grid with floating animations */}
           <div className="synthesis-grid" role="list">
             <article
               className="synth-card"
@@ -386,9 +559,9 @@ export default function Home() {
               aria-label="Summarize dense documents"
               style={
                 {
-                  ["--float-distance" as any]: "8px",
-                  ["--float-duration" as any]: "7.2s",
-                  ["--float-delay" as any]: "0ms",
+                  ["--float-distance" as string]: "8px",
+                  ["--float-duration" as string]: "7.2s",
+                  ["--float-delay" as string]: "0ms",
                 } as React.CSSProperties
               }
             >
@@ -414,9 +587,9 @@ export default function Home() {
               aria-label="Extract decisions from emails"
               style={
                 {
-                  ["--float-distance" as any]: "7px",
-                  ["--float-duration" as any]: "7.8s",
-                  ["--float-delay" as any]: "160ms",
+                  ["--float-distance" as string]: "7px",
+                  ["--float-duration" as string]: "7.8s",
+                  ["--float-delay" as string]: "160ms",
                 } as React.CSSProperties
               }
             >
@@ -442,9 +615,9 @@ export default function Home() {
               aria-label="Summarize Slack threads"
               style={
                 {
-                  ["--float-distance" as any]: "9px",
-                  ["--float-duration" as any]: "7.0s",
-                  ["--float-delay" as any]: "320ms",
+                  ["--float-distance" as string]: "9px",
+                  ["--float-duration" as string]: "7.0s",
+                  ["--float-delay" as string]: "320ms",
                 } as React.CSSProperties
               }
             >
@@ -470,9 +643,9 @@ export default function Home() {
               aria-label="Prepare calendar action items"
               style={
                 {
-                  ["--float-distance" as any]: "6px",
-                  ["--float-duration" as any]: "8.2s",
-                  ["--float-delay" as any]: "480ms",
+                  ["--float-distance" as string]: "6px",
+                  ["--float-duration" as string]: "8.2s",
+                  ["--float-delay" as string]: "480ms",
                 } as React.CSSProperties
               }
             >
@@ -493,7 +666,6 @@ export default function Home() {
             </article>
           </div>
 
-          {/* Prompt chips row */}
           <div className="synthesis-prompts" aria-label="Quick prompts">
             <span className="prompt-chip">Summarize the Q4 review deck</span>
             <span className="prompt-chip">What decisions happened in #product?</span>
@@ -501,105 +673,59 @@ export default function Home() {
             <span className="prompt-chip">Show final delivery terms from Brian</span>
           </div>
 
-          {/* Closing line */}
           <p className="synthesis-cta-line">
             Stop reading and comparing — get synthesized answers that drive decisions.
           </p>
         </div>
       </section>
 
-      {/* Bottom trust & privacy card section */}
-      <section className="trust" aria-label="Privacy and trust">
+      <section className="trust scroll-animate" aria-label="Privacy and trust">
         <div className="trust-inner">
           <div className="trust-card">
             <div className="trust-glow" aria-hidden="true" />
-            <h3 className="trust-title">“Your data, you eyes”</h3>
+            <h3 className="trust-title">&quot;Your data, your eyes&quot;</h3>
             <p className="trust-sub">
               ClutterAI ensures your data is only accessible by you.
             </p>
-            <a className="trust-link" href="/about" rel="noopener noreferrer">
+            <a className="trust-link" href="/about">
               Read more on the About page
             </a>
           </div>
         </div>
       </section>
 
-      {/* Powered By section (names only, official fonts where available) */}
-      <section className="powered-by" aria-label="Powered by">
+      <section className="powered-by scroll-animate" aria-label="Powered by">
         <div className="powered-inner">
           <h4 className="powered-title">Powered By</h4>
 
           <div className="partners-grid" role="list" aria-label="Partner names">
-            <a
-              className="partner partner--microsoft"
-              href="https://www.microsoft.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              role="listitem"
-              aria-label="Microsoft"
-            >
+            <a className="partner partner--microsoft" href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Microsoft">
               <span className="partner-name">Microsoft</span>
             </a>
 
-            <a
-              className="partner partner--pinecone"
-              href="https://www.pinecone.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              role="listitem"
-              aria-label="Pinecone"
-            >
+            <a className="partner partner--pinecone" href="https://www.pinecone.io" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Pinecone">
               <span className="partner-name">Pinecone</span>
             </a>
 
-            <a
-              className="partner partner--vercel"
-              href="https://vercel.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              role="listitem"
-              aria-label="Vercel"
-            >
+            <a className="partner partner--vercel" href="https://vercel.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Vercel">
               <span className="partner-name">Vercel</span>
             </a>
 
-            <a
-              className="partner partner--openai"
-              href="https://openai.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              role="listitem"
-              aria-label="OpenAI"
-            >
+            <a className="partner partner--openai" href="https://openai.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="OpenAI">
               <span className="partner-name">OpenAI</span>
             </a>
 
-            <a
-              className="partner partner--convex"
-              href="https://convex.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              role="listitem"
-              aria-label="Convex"
-            >
+            <a className="partner partner--convex" href="https://convex.dev" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Convex">
               <span className="partner-name">Convex</span>
             </a>
 
-            <a
-              className="partner partner--hostinger"
-              href="https://www.hostinger.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              role="listitem"
-              aria-label="Hostinger"
-            >
+            <a className="partner partner--hostinger" href="https://www.hostinger.com" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Hostinger">
               <span className="partner-name">Hostinger</span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="site-footer" aria-label="Site footer">
         <div className="footer-inner">
           <nav className="footer-nav" aria-label="Legal links">
@@ -624,11 +750,19 @@ export default function Home() {
           background: linear-gradient(180deg, #05040a 0%, #07050b 100%);
           color: #eef0f6;
           overflow-x: hidden;
-          font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-            "Helvetica Neue", Arial;
+          font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
-        /* Background layers */
+        .scroll-animate {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s cubic-bezier(0.16, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
+        }
+        .scroll-animate.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
         .bg-gradient { position: fixed; inset: -20%; background: radial-gradient(1200px 600px at 10% 20%, rgba(124,58,237,0.12), transparent 12%), radial-gradient(1000px 500px at 90% 80%, rgba(91,33,182,0.10), transparent 12%); filter: blur(40px); z-index: 0; pointer-events: none; }
         .bg-grid { position: fixed; inset: 0; background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 72px 72px; opacity: 0.04; z-index: 0; pointer-events: none; }
         .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
@@ -640,44 +774,470 @@ export default function Home() {
         @keyframes floatB { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(-30px,40px) scale(0.98); } 100% { transform: translate(0,0) scale(1); } }
         @keyframes floatC { 0% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-40%,-60%) scale(1.02); } 100% { transform: translate(-50%,-50%) scale(1); } }
 
-        /* Hero */
-        .hero { width: 100%; max-width: 1200px; padding: 64px 28px 40px; z-index: 10; display: flex; align-items: center; justify-content: center; }
-        .card { width: 100%; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.04); border-radius: 18px; padding: 48px; box-shadow: 0 10px 40px rgba(2,6,23,0.6); backdrop-filter: blur(8px) saturate(120%); display:flex; flex-direction:column; gap:20px; align-items:center; text-align:center; }
+        /* Hero Section - Ultra Modern */
+        .hero {
+          position: relative;
+          width: 100%;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 120px 28px 80px;
+          z-index: 10;
+        }
 
-        .title { margin: 0; font-size: clamp(2.6rem, 5.6vw, 4.2rem); line-height: 1.02; font-weight: 900; color: #ffffff; letter-spacing: -0.03em; text-shadow: 0 8px 30px rgba(2,6,23,0.6), 0 0 14px rgba(124,58,237,0.08); }
-        .typed { color: #f0f1ff; } .cursor { color: #d6b8ff; margin-left: 6px; display:inline-block; animation: blink 1s steps(2,start) infinite; }
-        @keyframes blink { 0%,50%{opacity:1}51%,100%{opacity:0} }
-        .lead { margin:8px 0 0; color:#cfd3e8; font-size:1.05rem; max-width:820px; line-height:1.6; }
+        .hero-content {
+          max-width: 900px;
+          text-align: center;
+          margin-bottom: 60px;
+          animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Hero Badge */
+        .hero-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 18px;
+          border-radius: 100px;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(124, 58, 237, 0.08));
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          color: #c4b5fd;
+          font-size: 0.9rem;
+          font-weight: 700;
+          margin-bottom: 32px;
+          animation: float 3s ease-in-out infinite;
+        }
+
+        .badge-icon {
+          font-size: 1.1rem;
+          animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+
+        /* Title */
+        .title {
+          margin: 0 0 28px;
+          font-size: clamp(3rem, 7vw, 5.5rem);
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: -0.03em;
+        }
+
+        .title-line {
+          display: block;
+        }
+
+        .typed {
+          color: #ffffff;
+        }
+
+        .cursor {
+          display: inline-block;
+          width: 3px;
+          background: linear-gradient(135deg, #c4b5fd, #8b5cf6);
+          margin-left: 4px;
+          animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
 
         .accent {
+          background: linear-gradient(135deg, #ffd6ff 0%, #c4b5fd 25%, #8b5cf6 50%, #7c3aed 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmerText 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmerText {
+          0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+          50% { filter: hue-rotate(10deg) brightness(1.15); }
+        }
+
+        /* Lead Text */
+        .lead {
+          margin: 0 0 36px;
+          font-size: clamp(1.1rem, 2vw, 1.35rem);
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.7);
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        /* Actions */
+        .actions {
+          display: flex;
+          gap: 16px;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-bottom: 28px;
+        }
+
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 16px 32px;
+          border-radius: 12px;
+          font-size: 1.05rem;
+          font-weight: 700;
+          text-decoration: none;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .btn-primary {
+          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+          color: #fff;
+          border: none;
+          box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+        }
+
+        .btn-primary:hover::before {
+          transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 36px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-primary svg {
+          transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover svg {
+          transform: translateX(4px);
+        }
+
+        .btn-outline {
+          background: rgba(255, 255, 255, 0.04);
+          color: #fff;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+          background: rgba(139, 92, 246, 0.12);
+          border-color: rgba(139, 92, 246, 0.4);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+        }
+
+        /* Hero Trust Indicators */
+        .hero-trust {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          flex-wrap: wrap;
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 0.95rem;
+          font-weight: 500;
+        }
+
+        .trust-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .trust-item svg {
+          font-size: 1.1rem;
+          color: #8b5cf6;
+        }
+
+        .trust-divider {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Floating Prompt Showcase */
+        .prompt-showcase {
+          position: relative;
+          max-width: 1100px;
+          width: 100%;
+          height: 400px;
+          margin: 0 auto;
+        }
+
+        .prompt-card {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px 20px;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(20px) saturate(180%);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+          opacity: 0;
+          animation: floatIn 1s ease-out forwards, floatSlow 6s ease-in-out infinite;
+        }
+
+        .prompt-icon {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          color: #c4b5fd;
+          font-size: 1.3rem;
+          flex-shrink: 0;
+        }
+
+        .prompt-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 0;
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 0.95rem;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .prompt-text {
           display: inline-block;
+        }
+
+        .type-cursor {
+          display: inline-block;
+          width: 2px;
+          height: 1em;
+          background: #8b5cf6;
+          margin-left: 2px;
+          animation: blink 1s infinite;
+        }
+
+        /* Prompt Positioning */
+        .prompt-1 {
+          top: 0;
+          left: 5%;
+          animation-delay: 0.5s, 0.5s;
+        }
+
+        .prompt-2 {
+          top: 80px;
+          right: 8%;
+          animation-delay: 0.8s, 1.2s;
+        }
+
+        .prompt-3 {
+          bottom: 100px;
+          left: 8%;
+          animation-delay: 1.1s, 2s;
+        }
+
+        .prompt-4 {
+          bottom: 0;
+          right: 5%;
+          animation-delay: 1.4s, 2.8s;
+        }
+
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes floatSlow {
+          0%, 100% {
+            transform: translateY(0px) scale(1);
+          }
+          50% {
+            transform: translateY(-12px) scale(1.02);
+          }
+        }
+
+        .section-title {
+          margin: 0 auto 12px;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 900;
+          line-height: 1.05;
           background: linear-gradient(90deg, #ffd6ff 0%, #b78bff 30%, #7c3aed 100%);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
           color: transparent;
-          padding-left: 6px;
-          transform: translateY(-2px);
+          letter-spacing: -0.02em;
+          text-align: center;
+        }
+        .section-sub {
+          margin: 0 auto 32px;
+          color: #cfd3e8;
+          font-size: 1.05rem;
+          max-width: 720px;
+          text-align: center;
         }
 
-        .actions { display:flex; gap:14px; align-items:center; margin-top:18px; justify-content:center; }
-        .btn { display:inline-flex; align-items:center; justify-content:center; padding:12px 22px; border-radius:12px; font-weight:700; font-size:1rem; text-decoration:none; transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease; cursor:pointer; }
-        .btn-primary { background: linear-gradient(90deg, #7c3aed 0%, #5b21b6 100%); color:white; border:1px solid rgba(124,58,237,0.14); box-shadow:0 10px 30px rgba(91,33,182,0.18); }
-        .btn-primary:hover { transform: translateY(-4px); box-shadow:0 18px 50px rgba(91,33,182,0.26); }
-        .btn-outline { background: transparent; color:#e6e6f8; border:1px solid rgba(124,58,237,0.22); }
-        .btn-outline:hover { background: rgba(124,58,237,0.04); transform: translateY(-2px); }
+        .how-it-works {
+          width: 100%;
+          max-width: 1200px;
+          padding: 72px 28px;
+          z-index: 10;
+        }
+        .how-inner { width: 100%; }
+        .steps-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 24px;
+        }
+        .step-card {
+          position: relative;
+          background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 18px;
+          padding: 32px 24px;
+          text-align: center;
+          transition: all 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+        }
+        .step-card:hover {
+          transform: translateY(-8px);
+          border-color: rgba(124,58,237,0.2);
+          box-shadow: 0 20px 60px rgba(124,58,237,0.15);
+        }
+        .step-number {
+          position: absolute;
+          top: -16px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #7c3aed, #5b21b6);
+          color: white;
+          font-weight: 900;
+          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 24px rgba(124,58,237,0.3);
+        }
+        .step-icon {
+          width: 56px;
+          height: 56px;
+          margin: 12px auto 16px;
+          color: #b78bff;
+        }
+        .step-title {
+          margin: 0 0 10px;
+          font-size: 1.25rem;
+          font-weight: 800;
+          color: #fff;
+        }
+        .step-desc {
+          margin: 0;
+          color: #cfd3e8;
+          line-height: 1.6;
+          font-size: 0.98rem;
+        }
 
-        .footnote { margin:6px 0 0; color:#aeb0c8; font-size:0.95rem; }
+        .why-section {
+          width: 100%;
+          max-width: 1200px;
+          padding: 72px 28px;
+          z-index: 10;
+          background: linear-gradient(180deg, rgba(124,58,237,0.02), transparent);
+        }
+        .why-inner { width: 100%; }
+        .benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 24px;
+          margin-top: 24px;
+        }
+        .benefit-card {
+          background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 18px;
+          padding: 28px 24px;
+          transition: all 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+        }
+        .benefit-card:hover {
+          transform: translateY(-6px);
+          border-color: rgba(124,58,237,0.2);
+          box-shadow: 0 16px 48px rgba(124,58,237,0.12);
+        }
+        .benefit-icon {
+          width: 64px;
+          height: 64px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(91,33,182,0.08));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 16px;
+          color: #b78bff;
+        }
+        .benefit-title {
+          margin: 0 0 10px;
+          font-size: 1.2rem;
+          font-weight: 800;
+          color: #fff;
+        }
+        .benefit-desc {
+          margin: 0;
+          color: #cfd3e8;
+          line-height: 1.6;
+          font-size: 0.98rem;
+        }
 
-        .integrations { width:100%; max-width:1200px; padding:48px 28px 96px; z-index:10; display:flex; justify-content:center; }
+        .integrations { width:100%; max-width:1200px; padding:72px 28px; z-index:10; display:flex; justify-content:center; }
         .integrations-inner { width:100%; text-align:center; }
         .integrations-title { margin:0 0 8px; font-size:1.6rem; font-weight:800; color:#fff; }
         .integrations-sub { margin:0 0 28px; color:#cfd3e8; max-width:900px; margin-left:auto; margin-right:auto; }
 
-        /* Horizontal grid */
         .integration-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 18px;
           margin-top: 8px;
           align-items: start;
@@ -706,7 +1266,6 @@ export default function Home() {
           filter: blur(6px) saturate(0.95);
         }
 
-        /* wrapper animated vertically only */
         .integration-float {
           display: flex;
           flex-direction: column;
@@ -729,7 +1288,6 @@ export default function Home() {
           border-color: rgba(124,58,237,0.14);
         }
 
-        /* Vertical-only floating animation (each card has its own variables) */
         @keyframes floatY {
           0% { transform: translateY(0); }
           50% { transform: translateY(calc(-1 * var(--float-distance, 8px))); }
@@ -778,35 +1336,11 @@ export default function Home() {
           box-shadow: 0 0 0 4px rgba(124,58,237,0.12), 0 calc(var(--elev)) 40px rgba(2,6,23,0.45);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-          .integration-card,
-          .integration-card.in-view,
-          .integration-card.in-view .integration-float,
-          .synth-card,
-          .trust-card {
-            animation: none !important;
-            transition: none !important;
-            transform: none !important;
-          }
-        }
-
-        @media (max-width: 1100px) {
-          .integration-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-          .integration-card.coming-soon { grid-column: 1 / -1; max-width: 520px; }
-        }
-        @media (max-width: 520px) {
-          .integration-grid { grid-template-columns: 1fr; gap: 12px; }
-          .hero { padding: 40px 18px 24px; }
-          .card { padding: 28px; border-radius: 14px; }
-          .title { font-size: clamp(2rem, 8.5vw, 2.8rem); }
-        }
-
-        /* SSOT section */
         .ssot {
           width: 100%;
           display: flex;
           justify-content: center;
-          padding: 64px 20px 96px;
+          padding: 72px 20px;
           z-index: 10;
         }
         .ssot-inner {
@@ -900,7 +1434,6 @@ export default function Home() {
         }
         .ssot-table tbody tr:last-child td { border-bottom: none; }
 
-        /* Tool cell with icon */
         .tool-cell {
           display: inline-flex;
           align-items: center;
@@ -919,7 +1452,6 @@ export default function Home() {
         }
         .tool-name { display: inline-block; }
 
-        /* Prompt list: concise, tappable chips + typer */
         .prompt-list {
           display: flex;
           flex-wrap: wrap;
@@ -948,12 +1480,11 @@ export default function Home() {
           animation: blink 1s steps(2, start) infinite;
         }
 
-        /* Visual synthesis section */
         .synthesis {
           width: 100%;
           display: flex;
           justify-content: center;
-          padding: 56px 20px 72px;
+          padding: 72px 20px;
           z-index: 10;
           background: linear-gradient(180deg, rgba(124,58,237,0.02), transparent 40%);
         }
@@ -1000,7 +1531,6 @@ export default function Home() {
           opacity: 0.9;
         }
 
-        /* Feature grid */
         .synthesis-grid {
           display: grid;
           grid-template-columns: repeat(4, minmax(220px, 1fr));
@@ -1015,7 +1545,6 @@ export default function Home() {
           text-align: left;
           backdrop-filter: blur(6px) saturate(120%);
           transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-          /* Floating animation variables (overridden inline per card) */
           animation-name: floatYSynth;
           animation-duration: var(--float-duration, 7.2s);
           animation-timing-function: ease-in-out;
@@ -1074,7 +1603,6 @@ export default function Home() {
           color: #e9e6ff;
         }
 
-        /* Prompt chips row */
         .synthesis-prompts {
           display: flex;
           flex-wrap: wrap;
@@ -1093,12 +1621,11 @@ export default function Home() {
           border-radius: 12px;
         }
 
-        /* Trust & privacy bottom section */
         .trust {
           width: 100%;
           display: flex;
           justify-content: center;
-          padding: 48px 20px 56px;
+          padding: 64px 20px;
           z-index: 10;
         }
         .trust-inner {
@@ -1179,12 +1706,11 @@ export default function Home() {
           100% { transform: translateY(0); }
         }
 
-        /* Powered By section */
         .powered-by {
           width: 100%;
           display: flex;
           justify-content: center;
-          padding: 36px 20px;
+          padding: 48px 20px;
           z-index: 10;
           background: linear-gradient(180deg, rgba(255,255,255,0.005), transparent 30%);
         }
@@ -1208,7 +1734,6 @@ export default function Home() {
           flex-wrap: wrap;
         }
 
-        /* Partner name-only layout */
         .partner {
           display: inline-flex;
           align-items: center;
@@ -1235,11 +1760,6 @@ export default function Home() {
           display: inline-block;
         }
 
-        /*
-          Attempt to use each vendor's preferred/official font where commonly known.
-          These are fallbacks only — if you host the official font files (or load them via your font provider),
-          the partner names will render in the exact brand font.
-        */
         .partner--microsoft .partner-name {
           font-family: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
         }
@@ -1253,7 +1773,6 @@ export default function Home() {
           font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
-        /* Footer */
         .site-footer {
           width: 100%;
           border-top: 1px solid rgba(255,255,255,0.06);
@@ -1292,6 +1811,33 @@ export default function Home() {
           font-size: 0.9rem;
           opacity: 0.9;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+          .integration-card,
+          .integration-card.in-view,
+          .integration-card.in-view .integration-float,
+          .synth-card,
+          .trust-card,
+          .scroll-animate {
+            animation: none !important;
+            transition: none !important;
+            transform: none !important;
+          }
+          .scroll-animate {
+            opacity: 1;
+          }
+        }
+
+        @media (max-width: 1100px) {
+          .integration-grid { grid-template-columns: repeat(2, 1fr); }
+          .steps-grid { grid-template-columns: 1fr; }
+          .benefits-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 960px) {
+          .synthesis-grid { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+        }
+
         @media (max-width: 640px) {
           .footer-inner {
             flex-direction: column;
@@ -1301,13 +1847,24 @@ export default function Home() {
           }
         }
 
-        /* Responsive */
-        @media (max-width: 960px) {
-          .synthesis-grid { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
-        }
         @media (max-width: 520px) {
+          .integration-grid { grid-template-columns: 1fr; }
           .synthesis-grid { grid-template-columns: 1fr; }
-          .prompt-chip { padding: 7px 10px; font-size: 0.88rem; }
+          .hero { padding: 80px 18px 40px; min-height: auto; }
+          .hero-content { margin-bottom: 40px; }
+          .title { font-size: clamp(2rem, 8.5vw, 2.8rem); }
+          .hero-badge { padding: 6px 14px; font-size: 0.85rem; }
+          .btn { padding: 14px 24px; font-size: 0.95rem; }
+          .hero-trust { font-size: 0.85rem; gap: 8px; }
+          .trust-divider { display: none; }
+          .hero-trust { flex-direction: column; }
+          .prompt-showcase { height: 300px; }
+          .prompt-card { padding: 12px 16px; font-size: 0.85rem; max-width: 85%; }
+          .prompt-icon { width: 36px; height: 36px; font-size: 1.1rem; }
+          .prompt-1 { left: 5%; top: 0; }
+          .prompt-2 { right: 5%; top: 60px; }
+          .prompt-3 { left: 5%; bottom: 60px; }
+          .prompt-4 { right: 5%; bottom: 0; }
           .trust-card { padding: 28px 20px; }
           .trust-title { font-size: clamp(1.4rem, 4vw, 2rem); }
           .partners-grid { gap: 12px; }
