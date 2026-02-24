@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Navigation: React.FC = () => {
   const pathname = usePathname() ?? "/";
@@ -11,8 +11,7 @@ export const Navigation: React.FC = () => {
   const links = [
     { href: "/", label: "Home" },
     { href: "/pricing", label: "Pricing" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact", label: "Support" },
   ];
 
   const isActive = (href: string) => {
@@ -20,117 +19,37 @@ export const Navigation: React.FC = () => {
     return pathname.startsWith(href);
   };
 
-  // Refs for logo
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const aiTspanRef = useRef<SVGTSpanElement | null>(null);
-  const starRef = useRef<SVGGElement | null>(null);
-
-  // Removed dynamic positioning - star now has static position
-
-  // Scroll detection for enhanced blur
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      <style jsx global>{`
-        @keyframes shimmer {
-          0% {
-            background-position: -200% center;
-          }
-          100% {
-            background-position: 200% center;
-          }
-        }
-        @keyframes glow {
-          0%, 100% {
-            opacity: 0.5;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-2px);
-          }
-        }
-      `}</style>
-
-      <nav className={`navigation ${scrolled ? 'scrolled' : ''}`} role="navigation" aria-label="Top navigation">
+      <nav className={`navigation ${scrolled ? "scrolled" : ""}`} role="navigation" aria-label="Top navigation">
         <div className="nav-shell">
           <div className="nav-container">
-            {/* Ambient glow effect */}
-            <div className="nav-glow" aria-hidden="true"></div>
-            
-            <Link href="/" className="logo" aria-label="Home">
+
+            {/* Logo — favicon only */}
+            <Link href="/" className="logo" aria-label="ClutterAI home">
               <svg
-                ref={svgRef}
-                viewBox="0 0 560 100"
-                preserveAspectRatio="xMinYMid meet"
+                width="28"
+                height="28"
+                viewBox="-28 -28 56 56"
                 xmlns="http://www.w3.org/2000/svg"
-                className="logo-svg"
-                role="img"
-                aria-label="Clutter AI logo"
+                aria-hidden="true"
               >
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#c4b5fd" />
-                    <stop offset="100%" stopColor="#a78bfa" />
-                  </linearGradient>
-                </defs>
-
-                <text
-                  x="10"
-                  y="70"
-                  fontFamily="Futura, Arial, sans-serif"
-                  fontSize="60"
-                  fontWeight="500"
-                  fill="white"
-                  letterSpacing="8"
-                >
-                  CLUTTER
-                </text>
-
-                <text
-                  x="330"
-                  y="70"
-                  fontFamily="Futura, Arial, sans-serif"
-                  fontSize="60"
-                  fontWeight="500"
-                  letterSpacing="8"
-                >
-                  <tspan ref={aiTspanRef} fill="url(#gradient)">
-                    AI
-                  </tspan>
-                </text>
-
-                <g
-                  ref={starRef}
-                  className="logo-star"
-                  transform="translate(430 50)"
-                  opacity="0.95"
-                  aria-hidden="true"
-                >
-                  <line x1="0" y1="-24" x2="0" y2="-4" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="0" y1="4" x2="0" y2="24" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="-21" y1="-12" x2="-3" y2="-2" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="3" y1="2" x2="21" y2="12" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="21" y1="-12" x2="3" y2="-2" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="-3" y1="2" x2="-21" y2="12" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                </g>
+                <line x1="0" y1="-24" x2="0" y2="-4"  stroke="#f0ede8" strokeWidth="2.8" strokeLinecap="round" />
+                <line x1="0" y1="4"  x2="0" y2="24"   stroke="#f0ede8" strokeWidth="2.8" strokeLinecap="round" />
+                <line x1="-21" y1="-12" x2="-3" y2="-2" stroke="#f0ede8" strokeWidth="2.8" strokeLinecap="round" />
+                <line x1="3"  y1="2"  x2="21" y2="12"  stroke="#f0ede8" strokeWidth="2.8" strokeLinecap="round" />
+                <line x1="21" y1="-12" x2="3"  y2="-2" stroke="#f0ede8" strokeWidth="2.8" strokeLinecap="round" />
+                <line x1="-3" y1="2"  x2="-21" y2="12" stroke="#f0ede8" strokeWidth="2.8" strokeLinecap="round" />
               </svg>
             </Link>
 
-            {/* Right side: links + login + mobile toggle */}
+            {/* Right side */}
             <div className="nav-right">
               <div className="desktop-menu" role="navigation" aria-label="Main navigation">
                 {links.map((link) => (
@@ -139,10 +58,7 @@ export const Navigation: React.FC = () => {
                     href={link.href}
                     className={`nav-link ${isActive(link.href) ? "active" : ""}`}
                   >
-                    <span className="link-text">{link.label}</span>
-                    {isActive(link.href) && (
-                      <span className="active-indicator" aria-hidden="true"></span>
-                    )}
+                    {link.label}
                   </Link>
                 ))}
               </div>
@@ -154,8 +70,8 @@ export const Navigation: React.FC = () => {
                 rel="noopener noreferrer"
                 aria-label="Open ClutterAI app"
               >
-                <span className="button-text">Log in</span>
-                <svg className="button-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                Log in
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="btn-arrow">
                   <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
@@ -167,7 +83,7 @@ export const Navigation: React.FC = () => {
                 aria-controls="mobile-menu"
                 aria-label="Toggle menu"
               >
-                <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}>
+                <span className={`hamburger ${mobileMenuOpen ? "open" : ""}`}>
                   <span></span>
                   <span></span>
                   <span></span>
@@ -185,25 +101,17 @@ export const Navigation: React.FC = () => {
                   className={`mobile-link ${isActive(link.href) ? "active" : ""}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <span className="mobile-link-text">{link.label}</span>
-                  {isActive(link.href) && (
-                    <span className="mobile-active-dot" aria-hidden="true"></span>
-                  )}
+                  {link.label}
                 </Link>
               ))}
-
               <a
                 className="mobile-login"
                 href="https://app.clutter-ai.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
-                aria-label="Open ClutterAI app"
               >
-                Log in
-                <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-                  <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                Log in →
               </a>
             </div>
           )}
@@ -211,7 +119,8 @@ export const Navigation: React.FC = () => {
       </nav>
 
       <style jsx>{`
-        /* Navigation Shell - Floating Island Design */
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600&display=swap');
+
         .navigation {
           position: fixed;
           top: 20px;
@@ -219,12 +128,9 @@ export const Navigation: React.FC = () => {
           right: 0;
           z-index: 1000;
           pointer-events: none;
-          transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: top 0.3s ease;
         }
-
-        .navigation.scrolled {
-          top: 12px;
-        }
+        .navigation.scrolled { top: 12px; }
 
         .nav-shell {
           max-width: 1200px;
@@ -233,396 +139,211 @@ export const Navigation: React.FC = () => {
           pointer-events: auto;
         }
 
-        /* Ultra-Modern Glass Container */
         .nav-container {
-          position: relative;
           display: flex;
           align-items: center;
           gap: 20px;
           padding: 10px 20px;
-          border-radius: 100px;
-          background: rgba(10, 10, 10, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 
-            0 8px 32px rgba(0, 0, 0, 0.4),
-            0 2px 8px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(20px) saturate(180%);
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 999px;
+          background: rgba(10,10,10,0.7);
+          border: 1px solid rgba(240,237,232,0.07);
+          backdrop-filter: blur(20px) saturate(160%);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+          transition: background 0.3s ease, box-shadow 0.3s ease;
         }
-
         .scrolled .nav-container {
-          background: rgba(5, 5, 5, 0.75);
-          backdrop-filter: blur(24px) saturate(200%);
-          box-shadow: 
-            0 12px 48px rgba(0, 0, 0, 0.5),
-            0 4px 12px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          background: rgba(6,6,6,0.82);
+          box-shadow: 0 12px 48px rgba(0,0,0,0.5);
         }
 
-        /* Ambient Glow Effect */
-        .nav-glow {
-          position: absolute;
-          inset: -50%;
-          background: radial-gradient(
-            circle at 50% 50%,
-            rgba(139, 92, 246, 0.15) 0%,
-            transparent 50%
-          );
-          filter: blur(40px);
-          opacity: 0;
-          transition: opacity 0.6s ease;
-          pointer-events: none;
-          animation: glow 3s ease-in-out infinite;
-        }
-
-        .nav-container:hover .nav-glow {
-          opacity: 1;
-        }
-
-        /* Logo - Enhanced */
+        /* Logo */
         .logo {
           display: inline-flex;
           align-items: center;
           text-decoration: none;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          animation: float 3s ease-in-out infinite;
+          opacity: 0.9;
+          transition: opacity 0.2s;
         }
+        .logo:hover { opacity: 1; }
 
-        .logo:hover {
-          transform: translateY(-2px) scale(1.02);
-          filter: drop-shadow(0 10px 30px rgba(139, 92, 246, 0.4));
-        }
-
-        .logo-svg {
-          height: 42px;
-          width: auto;
-          display: block;
-          overflow: visible;
-        }
-
-        .logo-star {
-          transition: all 0.3s ease;
-        }
-
-        .logo:hover .logo-star {
-          transform: translate(430px, 50px) rotate(15deg) scale(1.1);
-        }
-
-        /* Right Section */
+        /* Right */
         .nav-right {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
+          gap: 6px;
           margin-left: auto;
         }
 
-        /* Desktop Menu - Pill Navigation */
+        /* Desktop nav links */
         .desktop-menu {
           display: inline-flex;
           align-items: center;
-          gap: 4px;
-          padding: 4px;
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 100px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
+          gap: 2px;
         }
 
-        /* Navigation Links - Magnetic Hover Effect */
         :global(.nav-link) {
-          position: relative;
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          height: 36px;
-          padding: 0 18px;
-          border-radius: 100px;
+          height: 34px;
+          padding: 0 16px;
+          border-radius: 999px;
           text-decoration: none;
-          color: rgba(255, 255, 255, 0.7);
-          font-weight: 600;
-          font-size: 0.9rem;
-          letter-spacing: -0.01em;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          color: rgba(240,237,232,0.45);
+          font-family: 'Figtree', sans-serif;
+          font-weight: 500;
+          font-size: 0.875rem;
+          letter-spacing: 0.01em;
+          transition: color 0.2s, background 0.2s;
           white-space: nowrap;
-          overflow: hidden;
         }
-
-        :global(.nav-link::before) {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-radius: 100px;
-          background: linear-gradient(
-            135deg,
-            rgba(139, 92, 246, 0.1) 0%,
-            rgba(124, 58, 237, 0.05) 100%
-          );
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
         :global(.nav-link:hover) {
-          color: rgba(255, 255, 255, 1);
-          transform: translateY(-1px);
+          color: rgba(240,237,232,0.85);
+          background: rgba(240,237,232,0.05);
         }
-
-        :global(.nav-link:hover::before) {
-          opacity: 1;
-        }
-
-        /* Active Link State */
         :global(.nav-link.active) {
-          color: #ffffff;
-          background: linear-gradient(
-            135deg,
-            rgba(139, 92, 246, 0.2) 0%,
-            rgba(124, 58, 237, 0.15) 100%
-          );
-          box-shadow: 
-            0 4px 12px rgba(139, 92, 246, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          color: #f0ede8;
+          background: rgba(240,237,232,0.08);
         }
 
-        .active-indicator {
-          position: absolute;
-          bottom: -2px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #a78bfa, #8b5cf6);
-          box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
-        }
-
-        /* Launch App Button - Premium CTA */
+        /* Log in CTA */
         .login-button {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 8px;
-          height: 40px;
-          padding: 0 20px;
-          border-radius: 100px;
-          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-          border: 1px solid rgba(139, 92, 246, 0.3);
-          color: #fff;
-          font-weight: 700;
-          font-size: 0.9rem;
+          gap: 6px;
+          height: 36px;
+          padding: 0 18px;
+          border-radius: 999px;
+          background: #f0ede8;
+          color: #0a0a0a;
+          font-family: 'Figtree', sans-serif;
+          font-weight: 600;
+          font-size: 0.875rem;
           text-decoration: none;
-          box-shadow: 
-            0 4px 12px rgba(139, 92, 246, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
+          transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+          margin-left: 6px;
         }
-
-        .login-button::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.2),
-            transparent
-          );
-          transform: translateX(-100%);
-          transition: transform 0.6s ease;
-        }
-
-        .login-button:hover::before {
-          transform: translateX(100%);
-        }
-
         .login-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 
-            0 8px 24px rgba(139, 92, 246, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+          background: #fff;
+          transform: translateY(-1px);
+          box-shadow: 0 6px 20px rgba(240,237,232,0.12);
         }
-
-        .button-arrow {
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .btn-arrow {
+          transition: transform 0.2s ease;
         }
-
-        .login-button:hover .button-arrow {
+        .login-button:hover .btn-arrow {
           transform: translateX(2px);
         }
 
-        /* Mobile Menu Button - Animated Hamburger */
+        /* Hamburger */
         .mobile-menu-button {
           display: none;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #fff;
+          background: rgba(240,237,232,0.05);
+          border: 1px solid rgba(240,237,232,0.1);
+          color: #f0ede8;
           cursor: pointer;
           padding: 10px;
-          border-radius: 12px;
-          width: 44px;
-          height: 44px;
+          border-radius: 10px;
+          width: 40px;
+          height: 40px;
           align-items: center;
           justify-content: center;
-          transition: all 0.3s ease;
+          transition: background 0.2s, border-color 0.2s;
+        }
+        .mobile-menu-button:hover {
+          background: rgba(240,237,232,0.1);
+          border-color: rgba(240,237,232,0.2);
         }
 
         .hamburger {
           display: flex;
           flex-direction: column;
           gap: 4px;
-          width: 20px;
+          width: 18px;
         }
-
         .hamburger span {
           display: block;
           width: 100%;
-          height: 2px;
-          background: #fff;
+          height: 1.5px;
+          background: #f0ede8;
           border-radius: 2px;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.25s ease;
         }
+        .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
-        .hamburger.open span:nth-child(1) {
-          transform: translateY(6px) rotate(45deg);
-        }
-
-        .hamburger.open span:nth-child(2) {
-          opacity: 0;
-        }
-
-        .hamburger.open span:nth-child(3) {
-          transform: translateY(-6px) rotate(-45deg);
-        }
-
-        .mobile-menu-button:hover {
-          background: rgba(139, 92, 246, 0.2);
-          border-color: rgba(139, 92, 246, 0.4);
-        }
-
-        /* Mobile Menu - Modern Dropdown */
+        /* Mobile menu */
         .mobile-menu {
           display: none;
         }
 
-        .mobile-login {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 14px 20px;
-          margin: 8px 8px 8px;
-          border-radius: 16px;
-          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-          border: 1px solid rgba(139, 92, 246, 0.3);
-          color: #fff;
-          text-decoration: none;
-          font-weight: 700;
-          text-align: center;
-          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-          transition: all 0.3s ease;
-        }
-
-        .mobile-login:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
-        }
-
         @media (max-width: 768px) {
-          .desktop-menu {
-            display: none;
-          }
+          .desktop-menu { display: none; }
+          .login-button { display: none; }
+          .mobile-menu-button { display: flex; }
 
-          .login-button {
-            display: none;
-          }
-
-          .mobile-menu-button {
-            display: flex;
-          }
-
-          .nav-shell {
-            padding: 0 16px;
-          }
-
-          .nav-container {
-            padding: 8px 16px;
-            border-radius: 24px;
-          }
-
-          .logo-svg {
-            height: 38px;
-          }
+          .nav-shell { padding: 0 16px; }
+          .nav-container { padding: 8px 16px; border-radius: 20px; }
 
           .mobile-menu {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            margin-top: 12px;
-            background: rgba(10, 10, 10, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 8px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 10px;
+            background: rgba(10,10,10,0.92);
+            border: 1px solid rgba(240,237,232,0.07);
+            border-radius: 16px;
+            padding: 6px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            animation: slideDown 0.25s ease;
           }
 
           @keyframes slideDown {
-            from {
-              opacity: 0;
-              transform: translateY(-10px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: none; }
           }
 
           :global(.mobile-link) {
-            position: relative;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 14px 16px;
-            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 16px;
+            color: rgba(240,237,232,0.55);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Figtree', sans-serif;
+            font-weight: 500;
+            font-size: 0.92rem;
+            border-radius: 10px;
+            transition: color 0.2s, background 0.2s;
           }
-
           :global(.mobile-link:hover) {
-            background: rgba(139, 92, 246, 0.1);
-            color: #ffffff;
-            transform: translateX(4px);
+            color: #f0ede8;
+            background: rgba(240,237,232,0.05);
           }
-
           :global(.mobile-link.active) {
-            background: linear-gradient(
-              135deg,
-              rgba(139, 92, 246, 0.2) 0%,
-              rgba(124, 58, 237, 0.15) 100%
-            );
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+            color: #f0ede8;
+            background: rgba(240,237,232,0.07);
           }
 
-          .mobile-active-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
-            box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+          .mobile-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            margin: 4px 0 2px;
+            border-radius: 10px;
+            background: #f0ede8;
+            color: #0a0a0a;
+            text-decoration: none;
+            font-family: 'Figtree', sans-serif;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: background 0.2s;
           }
+          .mobile-login:hover { background: #fff; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          * {
-            animation: none !important;
-            transition: none !important;
-          }
+          * { animation: none !important; transition: none !important; }
         }
       `}</style>
     </>
