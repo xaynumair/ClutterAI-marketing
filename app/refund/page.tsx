@@ -223,6 +223,31 @@ export default function Refund() {
             </section>
 
             <section>
+              <h2>Chargebacks</h2>
+              <p>
+                <strong>Please contact us before disputing a charge with your bank or card issuer.</strong>{" "}
+                If you have a billing concern, emailing <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>{" "}
+                is always the fastest way to resolve it. We respond within 1–2 business days and will
+                work to make things right.
+              </p>
+              <p>
+                Initiating a chargeback without contacting us first may result in:
+              </p>
+              <ul>
+                <li>Immediate suspension of your ClutterAI account</li>
+                <li>Permanent ban from future purchases where Lemon Squeezy is the merchant</li>
+                <li>A liquidated damage of up to $100 USD per incident, as outlined in Lemon Squeezy's{" "}
+                  <a href="https://www.lemonsqueezy.com/buyer-terms" target="_blank" rel="noopener noreferrer">Buyer Terms</a>
+                </li>
+              </ul>
+              <p>
+                Lemon Squeezy actively defends against fraudulent chargebacks on our behalf. If you
+                believe a charge was made in error, please contact us first — we will resolve it
+                promptly without the need for a bank dispute.
+              </p>
+            </section>
+
+            <section>
               <h2>Refund Abuse and Fraud Prevention</h2>
               <p>To protect our service and community, we reserve the right to:</p>
               <ul>
