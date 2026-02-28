@@ -24,7 +24,8 @@ export default function Refund() {
               </p>
               <p>
                 We strive to provide a great experience with ClutterAI. If you're not satisfied, this policy
-                explains your refund options.
+                explains your refund options. Please note that our 30-day money-back guarantee is subject
+                to a fair usage limit — accounts that have submitted 20 or more queries are not eligible.
               </p>
             </section>
 
@@ -37,10 +38,21 @@ export default function Refund() {
                 <li>First-time purchases of any ClutterAI subscription plan (Student, Individual, or Team)</li>
                 <li>Purchases made within the last 30 days from the date of payment</li>
                 <li>Subscriptions purchased directly through our website checkout (powered by Lemon Squeezy)</li>
+                <li>Accounts that have submitted <strong>fewer than 20 queries</strong> in total since sign-up</li>
               </ul>
               <p>
-                If you're not satisfied with ClutterAI for any reason within your first 30 days, you can
-                request a full refund — no questions asked.
+                If you're not satisfied with ClutterAI within your first 30 days and have made fewer than
+                20 queries, you can request a full refund. This limit exists to prevent abuse of our
+                guarantee while still giving genuine new users ample opportunity to evaluate the service.
+              </p>
+              <p>
+                <strong>Accounts that have submitted 20 or more queries are not eligible for the 30-day
+                money-back guarantee</strong>, as this level of usage indicates the service has been
+                meaningfully evaluated and used.
+              </p>
+              <p>
+                EU/UK consumers retain their statutory 14-day cancellation right regardless of query count —
+                see the EU/UK section below.
               </p>
 
               <h3>What's Covered</h3>
