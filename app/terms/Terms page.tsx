@@ -12,7 +12,7 @@ export default function Terms() {
         <article>
           <p className="eyebrow">Legal</p>
           <h1 className="headline">Terms of Service</h1>
-          <p className="last-updated">Last updated: December 21, 2025</p>
+          <p className="last-updated">Last updated: February 28, 2026</p>
 
           <div className="body">
             <section>
@@ -36,7 +36,7 @@ export default function Terms() {
               <h2>2. Description of Service</h2>
               <p>ClutterAI is an AI-powered knowledge search platform that allows you to:</p>
               <ul>
-                <li>Connect third-party services (Google Drive, Gmail, Slack, Calendar, Notion)</li>
+                <li>Connect third-party services (Google Drive, Gmail, Slack, Calendar, Notion, and others)</li>
                 <li>Search your connected content using natural language queries</li>
                 <li>Receive AI-generated answers based on your data</li>
                 <li>Organize and access your information efficiently across multiple platforms</li>
@@ -81,42 +81,44 @@ export default function Terms() {
 
               <h3>4.2 Payment Processing and Merchant of Record</h3>
               <p>
-                <strong>All payments are processed by Gumroad, Inc. ("Gumroad"), which acts as our Merchant of Record.</strong>
+                <strong>All payments are processed by Lemon Squeezy LLC ("Lemon Squeezy"), which acts as our Merchant of Record.</strong>
               </p>
               <p>
-                This means that <strong>Gumroad, not ClutterAI</strong>, is the seller of record for all transactions. Gumroad:
+                This means that <strong>Lemon Squeezy, not ClutterAI</strong>, is the legal seller of record for all transactions.
+                Your invoice and credit card statement will show <strong>Lemon Squeezy</strong>, not ClutterAI —
+                this is expected and confirms your purchase was processed correctly. Lemon Squeezy:
               </p>
               <ul>
                 <li>Processes all payments and stores payment information</li>
-                <li>Issues receipts and invoices</li>
+                <li>Issues receipts and invoices (which will display Lemon Squeezy as the seller)</li>
                 <li>Handles payment disputes, chargebacks, and refund processing</li>
-                <li>Collects and remits applicable taxes (VAT, sales tax, etc.)</li>
+                <li>Collects and remits applicable taxes (VAT, GST, sales tax, etc.) globally</li>
                 <li>Manages subscription billing and renewals</li>
+                <li>Ensures PCI DSS compliance for all payment transactions</li>
               </ul>
               <p>
-                By purchasing a subscription, you agree to Gumroad's Terms of Service:{" "}
-                <a href="https://gumroad.com/terms" target="_blank" rel="noopener noreferrer">gumroad.com/terms</a>
+                By purchasing a subscription, you agree to Lemon Squeezy's Buyer Terms of Service:{" "}
+                <a href="https://www.lemonsqueezy.com/buyer-terms" target="_blank" rel="noopener noreferrer">lemonsqueezy.com/buyer-terms</a>
               </p>
               <p>
-                We receive limited transaction data from Gumroad (email, subscription status, purchase
+                We receive limited transaction data from Lemon Squeezy (email, subscription status, purchase
                 date) solely to provide you access to the Service. We do not receive or store your full
                 payment card details.
               </p>
 
               <h3>4.3 Billing and Renewals</h3>
               <ul>
-                <li>Subscriptions are billed monthly or annually based on your plan selection</li>
-                <li>Billing occurs automatically on your renewal date through Gumroad</li>
-                <li>You authorize Gumroad to charge your payment method on file</li>
-                <li>Subscriptions automatically renew unless cancelled prior to the renewal date</li>
-                <li>You will receive a receipt from Gumroad for each billing cycle</li>
+                <li>Subscriptions are billed monthly based on your plan selection</li>
+                <li>Billing occurs automatically on your renewal date through Lemon Squeezy</li>
+                <li>You authorize Lemon Squeezy to charge your payment method on file</li>
+                <li>Subscriptions automatically renew until cancelled prior to the renewal date</li>
+                <li>You will receive a receipt from Lemon Squeezy for each billing cycle</li>
               </ul>
 
               <h3>4.4 Price Changes</h3>
               <p>We reserve the right to modify subscription pricing. In the event of a price change:</p>
               <ul>
                 <li>We will notify you at least 30 days in advance via email</li>
-                <li>For annual subscriptions, we will notify you at least 7 days before renewal</li>
                 <li>Price changes apply to renewals after the notice period</li>
                 <li>Existing paid periods are not subject to retroactive price increases</li>
                 <li>You may cancel before the renewal date to avoid the new pricing</li>
@@ -126,7 +128,7 @@ export default function Terms() {
               <p>You may cancel your subscription at any time through:</p>
               <ul>
                 <li>Your ClutterAI account settings</li>
-                <li>Your Gumroad account or library</li>
+                <li>The Lemon Squeezy customer portal (link included in your billing confirmation email)</li>
                 <li>Contacting our support team at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a></li>
               </ul>
               <p>Upon cancellation:</p>
@@ -139,23 +141,26 @@ export default function Terms() {
 
               <h3>4.6 Refunds</h3>
               <p>
-                We offer a <strong>30-day money-back guarantee</strong> for new subscriptions purchased
-                directly through Gumroad. This applies to your first purchase of any plan.
+                We offer a <strong>30-day money-back guarantee</strong> for new subscriptions. This applies to your
+                first purchase of any plan.
               </p>
               <p><strong>To request a refund:</strong></p>
               <ul>
                 <li>Email <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a> within 30 days of your initial purchase</li>
-                <li>Include your account email and Gumroad order/receipt number</li>
+                <li>Include your account email and Lemon Squeezy order number (found in your receipt email)</li>
                 <li>Provide a brief reason for the refund request (optional but helpful)</li>
               </ul>
               <p>
-                Approved refunds will be processed by Gumroad within 7–14 business days to your original payment method.
+                Approved refunds are processed by Lemon Squeezy within 5–10 business days to your original payment method.
+              </p>
+              <p>
+                Please note: Lemon Squeezy reserves the right to issue refunds within 60 days of purchase at its
+                own discretion to prevent chargebacks, regardless of your subscription status at the time.
               </p>
               <p><strong>Refund Limitations:</strong></p>
               <ul>
                 <li>Partial-period refunds for mid-cycle cancellations are not provided except as required by law</li>
                 <li>Renewals (second month onwards) are generally not eligible for refunds unless required by law</li>
-                <li>Purchases made through third-party resellers are subject to their refund policies</li>
                 <li>Team plan refunds require approval from the team administrator</li>
               </ul>
               <p>See our complete <Link href="/refund">Refund Policy</Link> for additional details.</p>
@@ -238,7 +243,7 @@ export default function Terms() {
               <h2>8. Third-Party Services and Integrations</h2>
               <p>ClutterAI integrates with and relies on third-party services including:</p>
               <ul>
-                <li><strong>Gumroad:</strong> Payment processing and merchant of record</li>
+                <li><strong>Lemon Squeezy LLC:</strong> Payment processing and merchant of record. <a href="https://www.lemonsqueezy.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
                 <li><strong>Google (Drive, Gmail, Calendar):</strong> OAuth integration and data access</li>
                 <li><strong>Slack:</strong> Workspace integration</li>
                 <li><strong>Notion:</strong> Workspace and database integration</li>
@@ -322,7 +327,7 @@ export default function Terms() {
                 <li>We will retain your data for 30 days to allow for recovery or reactivation</li>
                 <li>After 30 days, we will securely delete or anonymize your personal data</li>
                 <li>Backup copies will be purged within 90 days</li>
-                <li>Transaction records may be retained by Gumroad for legal and tax purposes</li>
+                <li>Transaction records may be retained by Lemon Squeezy for legal and tax purposes</li>
                 <li>No refunds will be provided for unused subscription time (except as required by law)</li>
               </ul>
               <p>
@@ -360,7 +365,9 @@ export default function Terms() {
               </p>
               <p>
                 Nothing in these Terms affects your statutory rights as a consumer under applicable
-                local law, including EU consumer protection laws.
+                local law, including EU consumer protection laws. For consumers in the United States,
+                payment-related disputes are governed by Lemon Squeezy's Buyer Terms, which apply
+                Utah law for US residents.
               </p>
             </section>
 
@@ -406,8 +413,8 @@ export default function Terms() {
                 <li>Subject line: "Terms of Service Inquiry"</li>
               </ul>
               <p>
-                For payment and subscription inquiries, contact Gumroad at:{" "}
-                <a href="https://gumroad.com/contact" target="_blank" rel="noopener noreferrer">gumroad.com/contact</a>
+                For payment and subscription inquiries, contact Lemon Squeezy at:{" "}
+                <a href="https://www.lemonsqueezy.com/support" target="_blank" rel="noopener noreferrer">lemonsqueezy.com/support</a>
               </p>
             </section>
           </div>

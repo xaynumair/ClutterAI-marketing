@@ -11,7 +11,7 @@ export default function Privacy() {
         <article>
           <p className="eyebrow">Legal</p>
           <h1 className="headline">Privacy Policy</h1>
-          <p className="last-updated">Last updated: January 16, 2026</p>
+          <p className="last-updated">Last updated: February 28, 2026</p>
 
           <div className="body">
             <section>
@@ -59,23 +59,26 @@ export default function Privacy() {
 
               <h3>2.4 Payment and Transaction Information</h3>
               <p>
-                <strong>All payments are processed by Gumroad, which acts as our Merchant of Record.</strong>{" "}
-                This means Gumroad, not ClutterAI, is the seller of record for all transactions. We do not
-                store your credit card information. Gumroad collects and processes:
+                <strong>All payments are processed by Lemon Squeezy LLC ("Lemon Squeezy"), which acts as our Merchant of Record.</strong>{" "}
+                This means Lemon Squeezy, not ClutterAI, is the legal seller of record for all transactions.
+                Your invoice and credit card statement will show <strong>Lemon Squeezy</strong>, not ClutterAI —
+                this is expected and confirms your purchase was processed successfully.
+                We do not store your credit card information. Lemon Squeezy collects and processes:
               </p>
               <ul>
                 <li>Payment information (credit/debit card details)</li>
                 <li>Billing address and contact information</li>
                 <li>Transaction history and receipts</li>
-                <li>Tax information (VAT, sales tax, etc.)</li>
+                <li>Tax information (VAT, GST, sales tax, etc.)</li>
                 <li>Purchase metadata</li>
               </ul>
               <p>
-                Gumroad's use of your payment information is governed by their Privacy Policy,
-                available at: <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">gumroad.com/privacy</a>
+                Lemon Squeezy's use of your payment information is governed by their Privacy Policy,
+                available at:{" "}
+                <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener noreferrer">lemonsqueezy.com/privacy</a>
               </p>
               <p>
-                We receive limited transaction data from Gumroad (such as your email, subscription status,
+                We receive limited transaction data from Lemon Squeezy (such as your email, subscription status,
                 and purchase date) solely to provide you access to the Service. We do not receive your
                 full payment card details.
               </p>
@@ -89,7 +92,7 @@ export default function Privacy() {
                 <li>Process your questions through our AI-powered search engine</li>
                 <li>Index and enable semantic search across your connected content</li>
                 <li>Generate relevant search results using natural language processing</li>
-                <li>Verify subscription status and grant access (via Gumroad)</li>
+                <li>Verify subscription status and grant access (via Lemon Squeezy)</li>
                 <li>Send service updates and support communications</li>
                 <li>Improve our Service and develop new features</li>
                 <li>Detect and prevent fraud or abuse</li>
@@ -120,7 +123,14 @@ export default function Privacy() {
 
               <h3>4.1 Essential Service Providers</h3>
               <ul>
-                <li><strong>Gumroad:</strong> Merchant of record for all transactions, payment processing, tax handling, and subscription management. <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+                <li>
+                  <strong>Lemon Squeezy LLC:</strong> Merchant of record for all transactions, payment
+                  processing, tax handling, and subscription management. When you make a purchase, your
+                  payment information and email address are processed by Lemon Squeezy in accordance with
+                  their{" "}
+                  <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                  ClutterAI does not store or have access to your payment card details.
+                </li>
                 <li><strong>Convex:</strong> Backend database and authentication infrastructure for storing your account data and preferences. <a href="https://www.convex.dev/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
                 <li><strong>Vercel:</strong> Web hosting and deployment platform. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
                 <li><strong>OpenAI:</strong> Natural language processing and AI-powered query understanding. Your search queries are sent to OpenAI's API to generate intelligent responses. OpenAI does not use API customer data for training. <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
@@ -232,8 +242,11 @@ export default function Privacy() {
 
               <h3>6.5 Subscription and Payment Management</h3>
               <p>
-                For subscription changes or billing questions, contact Gumroad directly or email us at{" "}
-                <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>.
+                For subscription changes or billing questions, contact Lemon Squeezy directly via their{" "}
+                <a href="https://www.lemonsqueezy.com/support" target="_blank" rel="noopener noreferrer">support portal</a>{" "}
+                or email us at <a href="mailto:support@clutter-ai.com">support@clutter-ai.com</a>.
+                You can also manage your subscription through the Lemon Squeezy customer portal link
+                included in your billing confirmation email.
               </p>
 
               <h3>6.6 Connected Services Management</h3>
@@ -254,7 +267,7 @@ export default function Privacy() {
                 <li><strong>Active Accounts:</strong> Data retained while your account is active</li>
                 <li><strong>After Account Deletion:</strong> Most data deleted within 30 days; backups purged within 90 days</li>
                 <li><strong>Vector Embeddings:</strong> Deleted from Pinecone within 30 days of account deletion</li>
-                <li><strong>Transaction Records:</strong> Retained by Gumroad as required for legal and tax purposes (typically 7 years)</li>
+                <li><strong>Transaction Records:</strong> Retained by Lemon Squeezy as required for legal and tax purposes (typically 7 years)</li>
                 <li><strong>Aggregated/Anonymized Data:</strong> May be retained indefinitely for analytics</li>
               </ul>
               <p>
@@ -325,8 +338,8 @@ export default function Privacy() {
                 <li>Subject line: "Privacy Inquiry"</li>
               </ul>
               <p>
-                For payment and subscription inquiries, contact Gumroad at:{" "}
-                <a href="https://gumroad.com/contact" target="_blank" rel="noopener noreferrer">gumroad.com/contact</a>
+                For payment and subscription inquiries, contact Lemon Squeezy at:{" "}
+                <a href="https://www.lemonsqueezy.com/support" target="_blank" rel="noopener noreferrer">lemonsqueezy.com/support</a>
               </p>
             </section>
           </div>
@@ -371,7 +384,6 @@ export default function Privacy() {
         }
         .back-link:hover { color: rgba(240,237,232,0.7); }
 
-        /* ── Header ── */
         .eyebrow {
           font-size: 0.72rem;
           font-weight: 500;
@@ -396,7 +408,6 @@ export default function Privacy() {
           margin-bottom: 64px;
         }
 
-        /* ── Body ── */
         .body { display: flex; flex-direction: column; gap: 0; }
 
         section {
@@ -459,7 +470,6 @@ export default function Privacy() {
         }
         a:hover { color: #f0ede8; border-color: rgba(240,237,232,0.45); }
 
-        /* ── Footer ── */
         .footer {
           border-top: 1px solid rgba(255,255,255,0.06);
           padding: 24px 40px;
@@ -482,7 +492,6 @@ export default function Privacy() {
         .footer-link:hover { color: rgba(240,237,232,0.6); border-bottom: none; }
         .sep { color: rgba(240,237,232,0.15); font-size: 0.8rem; }
 
-        /* ── Responsive ── */
         @media (max-width: 640px) {
           .container { padding: 32px 20px 80px; }
           .footer { padding: 20px; }
