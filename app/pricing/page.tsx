@@ -8,33 +8,31 @@ export default function Pricing() {
 
   const plans = [
     {
-      name: "Student",
-      description: "For students with a .edu email",
-      priceMonthly: 9,
-      priceAnnual: 90,
+      name: "Free",
+      description: "Explore ClutterAI with your real data",
+      priceMonthly: 0,
+      priceAnnual: 0,
       features: [
-        "Unlimited questions",
-        "Notion integration",
-        "GitHub & GitLab",
-        "Gmail & Google Drive",
-        "Google Calendar",
-        "Email support",
+        "All 13 integrations — connect everything",
+        "AI-powered search across your tools",
+        "Generous free usage every 5 hours",
+        "All agents included: Digest, Pulse, Triage",
+        "Forge coding agent (starter allowance)",
+        "Boosted usage for your first 48 hours",
       ],
       cta: "Start for free",
       popular: false,
     },
     {
-      name: "Individual",
-      description: "For professionals and freelancers",
+      name: "Pro",
+      description: "For professionals who work across tools all day",
       priceMonthly: 19,
       priceAnnual: 190,
       features: [
-        "Everything in Student",
-        "Slack integration",
-        "Jira & Confluence",
-        "Linear integration",
-        "Trello & Airtable",
-        "Zendesk integration",
+        "Everything in Free",
+        "20× chat usage — effectively unlimited",
+        "Full Forge coding agent allowance",
+        "Much higher agent budgets",
         "Priority support",
       ],
       cta: "Start for free",
@@ -47,9 +45,9 @@ export default function Pricing() {
       priceAnnual: 150,
       priceNote: "per member/month",
       features: [
-        "Everything in Individual",
+        "Everything in Pro, for every member",
         "Team knowledge sharing",
-        "Admin dashboard",
+        "Admin console with per-member usage",
         "Member management",
         "Dedicated support",
         "SSO (coming soon)",
@@ -112,7 +110,9 @@ export default function Pricing() {
                   {billingCycle === "monthly" ? plan.priceMonthly : plan.priceAnnual}
                 </span>
                 <span className="period">
-                  {plan.priceNote || (billingCycle === "monthly" ? "/month" : "/year")}
+                  {plan.priceMonthly === 0
+                    ? "forever"
+                    : plan.priceNote || (billingCycle === "monthly" ? "/month" : "/year")}
                 </span>
               </div>
 
