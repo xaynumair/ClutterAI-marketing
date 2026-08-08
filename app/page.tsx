@@ -41,6 +41,21 @@ function Logo({ size = 32, radius = 9 }: { size?: number; radius?: number }) {
   );
 }
 
+// Small asterisk bullet. Deliberately an SVG, not the ✳ character: U+2733 has
+// an emoji presentation, so phones paint it as a green colour glyph.
+function Spark({ size = 9 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true"
+      style={{ display: "block" }}>
+      <g stroke="currentColor" strokeWidth="14" strokeLinecap="round">
+        <line x1="50" y1="12" x2="50" y2="88" />
+        <line x1="17" y1="31" x2="83" y2="69" />
+        <line x1="83" y1="31" x2="17" y2="69" />
+      </g>
+    </svg>
+  );
+}
+
 const TAB_SECTIONS = [
   { id: "search", label: "Ask" },
   { id: "realtime", label: "Real-time" },
@@ -254,7 +269,7 @@ export default function Home() {
                 ))}
                 <div className="sc-chips">
                   {sc.chips.map((c, i) => (
-                    <span key={c} className="sc-chip" style={{ "--i": i } as React.CSSProperties}>↗ {c}</span>
+                    <span key={c} className="sc-chip" style={{ "--i": i } as React.CSSProperties}>→ {c}</span>
                   ))}
                 </div>
               </div>
@@ -306,10 +321,10 @@ export default function Home() {
               notes — then writes back an answer, not a list of links.
             </p>
             <ul className="feat-rows">
-              <li className="feat-row"><span className="fr-mark">✳</span>Every answer cites its sources — one click jumps to the exact email, file, or message</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>Understands time — "the latest invoice" means the latest, down to minutes ago</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>Two modes: search <em>your</em> data, or switch to General for anything beyond it</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>Filter by source when you know where to look — answers get faster and sharper</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Every answer cites its sources — one click jumps to the exact email, file, or message</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Understands time — "the latest invoice" means the latest, down to minutes ago</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Two modes: search <em>your</em> data, or switch to General for anything beyond it</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Filter by source when you know where to look — answers get faster and sharper</li>
             </ul>
           </div>
           <div className="feat-visual">
@@ -328,7 +343,7 @@ export default function Home() {
                 </p>
                 <div className="demo-chips">
                   {["Email · Contract v3", "#operations", "Vendor terms.pdf"].map((c, i) => (
-                    <span key={c} className="demo-chip" style={{ "--i": i + 2 } as React.CSSProperties}>↗ {c}</span>
+                    <span key={c} className="demo-chip" style={{ "--i": i + 2 } as React.CSSProperties}>→ {c}</span>
                   ))}
                 </div>
               </div>
@@ -369,9 +384,9 @@ export default function Home() {
               so answers reflect what happened minutes ago, not last week.
             </p>
             <ul className="feat-rows">
-              <li className="feat-row"><span className="fr-mark">✳</span>A message is searchable seconds after it's posted — edits included</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>New email lands in your index the moment it lands in your inbox</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>Background syncs still run as a safety net, so nothing slips through</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>A message is searchable seconds after it's posted — edits included</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>New email lands in your index the moment it lands in your inbox</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Background syncs still run as a safety net, so nothing slips through</li>
             </ul>
           </div>
         </div>
@@ -389,10 +404,10 @@ export default function Home() {
               leaving Slack.
             </p>
             <ul className="feat-rows">
-              <li className="feat-row"><span className="fr-mark">✳</span>Channel replies are visible only to you — private data never prints publicly</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>Worth sharing? One click posts the answer to the channel — your choice, always</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>DM the bot for a private back-and-forth, sources included</li>
-              <li className="feat-row"><span className="fr-mark">✳</span>Same account, same limits, same security as the app</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Channel replies are visible only to you — private data never prints publicly</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Worth sharing? One click posts the answer to the channel — your choice, always</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>DM the bot for a private back-and-forth, sources included</li>
+              <li className="feat-row"><span className="fr-mark"><Spark /></span>Same account, same limits, same security as the app</li>
             </ul>
           </div>
           <div className="feat-visual">
@@ -420,7 +435,7 @@ export default function Home() {
                   </p>
                   <div className="demo-chips">
                     {["Email · Renewal confirmation", "#accounts"].map((c, i) => (
-                      <span key={c} className="demo-chip" style={{ "--i": i + 2 } as React.CSSProperties}>↗ {c}</span>
+                      <span key={c} className="demo-chip" style={{ "--i": i + 2 } as React.CSSProperties}>→ {c}</span>
                     ))}
                   </div>
                   <span className="demo-share" style={{ "--i": 4 } as React.CSSProperties}>Share to channel</span>
@@ -461,10 +476,10 @@ export default function Home() {
                 instead of starting over.
               </p>
               <ul className="feat-rows">
-                <li className="feat-row"><span className="fr-mark">✳</span>Complete files stream into a side panel — tabbed, editable, syntax-highlighted</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Save to your workspace and reopen any file in any conversation, any day</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Each revision becomes a version — flip between them and see the line-by-line diff</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>A decision timeline of what your team decided — click one to trace how it came to be</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Complete files stream into a side panel — tabbed, editable, syntax-highlighted</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Save to your workspace and reopen any file in any conversation, any day</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Each revision becomes a version — flip between them and see the line-by-line diff</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>A decision timeline of what your team decided — click one to trace how it came to be</li>
               </ul>
             </div>
             <div className="agent-visual">
@@ -519,9 +534,9 @@ export default function Home() {
                 instead of the whole pile.
               </p>
               <ul className="feat-rows">
-                <li className="feat-row"><span className="fr-mark">✳</span>Separates what's urgent, what needs a reply, and what's just noise</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Works across sources at once — messages and email ranked together, not app by app</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Every item links straight back to where it came from</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Separates what's urgent, what needs a reply, and what's just noise</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Works across sources at once — messages and email ranked together, not app by app</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Every item links straight back to where it came from</li>
               </ul>
             </div>
           </div>
@@ -559,10 +574,10 @@ export default function Home() {
                 obligations in both directions.
               </p>
               <ul className="feat-rows">
-                <li className="feat-row"><span className="fr-mark">✳</span>Commitments you made, replies you're owed, and questions left unanswered</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Items close themselves — when the reply lands or the task ships, the ledger updates</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Anything that goes quiet for too long ages out on its own, so the list stays honest</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Every item links back to the message or email it came from</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Commitments you made, replies you're owed, and questions left unanswered</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Items close themselves — when the reply lands or the task ships, the ledger updates</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Anything that goes quiet for too long ages out on its own, so the list stays honest</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Every item links back to the message or email it came from</li>
               </ul>
             </div>
           </div>
@@ -583,9 +598,9 @@ export default function Home() {
                 what's still unresolved between you.
               </p>
               <ul className="feat-rows">
-                <li className="feat-row"><span className="fr-mark">✳</span>The last threads, files and decisions involving each attendee</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Open items with that person, so nothing is forgotten in the room</li>
-                <li className="feat-row"><span className="fr-mark">✳</span>Ready before you walk in — no prep, no digging through history</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>The last threads, files and decisions involving each attendee</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Open items with that person, so nothing is forgotten in the room</li>
+                <li className="feat-row"><span className="fr-mark"><Spark /></span>Ready before you walk in — no prep, no digging through history</li>
               </ul>
             </div>
             <div className="agent-visual">
@@ -914,7 +929,8 @@ export default function Home() {
           font-size: 0.88rem; line-height: 1.65; color: rgba(240,237,232,0.55); font-weight: 300;
           border-top: 1px solid rgba(255,255,255,0.05); transition: color 0.25s, padding-left 0.3s ease; }
         .feat-row:hover { color: rgba(240,237,232,0.85); padding-left: 5px; }
-        .fr-mark { color: rgba(240,237,232,0.25); flex-shrink: 0; font-size: 0.8rem; transition: color 0.25s; }
+        .fr-mark { color: rgba(240,237,232,0.3); flex-shrink: 0; transition: color 0.25s;
+          display: flex; align-items: center; height: 1.45em; }
         .feat-row:hover .fr-mark { color: rgba(240,237,232,0.6); }
 
         /* ── Cards / mocks ── */

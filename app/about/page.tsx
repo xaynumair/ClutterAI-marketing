@@ -505,12 +505,20 @@ export default function About() {
           margin-right: auto;
         }
 
-        .gradient-text {
-          background: linear-gradient(135deg, #f0ede8 0%, #f0ede8 50%, rgba(240,237,232,0.6) 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shimmer 3s ease-in-out infinite;
+        /* Painted text is opt-in: solid cream by default, gradient only where
+           background-clip:text is genuinely supported. The old version also
+           animated the filter property on this element, which makes clipped
+           text vanish
+           on several mobile browsers. */
+        .gradient-text { color: #f0ede8; }
+
+        @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+          .gradient-text {
+            background: linear-gradient(135deg, #f0ede8 0%, #f0ede8 50%, rgba(240,237,232,0.6) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
         }
 
         @keyframes shimmer {
@@ -607,10 +615,7 @@ export default function About() {
         .stat-number {
           font-size: 4rem;
           font-weight: 900;
-          background: linear-gradient(135deg, #f0ede8, #f0ede8);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: #f0ede8;
           line-height: 1;
           margin-bottom: 12px;
         }
@@ -682,10 +687,7 @@ export default function About() {
         .step-number {
           font-size: 3rem;
           font-weight: 900;
-          background: linear-gradient(135deg, rgba(240,237,232,0.3), rgba(240,237,232,0.1));
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: rgba(240,237,232,0.24);
           line-height: 1;
         }
 
