@@ -22,10 +22,15 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.22",
+    "baseline-browser-mapping": "^2.11.13",
     "eslint": "^9",
     "eslint-config-next": "16.0.6",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.11.1": true
   }
 }
