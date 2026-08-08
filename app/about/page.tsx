@@ -349,14 +349,35 @@ export default function About() {
           padding: 0;
         }
 
+        /* Only ONE scroll container on the page.
+           - overflow-x: hidden on an element promotes overflow-y to auto, so the
+             element becomes its own scroller → a second bar.
+           - overflow-x: hidden on BOTH html and body does the same thing at
+             document level → also a second bar.
+           overflow-x: clip trims horizontally without creating a scroller. */
+        :global(body) { background: #141413; }
+
         .about-page {
           min-height: 100vh;
           background: #141413;
           color: #f0ede8;
           position: relative;
           font-family: 'Figtree', sans-serif;
-          overflow-x: hidden;
+          overflow-x: clip;
         }
+
+        /* Scrollbar styling — the marketing site is a separate app from
+           app.clutter-ai.com, so it needs its own rules. */
+        :global(html) { scrollbar-width: thin; scrollbar-color: rgba(240,237,232,0.18) transparent; }
+        :global(::-webkit-scrollbar) { width: 10px; height: 10px; }
+        :global(::-webkit-scrollbar-track) { background: transparent; }
+        :global(::-webkit-scrollbar-thumb) {
+          background: rgba(240,237,232,0.16);
+          border-radius: 999px;
+          border: 3px solid transparent;
+          background-clip: content-box;
+        }
+        :global(::-webkit-scrollbar-thumb:hover) { background: rgba(240,237,232,0.3); background-clip: content-box; }
 
         /* Animated Background */
         .bg-visuals {

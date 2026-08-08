@@ -10,6 +10,7 @@ export const Navigation: React.FC = () => {
 
   const links = [
     { href: "/", label: "Home" },
+    { href: "/about", label: "Overview" },
     { href: "/pricing", label: "Pricing" },
     { href: "/contact", label: "Support" },
   ];
@@ -145,14 +146,14 @@ export const Navigation: React.FC = () => {
           gap: 20px;
           padding: 10px 20px;
           border-radius: 999px;
-          background: rgba(10,10,10,0.7);
+          background: rgba(20,20,19,0.72);
           border: 1px solid rgba(240,237,232,0.07);
           backdrop-filter: blur(20px) saturate(160%);
           box-shadow: 0 8px 32px rgba(0,0,0,0.35);
           transition: background 0.3s ease, box-shadow 0.3s ease;
         }
         .scrolled .nav-container {
-          background: rgba(6,6,6,0.82);
+          background: rgba(14,14,13,0.85);
           box-shadow: 0 12px 48px rgba(0,0,0,0.5);
         }
 
@@ -214,7 +215,7 @@ export const Navigation: React.FC = () => {
           padding: 0 18px;
           border-radius: 999px;
           background: #f0ede8;
-          color: #0a0a0a;
+          color: #141413;
           font-family: 'Figtree', sans-serif;
           font-weight: 600;
           font-size: 0.875rem;
@@ -289,7 +290,7 @@ export const Navigation: React.FC = () => {
             display: flex;
             flex-direction: column;
             margin-top: 10px;
-            background: rgba(10,10,10,0.92);
+            background: rgba(20,20,19,0.94);
             border: 1px solid rgba(240,237,232,0.07);
             border-radius: 16px;
             padding: 6px;
@@ -332,7 +333,7 @@ export const Navigation: React.FC = () => {
             margin: 4px 0 2px;
             border-radius: 10px;
             background: #f0ede8;
-            color: #0a0a0a;
+            color: #141413;
             text-decoration: none;
             font-family: 'Figtree', sans-serif;
             font-weight: 600;

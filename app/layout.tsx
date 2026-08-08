@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/Navigation";
+import SiteLoader from "./components/SiteLoader";
 // 1. Import the font from next/font/google
 import { Inter } from "next/font/google";
 
@@ -30,6 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* Covers the first paint until the page has finished loading,
+            then the doors slide apart. Must render before everything else. */}
+        <SiteLoader />
         <Navigation />
         {children}
       </body>

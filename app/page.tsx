@@ -103,14 +103,52 @@ export default function Home() {
     return () => clearInterval(t);
   }, [mounted]);
 
+  // Reveal-on-scroll — hardened so content can never be stranded invisible.
+  // Everything starts at opacity 0 and waits for the ".in" class, so any
+  // failure of the observer leaves whole sections blank. Three safeguards:
+  //   1. threshold 0 — sections taller than the viewport still trigger
+  //      (a percentage threshold on a very tall element may never be met)
+  //   2. an immediate pass that reveals anything already on screen at mount
+  //   3. a failsafe that reveals everything after 2.5s no matter what,
+  //      plus an instant reveal-all if IntersectionObserver is unavailable
   useEffect(() => {
     if (!mounted) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    const nodes = Array.from(
+      document.querySelectorAll<HTMLElement>(".reveal, .reveal-child, .demo")
     );
-    document.querySelectorAll(".reveal, .reveal-child, .demo").forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    if (nodes.length === 0) return;
+
+    const revealAll = () => nodes.forEach((el) => el.classList.add("in"));
+
+    if (typeof IntersectionObserver === "undefined") {
+      revealAll();
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    nodes.forEach((el) => {
+      // Already visible at mount (e.g. behind the loader)? Reveal now.
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("in");
+      else io.observe(el);
+    });
+
+    const failsafe = window.setTimeout(revealAll, 2500);
+
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failsafe);
+    };
   }, [mounted]);
 
   useEffect(() => {
@@ -137,26 +175,10 @@ export default function Home() {
       <div className="bg-glow bg-glow-b" />
       <div className="bg-grid" />
 
-      {/* ── Nav ── */}
-      <header className={`nav ${mounted ? "nav-in" : ""}`}>
-        <div className="nav-inner">
-          <a href="/" className="brand">
-            <span className="brand-logo"><Logo size={32} radius={9} /></span>
-            <span className="wordmark">ClutterAI</span>
-          </a>
-          <nav className="nav-links">
-            <a href="/pricing" className="nav-link">Pricing</a>
-            <a href="/about" className="nav-link">About</a>
-            <a href="https://app.clutter-ai.com/signup" className="nav-cta">Get started →</a>
-          </nav>
-        </div>
-      </header>
-
       {/* ── Hero ── */}
       <main className="hero sec-a">
         <div className="hero-inner">
           <div className={`hero-left ${mounted ? "hero-left-in" : ""}`}>
-            <span className="hero-badge"><span className="hb-dot" />Now with real-time sync &amp; Slack</span>
             <h1 className="headline">
               <span className="hl-line">Stop</span>
               <span className="hl-line hl-dim">searching.</span>
@@ -734,28 +756,6 @@ export default function Home() {
 
         /* ── Logo ── */
         .logo-svg { display: block; border-radius: inherit; }
-        .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
-        .brand-logo { display: flex; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
-        .brand:hover .brand-logo { transform: rotate(90deg); }
-
-        /* ── Nav ── */
-        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
-          background: rgba(20,20,19,0.85); backdrop-filter: blur(22px);
-          opacity: 0; transform: translateY(-10px);
-          transition: opacity 0.55s ease 0.05s, transform 0.55s ease 0.05s; }
-        .nav.nav-in { opacity: 1; transform: none; }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 64px;
-          display: flex; align-items: center; justify-content: space-between; }
-        .wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 1.08rem; color: #f0ede8; letter-spacing: -0.03em; }
-        .nav-links { display: flex; align-items: center; gap: 28px; }
-        .nav-link { font-size: 0.88rem; color: rgba(240,237,232,0.45); text-decoration: none; transition: color 0.2s; }
-        .nav-link:hover { color: #f0ede8; }
-        .nav-cta { font-size: 0.88rem; font-weight: 500; color: #f0ede8; text-decoration: none;
-          padding: 8px 17px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px;
-          transition: background 0.2s, border-color 0.2s; }
-        .nav-cta:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.3); }
 
         /* ── Hero ── */
         .hero { min-height: 100vh; padding: 0 40px; display: flex; flex-direction: column; justify-content: center; }
@@ -765,12 +765,6 @@ export default function Home() {
         .hero-left { opacity: 0; transform: translateX(-28px);
           transition: opacity 1s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s; }
         .hero-left.hero-left-in { opacity: 1; transform: none; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px;
-          padding: 7px 15px; border-radius: 999px; font-size: 0.76rem; font-weight: 500;
-          color: rgba(240,237,232,0.62); border: 1px solid rgba(255,255,255,0.1);
-          background: rgba(255,255,255,0.03); }
-        .hb-dot { width: 6px; height: 6px; border-radius: 999px; background: #f0ede8;
-          animation: blink 2.4s ease-in-out infinite; }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
         .headline { font-family: 'Unbounded', sans-serif; font-weight: 800;
           font-size: clamp(4rem, 7vw, 7.5rem); line-height: 0.95; letter-spacing: -0.05em;
@@ -809,7 +803,7 @@ export default function Home() {
         .mq-name { font-size: 0.84rem; font-weight: 500; color: rgba(240,237,232,0.7); white-space: nowrap; }
 
         /* ── Section tabs ── */
-        .section-tabs { position: sticky; top: 64px; z-index: 90;
+        .section-tabs { position: sticky; top: 88px; z-index: 90;
           background: rgba(20,20,19,0.92); backdrop-filter: blur(22px);
           border-bottom: 1px solid rgba(255,255,255,0.06); }
         .section-tabs-inner { max-width: 1200px; margin: 0 auto; padding: 10px 40px;
@@ -1187,11 +1181,9 @@ export default function Home() {
           .feat, .showcase, .agents { padding-left: 20px; padding-right: 20px; }
           .footer { padding: 20px; }
           .footer-inner { flex-direction: column; text-align: center; gap: 12px; }
-          .nav-inner { padding: 0 20px; }
           .headline { font-size: clamp(3.2rem, 11vw, 4.5rem); }
           .section-tabs-inner { padding: 10px 12px; }
           .sc-panel { padding: 20px; }
-          .nav-links { gap: 16px; }
           .agent-name { font-size: 1.4rem; }
         }
       `}</style>
