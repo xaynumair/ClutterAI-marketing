@@ -18,10 +18,90 @@ const INTEGRATIONS = [
   { name: "Calendar", logo: <svg viewBox="0 0 48 48" width="15" height="15"><rect width="22" height="22" x="13" y="13" fill="#fff"/><polygon fill="#1e88e5" points="25.68,20.92 26.688,22.36 28.272,21.208 28.272,29.56 30,29.56 30,18.616 28.56,18.616"/><path fill="#1e88e5" d="M22.943 23.745c.625-.574 1.013-1.37 1.013-2.249 0-1.747-1.533-3.168-3.417-3.168-1.602 0-2.972 1.009-3.33 2.453l1.657.421c.165-.664.868-1.146 1.673-1.146.942 0 1.709.646 1.709 1.44 0 .794-.767 1.44-1.709 1.44h-.997v1.728h.997c1.081 0 1.993.751 1.993 1.64 0 .904-.866 1.64-1.931 1.64-.962 0-1.784-.61-1.914-1.418L17 26.802c.262 1.636 1.81 2.87 3.6 2.87 2.007 0 3.64-1.511 3.64-3.368C24.24 25.281 23.736 24.363 22.943 23.745z"/><polygon fill="#4caf50" points="34,42 14,42 13,38 14,34 34,34 35,38"/><polygon fill="#fbc02d" points="38,35 42,34 42,14 38,13 34,14 34,34"/><path fill="#1e88e5" d="M34 14l1-4-1-4H9C7.343 6 6 7.343 6 9v25l4 1 4-1V14H34z"/><polygon fill="#e53935" points="34,34 34,42 42,34"/><path fill="#1565c0" d="M39 6h-5v8h8V9C42 7.343 40.657 6 39 6z"/><path fill="#1565c0" d="M9 42h5v-8H6v5C6 40.657 7.343 42 9 42z"/></svg> },
 ];
 
+// The ClutterAI logo — black tile, white asterisk (matches the app icon).
+// A hairline keeps it readable against the dark page.
+function Logo({ size = 32, radius = 9 }: { size?: number; radius?: number }) {
+  return (
+    <svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true" className="logo-svg">
+      <rect x="0" y="0" width="100" height="100" rx={radius * (100 / size)} fill="#000" />
+      <rect
+        x="0.8" y="0.8" width="98.4" height="98.4"
+        rx={radius * (100 / size) - 0.8}
+        fill="none" stroke="rgba(240,237,232,0.16)" strokeWidth="1.6"
+      />
+      <g stroke="#fff" strokeWidth="7.5" strokeLinecap="round">
+        <line x1="50" y1="16" x2="50" y2="43" />
+        <line x1="50" y1="57" x2="50" y2="84" />
+        <line x1="20" y1="33" x2="43.5" y2="46.5" />
+        <line x1="56.5" y1="53.5" x2="80" y2="67" />
+        <line x1="80" y1="33" x2="56.5" y2="46.5" />
+        <line x1="43.5" y1="53.5" x2="20" y2="67" />
+      </g>
+    </svg>
+  );
+}
+
+const TAB_SECTIONS = [
+  { id: "search", label: "Ask" },
+  { id: "realtime", label: "Real-time" },
+  { id: "slack-bot", label: "Slack" },
+  { id: "agents", label: "Agents" },
+  { id: "security", label: "Security" },
+];
+
+const HERO_QUERIES = [
+  "What did we decide about the pricing change?",
+  "Summarise everything about the Q3 launch",
+  "What am I still waiting on from the design team?",
+  "Which customers asked about SSO last month?",
+];
+
+const SHOWCASE = [
+  {
+    key: "ask",
+    label: "Ask",
+    prompt: "What did we decide about the pricing change?",
+    answer: [
+      "The team settled on a three-tier structure in the leadership channel on the 14th, after the pricing review thread.",
+      "The mid tier moved up, and the annual discount stayed where it was.",
+    ],
+    chips: ["Email · Pricing review", "#leadership", "Pricing doc v4"],
+  },
+  {
+    key: "recall",
+    label: "Recall",
+    prompt: "What am I still waiting on?",
+    answer: [
+      "Three things are outstanding: a contract redline promised last Tuesday, design feedback on the onboarding flow, and a vendor quote.",
+      "Two were promised to you this week — the third has been open for eleven days.",
+    ],
+    chips: ["3 open items", "Digest"],
+  },
+  {
+    key: "build",
+    label: "Build",
+    prompt: "Draft the migration script we discussed",
+    answer: [
+      "Working from the schema in your repo and the constraints agreed in the architecture thread.",
+      "The full file is open in the panel — and saved to your workspace so you can pick it up later.",
+    ],
+    chips: ["migrate.ts", "Forge workspace"],
+  },
+];
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState("search");
+  const [queryIdx, setQueryIdx] = useState(0);
+  const [showcase, setShowcase] = useState(0);
 
   useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const t = setInterval(() => setQueryIdx((i: number) => (i + 1) % HERO_QUERIES.length), 3400);
+    return () => clearInterval(t);
+  }, [mounted]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -29,17 +109,41 @@ export default function Home() {
       (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
       { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
-    document.querySelectorAll(".reveal, .reveal-child").forEach((el) => io.observe(el));
+    document.querySelectorAll(".reveal, .reveal-child, .demo").forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [mounted]);
 
+  useEffect(() => {
+    if (!mounted) return;
+    const els = TAB_SECTIONS.map((s) => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
+    const spy = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveTab(e.target.id); }),
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    els.forEach((el) => spy.observe(el));
+    return () => spy.disconnect();
+  }, [mounted]);
+
+  const scrollTo = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const sc = SHOWCASE[showcase];
+
   return (
     <div className="root">
+      <div className="bg-glow bg-glow-a" />
+      <div className="bg-glow bg-glow-b" />
+      <div className="bg-grid" />
 
       {/* ── Nav ── */}
       <header className={`nav ${mounted ? "nav-in" : ""}`}>
         <div className="nav-inner">
-          <a href="/" className="wordmark">ClutterAI</a>
+          <a href="/" className="brand">
+            <span className="brand-logo"><Logo size={32} radius={9} /></span>
+            <span className="wordmark">ClutterAI</span>
+          </a>
           <nav className="nav-links">
             <a href="/pricing" className="nav-link">Pricing</a>
             <a href="/about" className="nav-link">About</a>
@@ -49,9 +153,10 @@ export default function Home() {
       </header>
 
       {/* ── Hero ── */}
-      <main className="hero">
+      <main className="hero sec-a">
         <div className="hero-inner">
           <div className={`hero-left ${mounted ? "hero-left-in" : ""}`}>
+            <span className="hero-badge"><span className="hb-dot" />Now with real-time sync &amp; Slack</span>
             <h1 className="headline">
               <span className="hl-line">Stop</span>
               <span className="hl-line hl-dim">searching.</span>
@@ -61,9 +166,17 @@ export default function Home() {
           </div>
           <div className={`hero-right ${mounted ? "hero-right-in" : ""}`}>
             <p className="subtext">
-              Connect every tool your team uses. Ask anything in plain English.
-              Get answers with sources — not links to go search yourself.
+              Connect every tool your team uses. Ask anything in plain English —
+              in the app or right inside Slack — and get answers with sources,
+              synced the moment things happen.
             </p>
+
+            <div className="hero-ask">
+              <span className="ha-logo"><Logo size={22} radius={6} /></span>
+              <span key={queryIdx} className="ha-text">{HERO_QUERIES[queryIdx]}</span>
+              <span className="ha-caret" />
+            </div>
+
             <div className="hero-actions">
               <a href="https://app.clutter-ai.com/signup" className="cta-primary">Start for free</a>
               <a href="/pricing" className="cta-ghost">See pricing →</a>
@@ -71,12 +184,65 @@ export default function Home() {
             <p className="hero-footnote">No credit card required · 2-minute setup</p>
           </div>
         </div>
-        <div className={`hero-rule ${mounted ? "hero-rule-in" : ""}`} />
       </main>
 
+      {/* ── Marquee ── */}
+      <section className="marquee-wrap sec-b">
+        <div className="marquee">
+          <div className="marquee-track">
+            {[...INTEGRATIONS, ...INTEGRATIONS].map((item, i) => (
+              <span key={i} className="mq-item">
+                <span className="logo-icon">{item.logo}</span>
+                <span className="mq-name">{item.name}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ── Problem statement ── */}
-      <section className="problem reveal">
+      {/* ── Section tabs ── */}
+      <div className="section-tabs">
+        <div className="section-tabs-inner">
+          {TAB_SECTIONS.map((s) => (
+            <a key={s.id} href={`#${s.id}`} onClick={scrollTo(s.id)}
+              className={`stab ${activeTab === s.id ? "stab-active" : ""}`}>
+              {s.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Showcase ── */}
+      <section className="showcase sec-a reveal">
+        <div className="showcase-inner">
+          <h2 className="sec-title center">How teams use ClutterAI</h2>
+          <div className="sc-tabs">
+            {SHOWCASE.map((s, i) => (
+              <button key={s.key} onClick={() => setShowcase(i)}
+                className={`sc-tab ${i === showcase ? "sc-tab-active" : ""}`}>{s.label}</button>
+            ))}
+          </div>
+          <div className="sc-panel" key={sc.key}>
+            <div className="sc-prompt"><span className="sc-label">Prompt</span>{sc.prompt}</div>
+            <div className="sc-answer">
+              <span className="sc-logo"><Logo size={32} radius={9} /></span>
+              <div className="sc-answer-body">
+                {sc.answer.map((p, i) => (
+                  <p key={i} className="sc-p" style={{ "--i": i } as React.CSSProperties}>{p}</p>
+                ))}
+                <div className="sc-chips">
+                  {sc.chips.map((c, i) => (
+                    <span key={c} className="sc-chip" style={{ "--i": i } as React.CSSProperties}>↗ {c}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Problem ── */}
+      <section className="problem sec-b reveal">
         <div className="problem-inner">
           <div className="problem-stat">
             <span className="problem-num">1.8</span>
@@ -90,13 +256,13 @@ export default function Home() {
       </section>
 
       {/* ── Stats ── */}
-      <section className="stats">
+      <section className="stats sec-a">
         <div className="stats-inner">
           {[
-            { n: "12+", l: "Integrations" },
-            { n: "1", l: "Question to search everything" },
+            { n: "13+", l: "Integrations" },
+            { n: "Real-time", l: "New messages searchable in seconds" },
             { n: "<2s", l: "Average answer time" },
-            { n: "SOC 2", l: "Security standard" },
+            { n: "1", l: "Place for everything" },
           ].map((s, i) => (
             <div key={s.n} className="stat reveal-child" style={{ "--d": `${i * 80}ms` } as React.CSSProperties}>
               <span className="stat-num">{s.n}</span>
@@ -106,12 +272,330 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Ask ── */}
+      <section id="search" className="feat sec-b reveal">
+        <div className="feat-inner">
+          <div className="feat-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+            <p className="feat-kicker"><span className="fk-dot" />Unified search</p>
+            <h2 className="feat-title">One question.<br />Every tool answers.</h2>
+            <p className="feat-desc">
+              Ask in plain English and ClutterAI searches everything you've
+              connected at once — email threads, documents, channels, tickets,
+              notes — then writes back an answer, not a list of links.
+            </p>
+            <ul className="feat-rows">
+              <li className="feat-row"><span className="fr-mark">✳</span>Every answer cites its sources — one click jumps to the exact email, file, or message</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>Understands time — "the latest invoice" means the latest, down to minutes ago</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>Two modes: search <em>your</em> data, or switch to General for anything beyond it</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>Filter by source when you know where to look — answers get faster and sharper</li>
+            </ul>
+          </div>
+          <div className="feat-visual">
+            <div className="mock demo">
+              <div className="demo-q">Where did we land on the vendor contract?</div>
+              <div className="demo-thinking">
+                <span className="dt-dot" /><span className="dt-dot" /><span className="dt-dot" />
+                <span className="dt-text">Searching your workspace…</span>
+              </div>
+              <div className="demo-a">
+                <p className="demo-p" style={{ "--i": 0 } as React.CSSProperties}>
+                  You agreed to the revised terms on the 9th — net-30 payment, twelve-month commit, with the security addendum attached.
+                </p>
+                <p className="demo-p" style={{ "--i": 1 } as React.CSSProperties}>
+                  Legal signed off the following morning in the operations channel.
+                </p>
+                <div className="demo-chips">
+                  {["Email · Contract v3", "#operations", "Vendor terms.pdf"].map((c, i) => (
+                    <span key={c} className="demo-chip" style={{ "--i": i + 2 } as React.CSSProperties}>↗ {c}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Real-time ── */}
+      <section id="realtime" className="feat sec-a reveal">
+        <div className="feat-inner feat-flip">
+          <div className="feat-visual">
+            <div className="mock demo">
+              <div className="demo-event" style={{ "--i": 0 } as React.CSSProperties}>
+                <span className="mock-dot" />
+                <span className="mock-event-text">New message in <b>#product</b></span>
+                <span className="mock-event-time">now</span>
+              </div>
+              <div className="demo-event" style={{ "--i": 1 } as React.CSSProperties}>
+                <span className="mock-dot" />
+                <span className="mock-event-text">Email from <b>a supplier</b></span>
+                <span className="mock-event-time">2s ago</span>
+              </div>
+              <div className="demo-event demo-event-done" style={{ "--i": 2 } as React.CSSProperties}>
+                <span className="mock-dot mock-dot-done" />
+                <span className="mock-event-text">Indexed &amp; searchable</span>
+                <span className="mock-event-time">✓</span>
+              </div>
+              <div className="demo-progress"><span className="dp-bar" /></div>
+            </div>
+          </div>
+          <div className="feat-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+            <p className="feat-kicker"><span className="fk-dot" />Real-time sync</p>
+            <h2 className="feat-title">As fresh as<br />right now.</h2>
+            <p className="feat-desc">
+              Most search tools crawl your data every few hours. ClutterAI
+              listens. Messages and email arrive by push the moment they happen —
+              so answers reflect what happened minutes ago, not last week.
+            </p>
+            <ul className="feat-rows">
+              <li className="feat-row"><span className="fr-mark">✳</span>A message is searchable seconds after it's posted — edits included</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>New email lands in your index the moment it lands in your inbox</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>Background syncs still run as a safety net, so nothing slips through</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Slack ── */}
+      <section id="slack-bot" className="feat sec-b reveal">
+        <div className="feat-inner">
+          <div className="feat-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+            <p className="feat-kicker"><span className="fk-dot" />ClutterAI for Slack</p>
+            <h2 className="feat-title">Answers where<br />your team already is.</h2>
+            <p className="feat-desc">
+              Mention <b>@ClutterAI</b> in any channel, or just send it a direct
+              message, and ask about your own connected data without ever
+              leaving Slack.
+            </p>
+            <ul className="feat-rows">
+              <li className="feat-row"><span className="fr-mark">✳</span>Channel replies are visible only to you — private data never prints publicly</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>Worth sharing? One click posts the answer to the channel — your choice, always</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>DM the bot for a private back-and-forth, sources included</li>
+              <li className="feat-row"><span className="fr-mark">✳</span>Same account, same limits, same security as the app</li>
+            </ul>
+          </div>
+          <div className="feat-visual">
+            <div className="mock demo">
+              <div className="demo-slack-msg">
+                <span className="mock-avatar">A</span>
+                <div className="mock-slack-body">
+                  <span className="mock-slack-name">Teammate</span>
+                  <span className="mock-slack-text">@ClutterAI what's the latest on the renewal?</span>
+                </div>
+              </div>
+              <div className="demo-thinking">
+                <span className="dt-dot" /><span className="dt-dot" /><span className="dt-dot" />
+                <span className="dt-text">ClutterAI is searching…</span>
+              </div>
+              <div className="demo-slack-reply">
+                <span className="mock-avatar mock-avatar-bot"><Logo size={30} radius={9} /></span>
+                <div className="mock-slack-body">
+                  <span className="mock-slack-name">ClutterAI <span className="mock-eph">Only visible to you</span></span>
+                  <p className="demo-p" style={{ "--i": 0 } as React.CSSProperties}>
+                    The renewal is confirmed for the 1st at the current tier — the account owner replied yesterday afternoon.
+                  </p>
+                  <p className="demo-p" style={{ "--i": 1 } as React.CSSProperties}>
+                    One open item: they asked for updated invoicing details before the term starts.
+                  </p>
+                  <div className="demo-chips">
+                    {["Email · Renewal confirmation", "#accounts"].map((c, i) => (
+                      <span key={c} className="demo-chip" style={{ "--i": i + 2 } as React.CSSProperties}>↗ {c}</span>
+                    ))}
+                  </div>
+                  <span className="demo-share" style={{ "--i": 4 } as React.CSSProperties}>Share to channel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Agents ── */}
+      <section id="agents" className="agents sec-a reveal">
+        <div className="agents-inner">
+          <div className="agents-head">
+            <p className="feat-kicker"><span className="fk-dot" />Agents</p>
+            <h2 className="sec-title">Four agents, always working.</h2>
+            <p className="agents-sub">
+              ClutterAI doesn't stop at answering questions. Each agent owns a
+              different job — sorting, building, briefing and preparing — and
+              every one of them runs on the same connected knowledge.
+            </p>
+          </div>
+
+          {/* Forge */}
+          <div className="agent">
+            <div className="agent-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+              <div className="agent-head">
+                <span className="agent-logo"><Logo size={38} radius={11} /></span>
+                <div>
+                  <h3 className="agent-name">Forge</h3>
+                  <p className="agent-role">The technical workspace</p>
+                </div>
+              </div>
+              <p className="agent-desc">
+                Forge builds <em>with</em> your knowledge — your repos, issues,
+                architecture threads and docs — and remembers the conversation as
+                you iterate, so "make it handle retries" continues the work
+                instead of starting over.
+              </p>
+              <ul className="feat-rows">
+                <li className="feat-row"><span className="fr-mark">✳</span>Complete files stream into a side panel — tabbed, editable, syntax-highlighted</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Save to your workspace and reopen any file in any conversation, any day</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Each revision becomes a version — flip between them and see the line-by-line diff</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>A decision timeline of what your team decided — click one to trace how it came to be</li>
+              </ul>
+            </div>
+            <div className="agent-visual">
+              <div className="mock mock-forge demo">
+                <div className="mock-tabs">
+                  <span className="mock-tab mock-tab-active">migrate.ts</span>
+                  <span className="mock-tab">config.yaml</span>
+                  <span className="mock-ver">‹ v2 / 3 ›</span>
+                </div>
+                <div className="mock-code">
+                  {[70, 85, 60, 80, 45].map((w, i) => (
+                    <span key={i}
+                      className={`demo-code-line ${i === 2 || i === 4 ? "demo-code-add" : ""}`}
+                      style={{ "--i": i, width: `${w}%` } as React.CSSProperties} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Triage */}
+          <div className="agent agent-flip">
+            <div className="agent-visual">
+              <div className="mock demo">
+                <div className="mock-digest-head">Needs you today</div>
+                <div className="demo-digest-row" style={{ "--i": 0 } as React.CSSProperties}>
+                  <span className="mock-badge">Urgent</span>
+                  <span className="demo-digest-text">Customer escalation waiting on a reply since yesterday</span>
+                </div>
+                <div className="demo-digest-row" style={{ "--i": 1 } as React.CSSProperties}>
+                  <span className="mock-badge">Reply</span>
+                  <span className="demo-digest-text">Two threads asked you a direct question</span>
+                </div>
+                <div className="demo-digest-row demo-digest-done" style={{ "--i": 2 } as React.CSSProperties}>
+                  <span className="mock-badge mock-badge-done">Noise ✓</span>
+                  <span className="demo-digest-text">14 updates filtered out — nothing needed from you</span>
+                </div>
+              </div>
+            </div>
+            <div className="agent-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+              <div className="agent-head">
+                <span className="agent-logo"><Logo size={38} radius={11} /></span>
+                <div>
+                  <h3 className="agent-name">Triage</h3>
+                  <p className="agent-role">Signal from noise</p>
+                </div>
+              </div>
+              <p className="agent-desc">
+                Everything arrives at once and looks equally important. Triage
+                reads what came in across your connected tools and sorts it by
+                what actually needs you — so you start with the short list
+                instead of the whole pile.
+              </p>
+              <ul className="feat-rows">
+                <li className="feat-row"><span className="fr-mark">✳</span>Separates what's urgent, what needs a reply, and what's just noise</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Works across sources at once — messages and email ranked together, not app by app</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Every item links straight back to where it came from</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Digest */}
+          <div className="agent">
+            <div className="agent-visual">
+              <div className="mock demo">
+                <div className="mock-digest-head">Today's Digest</div>
+                <div className="demo-digest-row" style={{ "--i": 0 } as React.CSSProperties}>
+                  <span className="mock-badge">Waiting on</span>
+                  <span className="demo-digest-text">Contract redline — promised to you Tuesday</span>
+                </div>
+                <div className="demo-digest-row" style={{ "--i": 1 } as React.CSSProperties}>
+                  <span className="mock-badge">You promised</span>
+                  <span className="demo-digest-text">Onboarding copy by end of week</span>
+                </div>
+                <div className="demo-digest-row demo-digest-done" style={{ "--i": 2 } as React.CSSProperties}>
+                  <span className="mock-badge mock-badge-done">Resolved ✓</span>
+                  <span className="demo-digest-text">Vendor quote — received this morning</span>
+                </div>
+              </div>
+            </div>
+            <div className="agent-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+              <div className="agent-head">
+                <span className="agent-logo"><Logo size={38} radius={11} /></span>
+                <div>
+                  <h3 className="agent-name">Digest</h3>
+                  <p className="agent-role">Your daily brief</p>
+                </div>
+              </div>
+              <p className="agent-desc">
+                Every morning, Digest reads what moved across your workspace and
+                writes back what actually needs you — not a feed, a short list of
+                obligations in both directions.
+              </p>
+              <ul className="feat-rows">
+                <li className="feat-row"><span className="fr-mark">✳</span>Commitments you made, replies you're owed, and questions left unanswered</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Items close themselves — when the reply lands or the task ships, the ledger updates</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Anything that goes quiet for too long ages out on its own, so the list stays honest</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Every item links back to the message or email it came from</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Pulse */}
+          <div className="agent agent-flip">
+            <div className="agent-copy reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
+              <div className="agent-head">
+                <span className="agent-logo"><Logo size={38} radius={11} /></span>
+                <div>
+                  <h3 className="agent-name">Pulse</h3>
+                  <p className="agent-role">Meeting intelligence</p>
+                </div>
+              </div>
+              <p className="agent-desc">
+                Pulse reads your calendar and builds a dossier before each
+                meeting: who you're meeting, everything you've exchanged, and
+                what's still unresolved between you.
+              </p>
+              <ul className="feat-rows">
+                <li className="feat-row"><span className="fr-mark">✳</span>The last threads, files and decisions involving each attendee</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Open items with that person, so nothing is forgotten in the room</li>
+                <li className="feat-row"><span className="fr-mark">✳</span>Ready before you walk in — no prep, no digging through history</li>
+              </ul>
+            </div>
+            <div className="agent-visual">
+              <div className="mock demo">
+                <div className="demo-pulse-head" style={{ "--i": 0 } as React.CSSProperties}>
+                  <span className="dp-time">10:00</span>
+                  <span className="dp-title">Quarterly review</span>
+                </div>
+                <div className="demo-pulse-row" style={{ "--i": 1 } as React.CSSProperties}>
+                  <span className="dpr-label">Attendees</span>
+                  <span className="dpr-value">3 people · 2 you've met before</span>
+                </div>
+                <div className="demo-pulse-row" style={{ "--i": 2 } as React.CSSProperties}>
+                  <span className="dpr-label">Last thread</span>
+                  <span className="dpr-value">Budget adjustments, 4 days ago</span>
+                </div>
+                <div className="demo-pulse-row" style={{ "--i": 3 } as React.CSSProperties}>
+                  <span className="dpr-label">Unresolved</span>
+                  <span className="dpr-value">Headcount question from the last review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Values ── */}
-      <section className="values">
+      <section className="values sec-b">
         <div className="values-inner">
           {[
-            { n: "01", t: "Connect in seconds", d: "Link Slack, Notion, GitHub, Linear, Jira and more with secure OAuth. Your data is indexed and ready to search immediately." },
-            { n: "02", t: "Ask in plain English", d: "No Boolean operators. No folder diving. Type exactly what you're looking for and ClutterAI searches every connected tool at once." },
+            { n: "01", t: "Connect in seconds", d: "Link email, chat, drives, docs and trackers with secure OAuth. Your data is indexed and ready to search immediately." },
+            { n: "02", t: "Ask anywhere", d: "In the app, or straight from Slack. No Boolean operators, no folder diving — type what you're after and every connected tool is searched at once." },
             { n: "03", t: "Get sourced answers", d: "Every answer includes the exact document, message, or issue it came from. One click to jump straight to the source." },
           ].map((v, i) => (
             <div key={v.n} className="value-card reveal-child" style={{ "--d": `${i * 100}ms` } as React.CSSProperties}>
@@ -124,7 +608,7 @@ export default function Home() {
       </section>
 
       {/* ── Integrations ── */}
-      <section className="integrations reveal">
+      <section className="integrations sec-a reveal">
         <div className="integrations-inner">
           <p className="integrations-label">Works with the tools you already use</p>
           <div className="logo-strip">
@@ -139,22 +623,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Privacy ── */}
-      <section className="privacy reveal">
+      {/* ── Security ── */}
+      <section id="security" className="privacy sec-b reveal">
         <div className="privacy-inner">
           <div className="privacy-left reveal-child" style={{ "--d": "0ms" } as React.CSSProperties}>
             <h2 className="privacy-title">Your data stays yours.</h2>
-            <p className="privacy-sub">ClutterAI never trains on your data. Every search is private, every connection is OAuth-secured, and you can disconnect any integration instantly.</p>
-            <a href="/about" className="privacy-link">Read our privacy approach →</a>
+            <p className="privacy-sub">
+              ClutterAI never trains on your data. Connections are OAuth-secured
+              with read-only access by default, every search is private to the
+              person who runs it, and any integration can be disconnected — and
+              its indexed data removed — at any time.
+            </p>
+            <a href="/privacy" className="privacy-link">Read our privacy policy →</a>
           </div>
           <div className="privacy-right">
             {[
-              { icon: "🔒", t: "Your eyes only", s: "Data never leaves your control" },
-              { icon: "⚡", t: "OAuth secured", s: "Read-only access by default" },
-              { icon: "✓", t: "SOC 2 compliant", s: "Enterprise-grade security" },
+              { t: "Private by default", s: "Answers are yours alone — even in shared Slack channels" },
+              { t: "OAuth secured", s: "Read-only access by default, revocable any time" },
+              { t: "You control retention", s: "Disconnect an app and its indexed data goes with it" },
             ].map((b, i) => (
               <div key={b.t} className="privacy-badge reveal-child" style={{ "--d": `${i * 80}ms` } as React.CSSProperties}>
-                <div className="pb-icon">{b.icon}</div>
+                <span className="pb-logo"><Logo size={34} radius={10} /></span>
                 <div><div className="pb-title">{b.t}</div><div className="pb-sub">{b.s}</div></div>
               </div>
             ))}
@@ -163,29 +652,32 @@ export default function Home() {
       </section>
 
       {/* ── Powered by ── */}
-      <section className="powered reveal">
+      <section className="powered sec-a reveal">
         <div className="powered-inner">
           <p className="powered-label">Powered by</p>
           <div className="powered-grid">
-            {["OpenAI", "Pinecone", "Convex", "Microsoft", "Vercel", "Hostinger"].map((name, i) => (
-              <div key={name} className="powered-item reveal-child" style={{ "--d": `${i * 50}ms` } as React.CSSProperties}>{name}</div>
+            {["Anthropic", "OpenAI", "Pinecone", "Convex", "Microsoft", "Vercel", "Hostinger"].map((name) => (
+              <div key={name} className="powered-item reveal-child">{name}</div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="final-cta reveal">
+      <section className="final-cta sec-b reveal">
+        <div className="final-glow" />
         <div className="final-inner">
+          <span className="final-logo"><Logo size={64} radius={18} /></span>
           <h2 className="final-title">Stop wasting time<br />searching.</h2>
           <a href="https://app.clutter-ai.com/signup" className="cta-primary large">Start for free →</a>
+          <p className="hero-footnote">Free to start · Connect your first tool in two minutes</p>
         </div>
       </section>
 
       {/* ── Footer ── */}
       <footer className="footer">
         <div className="footer-inner">
-          <span className="footer-wordmark">ClutterAI</span>
+          <span className="footer-brand"><Logo size={22} radius={7} /><span className="footer-wordmark">ClutterAI</span></span>
           <nav className="footer-nav">
             <a href="/privacy" className="footer-link">Privacy</a>
             <a href="/refund" className="footer-link">Refunds</a>
@@ -202,269 +694,465 @@ export default function Home() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         .root {
-          min-height: 100vh; background: #0a0a0a; color: #f0ede8;
-          font-family: 'Figtree', sans-serif; overflow-x: hidden;
+          min-height: 100vh; background: #141413; color: #f0ede8;
+          font-family: 'Figtree', sans-serif; overflow-x: hidden; position: relative;
         }
 
-        /* ── Reveal system ── */
-        .reveal {
-          opacity: 0; transform: translateY(28px);
-          transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
-                      transform 0.75s cubic-bezier(0.16,1,0.3,1);
-        }
+        /* ── Alternating section shades ── */
+        /* Two shades, alternating — base is the darker warm gray */
+        .sec-a { background: #141413; }
+        .sec-b { background: #262624; }
+        .sec-a, .sec-b { position: relative; }
+
+        /* ── Ambient background ── */
+        .bg-glow { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+          filter: blur(120px); opacity: 0.45; }
+        .bg-glow-a { width: 620px; height: 620px; top: -180px; left: -160px;
+          background: radial-gradient(circle, rgba(240,237,232,0.09) 0%, transparent 68%);
+          animation: drift-a 26s ease-in-out infinite; }
+        .bg-glow-b { width: 540px; height: 540px; top: 42%; right: -180px;
+          background: radial-gradient(circle, rgba(240,237,232,0.06) 0%, transparent 68%);
+          animation: drift-b 32s ease-in-out infinite; }
+        @keyframes drift-a { 0%,100% { transform: translate(0,0); } 50% { transform: translate(70px,60px); } }
+        @keyframes drift-b { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-60px,-50px); } }
+        .bg-grid { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.4;
+          background-image:
+            linear-gradient(rgba(240,237,232,0.028) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(240,237,232,0.028) 1px, transparent 1px);
+          background-size: 64px 64px;
+          mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 40%, transparent 100%);
+          -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 40%, transparent 100%); }
+        .root > *:not(.bg-glow):not(.bg-grid) { position: relative; z-index: 1; }
+
+        /* ── Reveal ── */
+        .reveal { opacity: 0; transform: translateY(28px);
+          transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
         .reveal.in { opacity: 1; transform: none; }
-
-        .reveal-child {
-          opacity: 0; transform: translateY(18px);
-          transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1) var(--d,0ms),
-                      transform 0.6s cubic-bezier(0.16,1,0.3,1) var(--d,0ms);
-        }
+        .reveal-child { opacity: 0; transform: translateY(18px);
+          transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1) var(--d,0ms), transform 0.6s cubic-bezier(0.16,1,0.3,1) var(--d,0ms); }
         .reveal-child.in { opacity: 1; transform: none; }
 
+        /* ── Logo ── */
+        .logo-svg { display: block; border-radius: inherit; }
+        .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+        .brand-logo { display: flex; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+        .brand:hover .brand-logo { transform: rotate(90deg); }
+
         /* ── Nav ── */
-        .nav {
-          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100;
           border-bottom: 1px solid rgba(255,255,255,0.06);
-          background: rgba(10,10,10,0.88); backdrop-filter: blur(20px);
+          background: rgba(20,20,19,0.85); backdrop-filter: blur(22px);
           opacity: 0; transform: translateY(-10px);
-          transition: opacity 0.55s ease 0.05s, transform 0.55s ease 0.05s;
-        }
+          transition: opacity 0.55s ease 0.05s, transform 0.55s ease 0.05s; }
         .nav.nav-in { opacity: 1; transform: none; }
-        .nav-inner {
-          max-width: 1200px; margin: 0 auto; padding: 0 40px;
-          height: 60px; display: flex; align-items: center; justify-content: space-between;
-        }
-        .wordmark {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 1.1rem; color: #f0ede8; text-decoration: none; letter-spacing: -0.03em;
-        }
+        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 64px;
+          display: flex; align-items: center; justify-content: space-between; }
+        .wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 1.08rem; color: #f0ede8; letter-spacing: -0.03em; }
         .nav-links { display: flex; align-items: center; gap: 28px; }
         .nav-link { font-size: 0.88rem; color: rgba(240,237,232,0.45); text-decoration: none; transition: color 0.2s; }
         .nav-link:hover { color: #f0ede8; }
-        .nav-cta {
-          font-size: 0.88rem; font-weight: 500; color: #f0ede8; text-decoration: none;
-          padding: 7px 16px; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;
-          transition: background 0.2s, border-color 0.2s;
-        }
-        .nav-cta:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.28); }
+        .nav-cta { font-size: 0.88rem; font-weight: 500; color: #f0ede8; text-decoration: none;
+          padding: 8px 17px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px;
+          transition: background 0.2s, border-color 0.2s; }
+        .nav-cta:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.3); }
 
         /* ── Hero ── */
-        .hero {
-          min-height: 100vh; padding: 0 40px;
-          display: flex; flex-direction: column; justify-content: center;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .hero-inner {
-          max-width: 1200px; margin: 0 auto; width: 100%;
-          display: grid; grid-template-columns: 1.1fr 0.9fr;
-          gap: 80px; align-items: end;
-          padding-top: 130px; padding-bottom: 90px;
-        }
-
-        /* Headline slides in from left */
-        .hero-left {
-          opacity: 0; transform: translateX(-28px);
-          transition: opacity 1s cubic-bezier(0.16,1,0.3,1) 0.2s,
-                      transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s;
-        }
+        .hero { min-height: 100vh; padding: 0 40px; display: flex; flex-direction: column; justify-content: center; }
+        .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%;
+          display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: end;
+          padding-top: 140px; padding-bottom: 90px; }
+        .hero-left { opacity: 0; transform: translateX(-28px);
+          transition: opacity 1s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s; }
         .hero-left.hero-left-in { opacity: 1; transform: none; }
-
-        .headline {
-          font-family: 'Unbounded', sans-serif; font-weight: 800;
-          font-size: clamp(4rem, 7vw, 7.5rem);
-          line-height: 0.95; letter-spacing: -0.05em;
-          display: flex; flex-direction: column;
-        }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px;
+          padding: 7px 15px; border-radius: 999px; font-size: 0.76rem; font-weight: 500;
+          color: rgba(240,237,232,0.62); border: 1px solid rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.03); }
+        .hb-dot { width: 6px; height: 6px; border-radius: 999px; background: #f0ede8;
+          animation: blink 2.4s ease-in-out infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .headline { font-family: 'Unbounded', sans-serif; font-weight: 800;
+          font-size: clamp(4rem, 7vw, 7.5rem); line-height: 0.95; letter-spacing: -0.05em;
+          display: flex; flex-direction: column; }
         .hl-line { display: block; }
         .hl-dim { color: rgba(240,237,232,0.22); }
-
-        /* Subtext fades in from right */
-        .hero-right {
-          opacity: 0; transform: translateX(20px);
-          transition: opacity 1s cubic-bezier(0.16,1,0.3,1) 0.5s,
-                      transform 1s cubic-bezier(0.16,1,0.3,1) 0.5s;
-          display: flex; flex-direction: column; gap: 28px; padding-bottom: 8px;
-        }
+        .hero-right { opacity: 0; transform: translateX(20px);
+          transition: opacity 1s cubic-bezier(0.16,1,0.3,1) 0.5s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.5s;
+          display: flex; flex-direction: column; gap: 24px; padding-bottom: 8px; }
         .hero-right.hero-right-in { opacity: 1; transform: none; }
-
         .subtext { font-size: 1.05rem; line-height: 1.7; color: rgba(240,237,232,0.52); font-weight: 300; }
+        .hero-ask { display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+          border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
+          background: rgba(255,255,255,0.03); overflow: hidden;
+          box-shadow: 0 18px 50px rgba(0,0,0,0.4); }
+        .ha-logo { display: flex; flex-shrink: 0; }
+        .ha-text { font-size: 0.9rem; color: rgba(240,237,232,0.75); flex: 1;
+          animation: swap-in 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes swap-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        .ha-caret { width: 2px; height: 16px; background: #f0ede8; flex-shrink: 0;
+          animation: blink 1.1s step-end infinite; }
         .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
         .hero-footnote { font-size: 0.77rem; color: rgba(240,237,232,0.22); font-weight: 300; }
 
-        /* Rule draws in */
-        .hero-rule {
-          max-width: 1200px; width: calc(100% - 80px); margin: 0 auto;
-          height: 1px; background: rgba(255,255,255,0.06);
-          transform: scaleX(0); transform-origin: left;
-          transition: transform 1.3s cubic-bezier(0.16,1,0.3,1) 0.9s;
-        }
-        .hero-rule.hero-rule-in { transform: scaleX(1); }
+        /* ── Marquee ── */
+        .marquee-wrap { border-top: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid rgba(255,255,255,0.06); padding: 22px 0; overflow: hidden; }
+        .marquee { position: relative;
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+        .marquee-track { display: flex; gap: 40px; width: max-content; animation: scroll-x 42s linear infinite; }
+        .marquee:hover .marquee-track { animation-play-state: paused; }
+        @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .mq-item { display: flex; align-items: center; gap: 9px; opacity: 0.42; transition: opacity 0.25s; }
+        .mq-item:hover { opacity: 1; }
+        .mq-name { font-size: 0.84rem; font-weight: 500; color: rgba(240,237,232,0.7); white-space: nowrap; }
+
+        /* ── Section tabs ── */
+        .section-tabs { position: sticky; top: 64px; z-index: 90;
+          background: rgba(20,20,19,0.92); backdrop-filter: blur(22px);
+          border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .section-tabs-inner { max-width: 1200px; margin: 0 auto; padding: 10px 40px;
+          display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+        .section-tabs-inner::-webkit-scrollbar { display: none; }
+        .stab { padding: 8px 16px; font-size: 0.82rem; font-weight: 500; border-radius: 999px;
+          color: rgba(240,237,232,0.38); text-decoration: none; white-space: nowrap;
+          border: 1px solid transparent;
+          transition: color 0.25s ease, background 0.3s ease, border-color 0.3s ease; }
+        .stab:hover { color: rgba(240,237,232,0.75); background: rgba(255,255,255,0.04); }
+        .stab-active { color: #141413; background: #f0ede8; border-color: #f0ede8; }
+
+        .sec-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: clamp(1.9rem, 3.4vw, 2.7rem); letter-spacing: -0.05em; color: #f0ede8; line-height: 1.1; }
+        .center { text-align: center; }
+
+        /* ── Showcase ── */
+        .showcase { padding: 100px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .showcase-inner { max-width: 900px; margin: 0 auto; }
+        .sc-tabs { display: flex; justify-content: center; gap: 6px; margin: 30px 0 26px; flex-wrap: wrap; }
+        .sc-tab { padding: 9px 20px; border-radius: 999px; font-family: 'Figtree', sans-serif;
+          font-size: 0.85rem; font-weight: 500; cursor: pointer; color: rgba(240,237,232,0.45);
+          background: transparent; border: 1px solid rgba(255,255,255,0.1);
+          transition: color 0.25s, background 0.25s, border-color 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+        .sc-tab:hover { color: #f0ede8; transform: translateY(-1px); }
+        .sc-tab-active { color: #141413; background: #f0ede8; border-color: #f0ede8; }
+        .sc-panel { border: 1px solid rgba(255,255,255,0.09); border-radius: 22px;
+          background: rgba(255,255,255,0.025); padding: 26px;
+          display: flex; flex-direction: column; gap: 20px;
+          animation: panel-in 0.5s cubic-bezier(0.16,1,0.3,1) both;
+          box-shadow: 0 24px 70px rgba(0,0,0,0.45); }
+        @keyframes panel-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+        .sc-prompt { display: flex; flex-direction: column; gap: 8px;
+          font-size: 0.98rem; color: #f0ede8; font-weight: 500; }
+        .sc-label { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+          color: rgba(240,237,232,0.3); font-weight: 500; }
+        .sc-answer { display: flex; gap: 14px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); }
+        .sc-logo { flex-shrink: 0; display: flex; }
+        .sc-answer-body { display: flex; flex-direction: column; gap: 12px; }
+        .sc-p { font-size: 0.92rem; line-height: 1.75; color: rgba(240,237,232,0.6); font-weight: 300;
+          animation: rise-in 0.55s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(var(--i, 0) * 260ms + 200ms); }
+        .sc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
+        .sc-chip { font-size: 0.72rem; color: rgba(240,237,232,0.55); padding: 6px 12px;
+          border: 1px solid rgba(255,255,255,0.09); border-radius: 999px; background: rgba(255,255,255,0.02);
+          transition: border-color 0.2s, color 0.2s;
+          animation: rise-in 0.5s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(var(--i, 0) * 110ms + 800ms); }
+        .sc-chip:hover { border-color: rgba(255,255,255,0.24); color: #f0ede8; }
+        @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
         /* ── CTAs ── */
-        .cta-primary {
-          display: inline-flex; align-items: center;
-          padding: 13px 28px; background: #f0ede8; color: #0a0a0a;
-          font-family: 'Figtree', sans-serif; font-weight: 600; font-size: 0.92rem;
-          text-decoration: none; border-radius: 6px;
-          transition: background 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s;
-        }
-        .cta-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(240,237,232,0.12); }
-        .cta-primary.large { padding: 16px 40px; font-size: 1rem; }
-        .cta-ghost { font-size: 0.92rem; color: rgba(240,237,232,0.45); text-decoration: none; transition: color 0.2s; letter-spacing: 0.01em; }
+        .cta-primary { display: inline-flex; align-items: center; padding: 14px 30px;
+          background: #f0ede8; color: #141413; font-family: 'Figtree', sans-serif;
+          font-weight: 600; font-size: 0.92rem; text-decoration: none; border-radius: 999px;
+          transition: background 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s; }
+        .cta-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 14px 36px rgba(240,237,232,0.16); }
+        .cta-primary.large { padding: 17px 42px; font-size: 1rem; }
+        .cta-ghost { font-size: 0.92rem; color: rgba(240,237,232,0.45); text-decoration: none; transition: color 0.2s; }
         .cta-ghost:hover { color: #f0ede8; }
 
         /* ── Problem ── */
-        .problem { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 80px 40px; }
-        .problem-inner {
-          max-width: 1200px; margin: 0 auto;
-          display: grid; grid-template-columns: auto 1fr;
-          gap: 64px; align-items: center;
-        }
-        .problem-stat {
-          display: flex; align-items: baseline; gap: 8px;
-          flex-shrink: 0;
-        }
-        .problem-num {
-          font-family: 'Unbounded', sans-serif; font-weight: 900;
-          font-size: clamp(5rem, 9vw, 9rem);
-          color: #f0ede8; letter-spacing: -0.06em; line-height: 1;
-        }
-        .problem-unit {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(1.2rem, 2vw, 1.8rem);
-          color: rgba(240,237,232,0.35); letter-spacing: -0.03em; align-self: flex-end; padding-bottom: 0.15em;
-        }
+        .problem { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 90px 40px; }
+        .problem-inner { max-width: 1200px; margin: 0 auto; display: grid;
+          grid-template-columns: auto 1fr; gap: 64px; align-items: center; }
+        .problem-stat { display: flex; align-items: baseline; gap: 8px; flex-shrink: 0; }
+        .problem-num { font-family: 'Unbounded', sans-serif; font-weight: 900;
+          font-size: clamp(5rem, 9vw, 9rem); color: #f0ede8; letter-spacing: -0.06em; line-height: 1; }
+        .problem-unit { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: clamp(1.2rem, 2vw, 1.8rem); color: rgba(240,237,232,0.35);
+          letter-spacing: -0.03em; align-self: flex-end; padding-bottom: 0.15em; }
         .problem-text { display: flex; flex-direction: column; gap: 16px; }
-        .problem-lead {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(1.1rem, 2vw, 1.5rem); color: #f0ede8;
-          letter-spacing: -0.03em; line-height: 1.3;
-        }
+        .problem-lead { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: clamp(1.1rem, 2vw, 1.5rem); color: #f0ede8; letter-spacing: -0.03em; line-height: 1.3; }
         .problem-sub { font-size: 0.9rem; line-height: 1.7; color: rgba(240,237,232,0.42); font-weight: 300; }
-        .problem-source {
-          font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
-          text-transform: uppercase; color: rgba(240,237,232,0.22);
-        }
+        .problem-source { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+          text-transform: uppercase; color: rgba(240,237,232,0.22); }
 
         /* ── Stats ── */
         .stats { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 48px 40px; }
-        .stats-inner {
-          max-width: 1200px; margin: 0 auto;
-          display: flex; align-items: center; justify-content: center;
-        }
-        .stat {
-          padding: 0 60px; display: flex; flex-direction: column; align-items: center; gap: 6px;
-        }
+        .stats-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+        .stat { padding: 0 56px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .stat + .stat { border-left: 1px solid rgba(255,255,255,0.08); }
-        .stat-num {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 2.2rem; color: #f0ede8; letter-spacing: -0.05em; line-height: 1;
-        }
-        .stat-label { font-size: 0.82rem; color: rgba(240,237,232,0.38); font-weight: 300; text-align: center; }
+        .stat-num { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 2.1rem; color: #f0ede8; letter-spacing: -0.05em; line-height: 1; }
+        .stat-label { font-size: 0.82rem; color: rgba(240,237,232,0.38); font-weight: 300;
+          text-align: center; max-width: 190px; }
+
+        /* ── Feature sections ── */
+        .feat { padding: 118px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
+        .feat-inner { max-width: 1200px; margin: 0 auto; display: grid;
+          grid-template-columns: 1.05fr 0.95fr; gap: 90px; align-items: center; }
+        .feat-flip { grid-template-columns: 0.95fr 1.05fr; }
+        .feat-kicker { display: inline-flex; align-items: center; gap: 9px; font-size: 0.7rem;
+          font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+          color: rgba(240,237,232,0.4); margin-bottom: 18px; padding: 6px 14px 6px 11px;
+          border-radius: 999px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.03); }
+        .fk-dot { width: 5px; height: 5px; border-radius: 999px; background: rgba(240,237,232,0.7); }
+        .feat-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: clamp(2rem, 3.6vw, 3rem); letter-spacing: -0.05em; color: #f0ede8;
+          line-height: 1.05; margin-bottom: 22px; }
+        .feat-desc { font-size: 0.98rem; line-height: 1.78; color: rgba(240,237,232,0.48);
+          font-weight: 300; margin-bottom: 28px; max-width: 460px; }
+        .feat-desc b, .feat-rows b { font-weight: 600; color: rgba(240,237,232,0.85); }
+        .feat-desc em, .feat-rows em { font-style: italic; }
+        .feat-rows { list-style: none; display: flex; flex-direction: column; }
+        .feat-row { display: flex; gap: 14px; align-items: baseline; padding: 13px 0;
+          font-size: 0.88rem; line-height: 1.65; color: rgba(240,237,232,0.55); font-weight: 300;
+          border-top: 1px solid rgba(255,255,255,0.05); transition: color 0.25s, padding-left 0.3s ease; }
+        .feat-row:hover { color: rgba(240,237,232,0.85); padding-left: 5px; }
+        .fr-mark { color: rgba(240,237,232,0.25); flex-shrink: 0; font-size: 0.8rem; transition: color 0.25s; }
+        .feat-row:hover .fr-mark { color: rgba(240,237,232,0.6); }
+
+        /* ── Cards / mocks ── */
+        .mock { position: relative; border: 1px solid rgba(255,255,255,0.09); border-radius: 20px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+          padding: 26px; display: flex; flex-direction: column; gap: 14px;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+          transition: border-color 0.35s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s ease; }
+        .mock::before {
+          content: ""; position: absolute; inset: -1px; border-radius: 21px; pointer-events: none;
+          background: linear-gradient(140deg, rgba(240,237,232,0.28), transparent 38%, transparent 62%, rgba(240,237,232,0.16));
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor; mask-composite: exclude; padding: 1px;
+          opacity: 0; transition: opacity 0.4s ease; }
+        .mock:hover::before { opacity: 1; }
+        .mock:hover { transform: translateY(-6px); box-shadow: 0 34px 90px rgba(0,0,0,0.6); }
+
+        /* ── Animated demos (play when scrolled into view) ── */
+        .demo { opacity: 0; transform: translateY(24px);
+          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .demo.in { opacity: 1; transform: none; }
+        .demo-q { font-size: 0.88rem; color: #f0ede8; font-weight: 500; padding: 11px 15px;
+          border: 1px solid rgba(255,255,255,0.1); border-radius: 14px 14px 4px 14px;
+          align-self: flex-end; background: rgba(255,255,255,0.06); opacity: 0; }
+        .demo.in .demo-q { animation: rise-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+
+        .demo-thinking { display: flex; align-items: center; gap: 6px; opacity: 0; }
+        .demo.in .demo-thinking { animation: think 2.6s ease forwards 0.5s; }
+        @keyframes think { 0% { opacity: 0; } 12% { opacity: 1; } 78% { opacity: 1; } 100% { opacity: 0; height: 0; margin: -7px 0; } }
+        .dt-dot { width: 5px; height: 5px; border-radius: 999px; background: rgba(240,237,232,0.5); }
+        .demo.in .dt-dot:nth-child(1) { animation: bob 1s ease-in-out infinite 0s; }
+        .demo.in .dt-dot:nth-child(2) { animation: bob 1s ease-in-out infinite 0.15s; }
+        .demo.in .dt-dot:nth-child(3) { animation: bob 1s ease-in-out infinite 0.3s; }
+        @keyframes bob { 0%,100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-3px); opacity: 1; } }
+        .dt-text { font-size: 0.76rem; color: rgba(240,237,232,0.4); margin-left: 4px; }
+
+        .demo-a { display: flex; flex-direction: column; gap: 12px; }
+        .demo-p { font-size: 0.87rem; line-height: 1.7; color: rgba(240,237,232,0.62);
+          font-weight: 300; opacity: 0; }
+        .demo.in .demo-p { animation: rise-in 0.6s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(2.6s + var(--i, 0) * 0.45s); }
+        .demo-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .demo-chip { font-size: 0.7rem; color: rgba(240,237,232,0.5); padding: 5px 11px;
+          border: 1px solid rgba(255,255,255,0.09); border-radius: 999px;
+          background: rgba(255,255,255,0.03); opacity: 0;
+          transition: border-color 0.2s, color 0.2s; }
+        .demo.in .demo-chip { animation: rise-in 0.45s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(2.6s + var(--i, 0) * 0.16s); }
+        .demo-chip:hover { border-color: rgba(255,255,255,0.26); color: #f0ede8; }
+
+        .demo-event { display: flex; align-items: center; gap: 12px; padding: 12px 15px;
+          border: 1px solid rgba(255,255,255,0.08); border-radius: 13px;
+          background: rgba(255,255,255,0.02); opacity: 0; }
+        .demo.in .demo-event { animation: rise-in 0.55s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(0.2s + var(--i, 0) * 0.7s); }
+        .demo-event-done { border-color: rgba(150,215,180,0.24); background: rgba(150,215,180,0.05); }
+        .mock-dot { width: 7px; height: 7px; border-radius: 999px; background: #f0ede8;
+          flex-shrink: 0; animation: blink 1.8s ease-in-out infinite; }
+        .mock-dot-done { background: rgba(150,215,180,0.9); animation: none; }
+        .mock-event-text { font-size: 0.82rem; color: rgba(240,237,232,0.6); flex: 1; }
+        .mock-event-text b { color: rgba(240,237,232,0.9); font-weight: 600; }
+        .mock-event-time { font-size: 0.72rem; color: rgba(240,237,232,0.28); }
+        .demo-progress { height: 3px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; }
+        .dp-bar { display: block; height: 100%; width: 0; border-radius: 999px; background: rgba(240,237,232,0.5); }
+        .demo.in .dp-bar { animation: fill 2.2s cubic-bezier(0.16,1,0.3,1) 0.3s forwards; }
+        @keyframes fill { to { width: 100%; } }
+
+        .demo-slack-msg { display: flex; gap: 12px; align-items: flex-start; opacity: 0; }
+        .demo.in .demo-slack-msg { animation: rise-in 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+        .demo-slack-reply { display: flex; gap: 12px; align-items: flex-start; padding-left: 4px; opacity: 0; }
+        .demo.in .demo-slack-reply { animation: rise-in 0.55s cubic-bezier(0.16,1,0.3,1) 2.5s both; }
+        .mock-avatar { width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+          background: rgba(255,255,255,0.08); color: rgba(240,237,232,0.7);
+          display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; }
+        .mock-avatar-bot { background: transparent; }
+        .mock-slack-body { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .mock-slack-name { font-size: 0.78rem; font-weight: 600; color: rgba(240,237,232,0.8); }
+        .mock-slack-text { font-size: 0.85rem; color: rgba(240,237,232,0.55); line-height: 1.5; }
+        .mock-eph { font-size: 0.66rem; font-weight: 400; color: rgba(240,237,232,0.3); margin-left: 8px; }
+        .demo-share { font-size: 0.72rem; font-weight: 500; color: rgba(240,237,232,0.7);
+          padding: 6px 13px; border: 1px solid rgba(255,255,255,0.16); border-radius: 999px;
+          align-self: flex-start; opacity: 0; transition: background 0.2s, border-color 0.2s; }
+        .demo.in .demo-share { animation: rise-in 0.45s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(2.6s + var(--i, 0) * 0.16s); }
+        .mock:hover .demo-share { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+
+        .mock-forge { padding: 0; overflow: hidden; }
+        .mock-tabs { display: flex; align-items: center; gap: 4px; padding: 11px 15px;
+          border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .mock-tab { font-size: 0.72rem; color: rgba(240,237,232,0.35); padding: 6px 12px;
+          border-radius: 9px 9px 0 0; border: 1px solid transparent; }
+        .mock-tab-active { color: #f0ede8; background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1); }
+        .mock-ver { margin-left: auto; font-size: 0.68rem; color: rgba(240,237,232,0.35);
+          padding: 5px 10px; border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; }
+        .mock-code { display: flex; flex-direction: column; gap: 10px; padding: 24px 18px 28px; }
+        .demo-code-line { height: 9px; border-radius: 4px; background: rgba(240,237,232,0.13);
+          display: block; opacity: 0; transform: translateX(-8px); }
+        .demo.in .demo-code-line { animation: type-line 0.5s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(0.3s + var(--i, 0) * 0.32s); }
+        @keyframes type-line { to { opacity: 1; transform: none; } }
+        .demo-code-add { background: rgba(150,215,180,0.28); }
+
+        .mock-digest-head { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 0.85rem; color: rgba(240,237,232,0.75); letter-spacing: -0.02em; padding-bottom: 4px; }
+        .demo-digest-row { display: flex; align-items: center; gap: 12px; padding: 11px 13px;
+          border: 1px solid rgba(255,255,255,0.07); border-radius: 12px;
+          background: rgba(255,255,255,0.02); opacity: 0; }
+        .demo.in .demo-digest-row { animation: rise-in 0.55s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(0.25s + var(--i, 0) * 0.55s); }
+        .demo-digest-done { opacity: 0.65; border-color: rgba(150,215,180,0.2); }
+        .demo-digest-text { font-size: 0.79rem; color: rgba(240,237,232,0.55); line-height: 1.5; }
+        .mock-badge { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+          color: rgba(240,237,232,0.5); padding: 5px 9px; border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 999px; flex-shrink: 0; min-width: 94px; text-align: center; }
+        .mock-badge-done { color: rgba(150,215,180,0.85); border-color: rgba(150,215,180,0.3); }
+
+        .demo-pulse-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 6px;
+          border-bottom: 1px solid rgba(255,255,255,0.07); opacity: 0; }
+        .demo.in .demo-pulse-head, .demo.in .demo-pulse-row {
+          animation: rise-in 0.55s cubic-bezier(0.16,1,0.3,1) both;
+          animation-delay: calc(0.25s + var(--i, 0) * 0.5s); }
+        .dp-time { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 1.1rem; color: #f0ede8; letter-spacing: -0.03em; }
+        .dp-title { font-size: 0.85rem; color: rgba(240,237,232,0.6); }
+        .demo-pulse-row { display: flex; gap: 14px; align-items: baseline; opacity: 0; }
+        .dpr-label { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+          color: rgba(240,237,232,0.32); min-width: 92px; flex-shrink: 0; }
+        .dpr-value { font-size: 0.83rem; color: rgba(240,237,232,0.6); line-height: 1.5; }
+
+        /* ── Agents ── */
+        .agents { padding: 120px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
+        .agents-inner { max-width: 1200px; margin: 0 auto; }
+        .agents-head { max-width: 620px; margin-bottom: 76px; }
+        .agents-sub { font-size: 1rem; line-height: 1.78; color: rgba(240,237,232,0.48);
+          font-weight: 300; margin-top: 18px; }
+        .agent { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 80px;
+          align-items: center; padding: 56px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+        .agent-flip { grid-template-columns: 0.95fr 1.05fr; }
+        .agent-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .agent-logo { display: flex; flex-shrink: 0; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+        .agent:hover .agent-logo { transform: rotate(90deg); }
+        .agent-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 1.7rem; letter-spacing: -0.04em; color: #f0ede8; line-height: 1.1; }
+        .agent-role { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+          color: rgba(240,237,232,0.32); margin-top: 4px; }
+        .agent-desc { font-size: 0.95rem; line-height: 1.8; color: rgba(240,237,232,0.5);
+          font-weight: 300; margin-bottom: 26px; max-width: 460px; }
+        .agent-desc em { font-style: italic; }
 
         /* ── Values ── */
         .values { padding: 100px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .values-inner {
-          max-width: 1200px; margin: 0 auto;
-          display: grid; grid-template-columns: repeat(3, 1fr);
-          border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;
-        }
-        .value-card {
-          padding: 52px 44px; background: #0a0a0a;
-          border-right: 1px solid rgba(255,255,255,0.06);
-          display: flex; flex-direction: column; gap: 16px;
-          transition: background 0.35s ease;
-        }
+        .values-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr);
+          border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; overflow: hidden; }
+        .value-card { padding: 52px 44px; background: rgba(255,255,255,0.012);
+          border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 16px;
+          transition: background 0.35s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1); }
         .value-card:last-child { border-right: none; }
-        .value-card:hover { background: #111; }
-        .value-num {
-          font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.68rem;
-          font-weight: 800; letter-spacing: 0.12em; color: rgba(240,237,232,0.16);
-        }
-        .value-title {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 1.18rem; color: #f0ede8; letter-spacing: -0.03em; line-height: 1.2;
-        }
+        .value-card:hover { background: rgba(255,255,255,0.055); }
+        .value-num { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.68rem;
+          font-weight: 800; letter-spacing: 0.12em; color: rgba(240,237,232,0.18); }
+        .value-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 1.18rem; color: #f0ede8; letter-spacing: -0.03em; line-height: 1.2; }
         .value-desc { font-size: 0.87rem; color: rgba(240,237,232,0.42); line-height: 1.72; font-weight: 300; }
 
         /* ── Integrations ── */
-        .integrations { padding: 80px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .integrations { padding: 90px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .integrations-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-        .integrations-label {
-          font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
-          text-transform: uppercase; color: rgba(240,237,232,0.25); margin-bottom: 30px;
-        }
+        .integrations-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+          text-transform: uppercase; color: rgba(240,237,232,0.25); margin-bottom: 30px; }
         .logo-strip { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-        .logo-item {
-          display: flex; align-items: center; gap: 8px;
-          padding: 8px 16px; border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 999px; background: rgba(255,255,255,0.02);
-          transition: border-color 0.2s, background 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1);
-        }
-        .logo-item:hover { border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+        .logo-item { display: flex; align-items: center; gap: 8px; padding: 9px 17px;
+          border: 1px solid rgba(255,255,255,0.07); border-radius: 999px; background: rgba(255,255,255,0.02);
+          transition: border-color 0.2s, background 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+        .logo-item:hover { border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.07); transform: translateY(-3px); }
         .logo-icon { width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .logo-name { font-size: 0.8rem; font-weight: 500; color: rgba(240,237,232,0.52); }
         .integrations-more { margin-top: 18px; font-size: 0.76rem; color: rgba(240,237,232,0.18); font-weight: 300; }
 
         /* ── Privacy ── */
-        .privacy { padding: 100px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .privacy-inner {
-          max-width: 1200px; margin: 0 auto;
-          display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-        }
-        .privacy-title {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(2rem, 3.5vw, 2.8rem); letter-spacing: -0.05em;
-          color: #f0ede8; line-height: 1.08; margin-bottom: 20px;
-        }
-        .privacy-sub { font-size: 0.92rem; line-height: 1.78; color: rgba(240,237,232,0.45); font-weight: 300; margin-bottom: 28px; }
-        .privacy-link {
-          font-size: 0.87rem; color: rgba(240,237,232,0.45); text-decoration: none;
+        .privacy { padding: 110px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
+        .privacy-inner { max-width: 1200px; margin: 0 auto; display: grid;
+          grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .privacy-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: clamp(2rem, 3.5vw, 2.8rem); letter-spacing: -0.05em; color: #f0ede8;
+          line-height: 1.08; margin-bottom: 20px; }
+        .privacy-sub { font-size: 0.92rem; line-height: 1.78; color: rgba(240,237,232,0.45);
+          font-weight: 300; margin-bottom: 28px; }
+        .privacy-link { font-size: 0.87rem; color: rgba(240,237,232,0.45); text-decoration: none;
           border-bottom: 1px solid rgba(240,237,232,0.16); padding-bottom: 2px;
-          transition: color 0.2s, border-color 0.2s;
-        }
+          transition: color 0.2s, border-color 0.2s; }
         .privacy-link:hover { color: #f0ede8; border-color: rgba(240,237,232,0.5); }
         .privacy-right { display: flex; flex-direction: column; gap: 10px; }
-        .privacy-badge {
-          display: flex; align-items: center; gap: 16px;
-          padding: 18px 22px; border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 10px; background: rgba(255,255,255,0.02);
-          transition: border-color 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.2s;
-        }
-        .privacy-badge:hover { border-color: rgba(255,255,255,0.14); transform: translateX(5px); background: rgba(255,255,255,0.04); }
-        .pb-icon { font-size: 1.2rem; width: 34px; text-align: center; flex-shrink: 0; opacity: 0.6; }
-        .pb-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.87rem; font-weight: 800; color: rgba(240,237,232,0.8); letter-spacing: -0.02em; margin-bottom: 3px; }
-        .pb-sub { font-size: 0.74rem; color: rgba(240,237,232,0.3); font-weight: 300; }
+        .privacy-badge { display: flex; align-items: center; gap: 16px; padding: 20px 24px;
+          border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; background: rgba(255,255,255,0.02);
+          transition: border-color 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.2s; }
+        .privacy-badge:hover { border-color: rgba(255,255,255,0.2); transform: translateX(6px); background: rgba(255,255,255,0.055); }
+        .pb-logo { flex-shrink: 0; display: flex; }
+        .pb-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.87rem; font-weight: 800;
+          color: rgba(240,237,232,0.85); letter-spacing: -0.02em; margin-bottom: 3px; }
+        .pb-sub { font-size: 0.75rem; color: rgba(240,237,232,0.35); font-weight: 300; line-height: 1.5; }
 
         /* ── Powered by ── */
         .powered { padding: 60px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .powered-inner { max-width: 900px; margin: 0 auto; text-align: center; }
-        .powered-label {
-          font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em;
-          text-transform: uppercase; color: rgba(240,237,232,0.2); margin-bottom: 22px;
-        }
+        .powered-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em;
+          text-transform: uppercase; color: rgba(240,237,232,0.2); margin-bottom: 22px; }
         .powered-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-        .powered-item {
-          padding: 7px 18px; border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 6px; font-size: 0.78rem; font-weight: 500;
-          color: rgba(240,237,232,0.28); letter-spacing: 0.01em;
-          transition: border-color 0.2s, color 0.2s;
-        }
-        .powered-item:hover { border-color: rgba(255,255,255,0.14); color: rgba(240,237,232,0.52); }
+        .powered-item { padding: 8px 19px; border: 1px solid rgba(255,255,255,0.07); border-radius: 999px;
+          font-size: 0.78rem; font-weight: 500; color: rgba(240,237,232,0.28);
+          transition: border-color 0.2s, color 0.2s; }
+        .powered-item:hover { border-color: rgba(255,255,255,0.18); color: rgba(240,237,232,0.6); }
 
         /* ── Final CTA ── */
-        .final-cta { padding: 120px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .final-inner { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 36px; text-align: center; }
-        .final-title {
-          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(2.4rem, 4vw, 3.5rem); letter-spacing: -0.05em;
-          color: #f0ede8; line-height: 1.0;
-        }
+        .final-cta { padding: 140px 40px; border-bottom: 1px solid rgba(255,255,255,0.06);
+          position: relative; overflow: hidden; }
+        .final-glow { position: absolute; width: 700px; height: 400px; left: 50%; top: 50%;
+          transform: translate(-50%,-50%); border-radius: 50%; filter: blur(120px); pointer-events: none;
+          background: radial-gradient(circle, rgba(240,237,232,0.1) 0%, transparent 70%); }
+        .final-inner { max-width: 800px; margin: 0 auto; position: relative;
+          display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; }
+        .final-logo { display: flex; animation: float-y 5s ease-in-out infinite; }
+        @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+        .final-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: clamp(2.4rem, 4.4vw, 3.6rem); letter-spacing: -0.05em; color: #f0ede8; line-height: 1.0; }
 
         /* ── Footer ── */
-        .footer { padding: 24px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-        .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-        .footer-wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.86rem; color: rgba(240,237,232,0.22); letter-spacing: -0.03em; }
+        .footer { padding: 26px 40px; border-top: 1px solid rgba(255,255,255,0.06); background: #141413; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: flex;
+          align-items: center; justify-content: space-between; gap: 16px; }
+        .footer-brand { display: flex; align-items: center; gap: 9px; }
+        .footer-wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          font-size: 0.86rem; color: rgba(240,237,232,0.28); letter-spacing: -0.03em; }
         .footer-nav { display: flex; gap: 20px; }
         .footer-link { font-size: 0.78rem; color: rgba(240,237,232,0.26); text-decoration: none; transition: color 0.2s; }
         .footer-link:hover { color: rgba(240,237,232,0.6); }
@@ -472,26 +1160,39 @@ export default function Home() {
 
         /* ── Responsive ── */
         @media (max-width: 960px) {
-          .hero-inner { grid-template-columns: 1fr; gap: 48px; padding-top: 100px; padding-bottom: 60px; }
+          .hero-inner { grid-template-columns: 1fr; gap: 44px; padding-top: 110px; padding-bottom: 60px; }
           .hero-left { transform: translateY(20px); }
           .hero-right { transform: translateY(16px); }
           .stats-inner { flex-wrap: wrap; gap: 24px 0; }
           .stat { padding: 0 30px; }
-          .stat + .stat { border-left: none; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; width: 100%; align-items: flex-start; }
+          .stat + .stat { border-left: none; border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px; width: 100%; align-items: flex-start; }
+          .stat-label { text-align: left; }
           .values-inner { grid-template-columns: 1fr; }
           .value-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
           .value-card:last-child { border-bottom: none; }
           .problem-inner { grid-template-columns: 1fr; gap: 28px; }
           .problem-num { font-size: clamp(4rem, 16vw, 6rem); }
-          .privacy-inner { grid-template-columns: 1fr; gap: 48px; }
+          .privacy-inner { grid-template-columns: 1fr; gap: 44px; }
+          .feat { padding: 84px 40px; }
+          .feat-inner, .feat-flip { grid-template-columns: 1fr; gap: 46px; }
+          .feat-flip .feat-visual { order: 2; }
+          .agents { padding: 88px 40px; }
+          .agents-head { margin-bottom: 48px; }
+          .agent, .agent-flip { grid-template-columns: 1fr; gap: 40px; padding: 44px 0; }
+          .agent-flip .agent-visual { order: 2; }
         }
         @media (max-width: 640px) {
-          .hero, .stats, .values, .integrations, .privacy, .powered, .final-cta { padding-left: 20px; padding-right: 20px; }
-          .hero-rule { width: calc(100% - 40px); }
+          .hero, .stats, .values, .integrations, .privacy, .powered, .final-cta,
+          .feat, .showcase, .agents { padding-left: 20px; padding-right: 20px; }
           .footer { padding: 20px; }
           .footer-inner { flex-direction: column; text-align: center; gap: 12px; }
           .nav-inner { padding: 0 20px; }
           .headline { font-size: clamp(3.2rem, 11vw, 4.5rem); }
+          .section-tabs-inner { padding: 10px 12px; }
+          .sc-panel { padding: 20px; }
+          .nav-links { gap: 16px; }
+          .agent-name { font-size: 1.4rem; }
         }
       `}</style>
     </div>
