@@ -61,7 +61,56 @@ const TAB_SECTIONS = [
   { id: "realtime", label: "Real-time" },
   { id: "slack-bot", label: "Slack" },
   { id: "agents", label: "Agents" },
+  { id: "workspace", label: "Workspace" },
   { id: "security", label: "Security" },
+];
+
+// The five Workspace apps. Kept as data because the Marketplace page renders
+// the same set in more depth — one source of truth for names and one-liners.
+// Five apps in a deliberately uneven grid — two feature cards leading, three
+// beneath. A single row of five reads as a spec sheet; this reads as a
+// product. `similar` gives people a foothold in one glance.
+const WORKSPACE_APPS = [
+  {
+    name: "Attune",
+    role: "Meetings & classes",
+    similar: "Like Otter.ai",
+    blurb:
+      "Listens live and writes the notes as the meeting happens. Afterwards it pulls out who promised what, and turns those into follow-ups you can actually track.",
+    size: "lead",
+  },
+  {
+    name: "Forge",
+    role: "Coding",
+    similar: "Like Claude Code",
+    blurb:
+      "Writes, debugs and refactors with your repos, issues and docs already in context — and lets you choose how much effort each question deserves.",
+    size: "lead",
+  },
+  {
+    name: "Folio",
+    role: "Documents",
+    similar: "Like Google Docs",
+    blurb:
+      "A proper writing surface — real tables, checklists, formatting — that your team can search and your agents can read.",
+    size: "sm",
+  },
+  {
+    name: "Facet",
+    role: "Data",
+    similar: "Like Airtable",
+    blurb:
+      "Your spreadsheets and bases, filtered in plain English, with AI columns that fill themselves in.",
+    size: "sm",
+  },
+  {
+    name: "Easel",
+    role: "Canvas",
+    similar: "Like Miro",
+    blurb:
+      "An infinite whiteboard that draws diagrams from your own data, then turns sticky notes into tasks.",
+    size: "sm",
+  },
 ];
 
 const HERO_QUERIES = [
@@ -660,6 +709,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Workspace apps ── */}
+      <section id="workspace" className="workspace sec-b reveal">
+        <div className="ws-inner">
+          <div className="agents-head">
+            <p className="feat-kicker"><span className="fk-dot" />Workspace</p>
+            <h2 className="sec-title">Where the work actually happens.</h2>
+            <p className="agents-sub">
+              Answers are only half of it. Five apps for writing, recording,
+              organising and drawing — each one searchable the moment you save,
+              so everything you make feeds the same knowledge your agents use.
+            </p>
+          </div>
+
+          <div className="ws-grid">
+            {WORKSPACE_APPS.map((app, i) => (
+              <div key={app.name}
+                className={`ws-card ws-${app.size} reveal-child`}
+                style={{ "--d": `${i * 70}ms` } as React.CSSProperties}>
+                <div className="ws-card-head">
+                  <h3 className="ws-name">{app.name}</h3>
+                  <span className="ws-role">{app.role}</span>
+                </div>
+                <span className="ws-similar">{app.similar}</span>
+                <p className="ws-blurb">{app.blurb}</p>
+              </div>
+            ))}
+
+            {/* Notes gets its own tile — it's the one that stays free, and
+                that's the most persuasive thing on this section */}
+            <div className="ws-card ws-free reveal-child"
+              style={{ "--d": "350ms" } as React.CSSProperties}>
+              <div className="ws-card-head">
+                <h3 className="ws-name">Notes</h3>
+                <span className="ws-role">Notebooks</span>
+              </div>
+              <span className="ws-similar">Like OneNote</span>
+              <p className="ws-blurb">
+                Nested pages for everything not ready to be a document. Search by
+                keyword or by meaning, and let AI summarise a whole notebook.
+              </p>
+              <span className="ws-free-tag">Free forever, on every plan</span>
+            </div>
+          </div>
+
+          <a href="/marketplace" className="ws-more">
+            See what each app can do
+            <span className="ws-more-arrow">→</span>
+          </a>
+        </div>
+      </section>
+
       {/* ── Security ── */}
       <section id="security" className="privacy sec-b reveal">
         <div className="privacy-inner">
@@ -716,6 +816,7 @@ export default function Home() {
         <div className="footer-inner">
           <span className="footer-brand"><Logo size={22} radius={7} /><span className="footer-wordmark">ClutterAI</span></span>
           <nav className="footer-nav">
+            <a href="/marketplace" className="footer-link">Marketplace</a>
             <a href="/privacy" className="footer-link">Privacy</a>
             <a href="/refund" className="footer-link">Refunds</a>
             <a href="/terms" className="footer-link">Terms</a>
@@ -790,19 +891,19 @@ export default function Home() {
           transition: opacity 1s cubic-bezier(0.16,1,0.3,1) 0.5s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.5s;
           display: flex; flex-direction: column; gap: 24px; padding-bottom: 8px; }
         .hero-right.hero-right-in { opacity: 1; transform: none; }
-        .subtext { font-size: 1.05rem; line-height: 1.7; color: rgba(240,237,232,0.52); font-weight: 300; }
+        .subtext { font-size: 1.28rem; line-height: 1.65; color: rgba(240,237,232,0.52); font-weight: 300; }
         .hero-ask { display: flex; align-items: center; gap: 12px; padding: 14px 16px;
           border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
           background: rgba(255,255,255,0.03); overflow: hidden;
           box-shadow: 0 18px 50px rgba(0,0,0,0.4); }
         .ha-logo { display: flex; flex-shrink: 0; }
-        .ha-text { font-size: 0.9rem; color: rgba(240,237,232,0.75); flex: 1;
+        .ha-text { font-size: 1.02rem; color: rgba(240,237,232,0.75); flex: 1;
           animation: swap-in 0.55s cubic-bezier(0.16,1,0.3,1) both; }
         @keyframes swap-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         .ha-caret { width: 2px; height: 16px; background: #f0ede8; flex-shrink: 0;
           animation: blink 1.1s step-end infinite; }
         .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .hero-footnote { font-size: 0.77rem; color: rgba(240,237,232,0.22); font-weight: 300; }
+        .hero-footnote { font-size: 0.9rem; color: rgba(240,237,232,0.22); font-weight: 300; }
 
         /* ── Marquee ── */
         .marquee-wrap { border-top: 1px solid rgba(255,255,255,0.06);
@@ -824,7 +925,7 @@ export default function Home() {
         .section-tabs-inner { max-width: 1200px; margin: 0 auto; padding: 10px 40px;
           display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
         .section-tabs-inner::-webkit-scrollbar { display: none; }
-        .stab { padding: 8px 16px; font-size: 0.82rem; font-weight: 500; border-radius: 999px;
+        .stab { padding: 9px 18px; font-size: 0.92rem; font-weight: 500; border-radius: 999px;
           color: rgba(240,237,232,0.38); text-decoration: none; white-space: nowrap;
           border: 1px solid transparent;
           transition: color 0.25s ease, background 0.3s ease, border-color 0.3s ease; }
@@ -832,15 +933,15 @@ export default function Home() {
         .stab-active { color: #141413; background: #f0ede8; border-color: #f0ede8; }
 
         .sec-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(1.9rem, 3.4vw, 2.7rem); letter-spacing: -0.05em; color: #f0ede8; line-height: 1.1; }
+          font-size: clamp(2.3rem, 4vw, 3.4rem); letter-spacing: -0.05em; color: #f0ede8; line-height: 1.08; }
         .center { text-align: center; }
 
         /* ── Showcase ── */
-        .showcase { padding: 100px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .showcase { padding: 116px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .showcase-inner { max-width: 900px; margin: 0 auto; }
         .sc-tabs { display: flex; justify-content: center; gap: 6px; margin: 30px 0 26px; flex-wrap: wrap; }
-        .sc-tab { padding: 9px 20px; border-radius: 999px; font-family: 'Figtree', sans-serif;
-          font-size: 0.85rem; font-weight: 500; cursor: pointer; color: rgba(240,237,232,0.45);
+        .sc-tab { padding: 11px 24px; border-radius: 999px; font-family: 'Figtree', sans-serif;
+          font-size: 0.98rem; font-weight: 500; cursor: pointer; color: rgba(240,237,232,0.45);
           background: transparent; border: 1px solid rgba(255,255,255,0.1);
           transition: color 0.25s, background 0.25s, border-color 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1); }
         .sc-tab:hover { color: #f0ede8; transform: translateY(-1px); }
@@ -852,17 +953,17 @@ export default function Home() {
           box-shadow: 0 24px 70px rgba(0,0,0,0.45); }
         @keyframes panel-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
         .sc-prompt { display: flex; flex-direction: column; gap: 8px;
-          font-size: 0.98rem; color: #f0ede8; font-weight: 500; }
+          font-size: 1.15rem; color: #f0ede8; font-weight: 500; }
         .sc-label { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
           color: rgba(240,237,232,0.3); font-weight: 500; }
         .sc-answer { display: flex; gap: 14px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); }
         .sc-logo { flex-shrink: 0; display: flex; }
         .sc-answer-body { display: flex; flex-direction: column; gap: 12px; }
-        .sc-p { font-size: 0.92rem; line-height: 1.75; color: rgba(240,237,232,0.6); font-weight: 300;
+        .sc-p { font-size: 1.08rem; line-height: 1.7; color: rgba(240,237,232,0.6); font-weight: 300;
           animation: rise-in 0.55s cubic-bezier(0.16,1,0.3,1) both;
           animation-delay: calc(var(--i, 0) * 260ms + 200ms); }
         .sc-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
-        .sc-chip { font-size: 0.72rem; color: rgba(240,237,232,0.55); padding: 6px 12px;
+        .sc-chip { font-size: 0.84rem; color: rgba(240,237,232,0.55); padding: 6px 12px;
           border: 1px solid rgba(255,255,255,0.09); border-radius: 999px; background: rgba(255,255,255,0.02);
           transition: border-color 0.2s, color 0.2s;
           animation: rise-in 0.5s cubic-bezier(0.16,1,0.3,1) both;
@@ -871,17 +972,17 @@ export default function Home() {
         @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
         /* ── CTAs ── */
-        .cta-primary { display: inline-flex; align-items: center; padding: 14px 30px;
+        .cta-primary { display: inline-flex; align-items: center; padding: 16px 34px;
           background: #f0ede8; color: #141413; font-family: 'Figtree', sans-serif;
-          font-weight: 600; font-size: 0.92rem; text-decoration: none; border-radius: 999px;
+          font-weight: 600; font-size: 1.05rem; text-decoration: none; border-radius: 999px;
           transition: background 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s; }
         .cta-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 14px 36px rgba(240,237,232,0.16); }
         .cta-primary.large { padding: 17px 42px; font-size: 1rem; }
-        .cta-ghost { font-size: 0.92rem; color: rgba(240,237,232,0.45); text-decoration: none; transition: color 0.2s; }
+        .cta-ghost { font-size: 1.05rem; color: rgba(240,237,232,0.45); text-decoration: none; transition: color 0.2s; }
         .cta-ghost:hover { color: #f0ede8; }
 
         /* ── Problem ── */
-        .problem { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 90px 40px; }
+        .problem { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 104px 40px; }
         .problem-inner { max-width: 1200px; margin: 0 auto; display: grid;
           grid-template-columns: auto 1fr; gap: 64px; align-items: center; }
         .problem-stat { display: flex; align-items: baseline; gap: 8px; flex-shrink: 0; }
@@ -892,41 +993,41 @@ export default function Home() {
           letter-spacing: -0.03em; align-self: flex-end; padding-bottom: 0.15em; }
         .problem-text { display: flex; flex-direction: column; gap: 16px; }
         .problem-lead { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(1.1rem, 2vw, 1.5rem); color: #f0ede8; letter-spacing: -0.03em; line-height: 1.3; }
-        .problem-sub { font-size: 0.9rem; line-height: 1.7; color: rgba(240,237,232,0.42); font-weight: 300; }
+          font-size: clamp(1.3rem, 2.3vw, 1.85rem); color: #f0ede8; letter-spacing: -0.03em; line-height: 1.28; }
+        .problem-sub { font-size: 1.05rem; line-height: 1.68; color: rgba(240,237,232,0.42); font-weight: 300; }
         .problem-source { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
           text-transform: uppercase; color: rgba(240,237,232,0.22); }
 
         /* ── Stats ── */
-        .stats { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 48px 40px; }
+        .stats { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 60px 40px; }
         .stats-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
         .stat { padding: 0 56px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .stat + .stat { border-left: 1px solid rgba(255,255,255,0.08); }
         .stat-num { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 2.1rem; color: #f0ede8; letter-spacing: -0.05em; line-height: 1; }
-        .stat-label { font-size: 0.82rem; color: rgba(240,237,232,0.38); font-weight: 300;
-          text-align: center; max-width: 190px; }
+          font-size: 2.6rem; color: #f0ede8; letter-spacing: -0.05em; line-height: 1; }
+        .stat-label { font-size: 0.95rem; color: rgba(240,237,232,0.38); font-weight: 300;
+          text-align: center; max-width: 210px; }
 
         /* ── Feature sections ── */
-        .feat { padding: 118px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
+        .feat { padding: 134px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
         .feat-inner { max-width: 1200px; margin: 0 auto; display: grid;
           grid-template-columns: 1.05fr 0.95fr; gap: 90px; align-items: center; }
         .feat-flip { grid-template-columns: 0.95fr 1.05fr; }
-        .feat-kicker { display: inline-flex; align-items: center; gap: 9px; font-size: 0.7rem;
+        .feat-kicker { display: inline-flex; align-items: center; gap: 9px; font-size: 0.78rem;
           font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
           color: rgba(240,237,232,0.4); margin-bottom: 18px; padding: 6px 14px 6px 11px;
           border-radius: 999px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.03); }
         .fk-dot { width: 5px; height: 5px; border-radius: 999px; background: rgba(240,237,232,0.7); }
         .feat-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: clamp(2rem, 3.6vw, 3rem); letter-spacing: -0.05em; color: #f0ede8;
-          line-height: 1.05; margin-bottom: 22px; }
-        .feat-desc { font-size: 0.98rem; line-height: 1.78; color: rgba(240,237,232,0.48);
-          font-weight: 300; margin-bottom: 28px; max-width: 460px; }
+          font-size: clamp(2.4rem, 4.2vw, 3.6rem); letter-spacing: -0.05em; color: #f0ede8;
+          line-height: 1.04; margin-bottom: 24px; }
+        .feat-desc { font-size: 1.15rem; line-height: 1.72; color: rgba(240,237,232,0.48);
+          font-weight: 300; margin-bottom: 28px; max-width: 520px; }
         .feat-desc b, .feat-rows b { font-weight: 600; color: rgba(240,237,232,0.85); }
         .feat-desc em, .feat-rows em { font-style: italic; }
         .feat-rows { list-style: none; display: flex; flex-direction: column; }
-        .feat-row { display: flex; gap: 14px; align-items: baseline; padding: 13px 0;
-          font-size: 0.88rem; line-height: 1.65; color: rgba(240,237,232,0.55); font-weight: 300;
+        .feat-row { display: flex; gap: 15px; align-items: baseline; padding: 16px 0;
+          font-size: 1.02rem; line-height: 1.62; color: rgba(240,237,232,0.58); font-weight: 300;
           border-top: 1px solid rgba(255,255,255,0.05); transition: color 0.25s, padding-left 0.3s ease; }
         .feat-row:hover { color: rgba(240,237,232,0.85); padding-left: 5px; }
         .fr-mark { color: rgba(240,237,232,0.3); flex-shrink: 0; transition: color 0.25s;
@@ -1061,30 +1162,108 @@ export default function Home() {
         .dpr-value { font-size: 0.83rem; color: rgba(240,237,232,0.6); line-height: 1.5; }
 
         /* ── Agents ── */
-        .agents { padding: 120px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
+        .agents { padding: 132px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
         .agents-inner { max-width: 1200px; margin: 0 auto; }
-        .agents-head { max-width: 620px; margin-bottom: 76px; }
-        .agents-sub { font-size: 1rem; line-height: 1.78; color: rgba(240,237,232,0.48);
+
+        /* ── Workspace apps ─────────────────────────────────────────── */
+        /* A 6-column bento: two lead cards on top, three beneath, and Notes
+           spanning full width as the closer. Reads as a product, not a table. */
+        .workspace { padding: 130px 40px; }
+        .ws-inner { max-width: 1200px; margin: 0 auto; }
+        .ws-grid {
+          display: grid; gap: 14px; margin-top: 60px;
+          grid-template-columns: repeat(6, 1fr);
+        }
+        .ws-lead { grid-column: span 3; padding: 40px 38px 42px; }
+        .ws-sm { grid-column: span 2; padding: 32px 30px 34px; }
+        .ws-free { grid-column: span 6; padding: 34px 38px 36px; }
+        .ws-card {
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 20px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012));
+          position: relative; overflow: hidden;
+          transition: border-color .3s ease, transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s ease;
+        }
+        .ws-card::after {
+          content: ""; position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(600px circle at 0% 0%, rgba(240,237,232,0.05), transparent 45%);
+          opacity: 0; transition: opacity .35s ease;
+        }
+        .ws-card:hover {
+          border-color: rgba(255,255,255,0.2);
+          transform: translateY(-4px);
+          box-shadow: 0 28px 70px rgba(0,0,0,0.5);
+        }
+        .ws-card:hover::after { opacity: 1; }
+        .ws-card-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+        .ws-name {
+          font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+          letter-spacing: -0.035em; color: #f0ede8; line-height: 1.1;
+        }
+        .ws-lead .ws-name { font-size: 2rem; }
+        .ws-sm .ws-name, .ws-free .ws-name { font-size: 1.5rem; }
+        .ws-role {
+          font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em;
+          color: rgba(240,237,232,0.3);
+        }
+        .ws-similar {
+          display: inline-block; margin-bottom: 16px;
+          font-size: 0.78rem; color: rgba(240,237,232,0.42);
+        }
+        .ws-blurb {
+          line-height: 1.72; margin: 0; color: rgba(240,237,232,0.56); font-weight: 300;
+        }
+        .ws-lead .ws-blurb { font-size: 1.05rem; max-width: 42ch; }
+        .ws-sm .ws-blurb, .ws-free .ws-blurb { font-size: 0.98rem; max-width: 52ch; }
+        .ws-free-tag {
+          display: inline-block; margin-top: 18px; padding: 7px 15px;
+          border-radius: 999px; border: 1px solid rgba(150,215,180,0.28);
+          background: rgba(150,215,180,0.07);
+          font-size: 0.8rem; font-weight: 500; color: rgba(150,215,180,0.9);
+        }
+        .ws-more {
+          display: inline-flex; align-items: center; gap: 9px; margin-top: 52px;
+          font-size: 1rem; color: rgba(240,237,232,0.7); text-decoration: none;
+          border-bottom: 1px solid rgba(240,237,232,0.18); padding-bottom: 4px;
+          transition: color .2s ease, border-color .2s ease;
+        }
+        .ws-more:hover { color: #f0ede8; border-color: rgba(240,237,232,0.5); }
+        .ws-more-arrow { transition: transform .2s ease; }
+        .ws-more:hover .ws-more-arrow { transform: translateX(4px); }
+
+        @media (max-width: 960px) {
+          .ws-grid { grid-template-columns: repeat(2, 1fr); }
+          .ws-lead, .ws-sm, .ws-free { grid-column: span 2; }
+          .ws-lead .ws-name { font-size: 1.7rem; }
+        }
+        @media (max-width: 640px) {
+          .workspace { padding: 88px 20px; }
+          .ws-grid { grid-template-columns: 1fr; margin-top: 42px; }
+          .ws-lead, .ws-sm, .ws-free { grid-column: span 1; padding: 28px 24px 30px; }
+        }
+
+        .agents-head { max-width: 700px; margin-bottom: 80px; }
+        .agents-sub { font-size: 1.18rem; line-height: 1.7; color: rgba(240,237,232,0.48);
           font-weight: 300; margin-top: 18px; }
-        .agent { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 80px;
-          align-items: center; padding: 56px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+        .agent { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 84px;
+          align-items: center; padding: 64px 0; border-top: 1px solid rgba(255,255,255,0.06); }
         .agent-flip { grid-template-columns: 0.95fr 1.05fr; }
         .agent-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
         .agent-logo { display: flex; flex-shrink: 0; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
         .agent:hover .agent-logo { transform: rotate(90deg); }
         .agent-name { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 1.7rem; letter-spacing: -0.04em; color: #f0ede8; line-height: 1.1; }
-        .agent-role { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+          font-size: 2.1rem; letter-spacing: -0.04em; color: #f0ede8; line-height: 1.1; }
+        .agent-role { font-size: 0.86rem; letter-spacing: 0.06em; text-transform: uppercase;
           color: rgba(240,237,232,0.32); margin-top: 4px; }
-        .agent-desc { font-size: 0.95rem; line-height: 1.8; color: rgba(240,237,232,0.5);
-          font-weight: 300; margin-bottom: 26px; max-width: 460px; }
+        .agent-desc { font-size: 1.12rem; line-height: 1.72; color: rgba(240,237,232,0.5);
+          font-weight: 300; margin-bottom: 26px; max-width: 500px; }
         .agent-desc em { font-style: italic; }
 
         /* ── Values ── */
-        .values { padding: 100px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .values { padding: 112px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .values-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr);
           border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; overflow: hidden; }
-        .value-card { padding: 52px 44px; background: rgba(255,255,255,0.012);
+        .value-card { padding: 58px 46px; background: rgba(255,255,255,0.012);
           border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 16px;
           transition: background 0.35s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1); }
         .value-card:last-child { border-right: none; }
@@ -1092,13 +1271,13 @@ export default function Home() {
         .value-num { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.68rem;
           font-weight: 800; letter-spacing: 0.12em; color: rgba(240,237,232,0.18); }
         .value-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-          font-size: 1.18rem; color: #f0ede8; letter-spacing: -0.03em; line-height: 1.2; }
-        .value-desc { font-size: 0.87rem; color: rgba(240,237,232,0.42); line-height: 1.72; font-weight: 300; }
+          font-size: 1.42rem; color: #f0ede8; letter-spacing: -0.03em; line-height: 1.2; }
+        .value-desc { font-size: 1.02rem; color: rgba(240,237,232,0.46); line-height: 1.7; font-weight: 300; }
 
         /* ── Integrations ── */
         .integrations { padding: 90px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .integrations-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-        .integrations-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+        .integrations-label { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.14em;
           text-transform: uppercase; color: rgba(240,237,232,0.25); margin-bottom: 30px; }
         .logo-strip { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
         .logo-item { display: flex; align-items: center; gap: 8px; padding: 9px 17px;
@@ -1106,19 +1285,19 @@ export default function Home() {
           transition: border-color 0.2s, background 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1); }
         .logo-item:hover { border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.07); transform: translateY(-3px); }
         .logo-icon { width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .logo-name { font-size: 0.8rem; font-weight: 500; color: rgba(240,237,232,0.52); }
+        .logo-name { font-size: 0.92rem; font-weight: 500; color: rgba(240,237,232,0.52); }
         .integrations-more { margin-top: 18px; font-size: 0.76rem; color: rgba(240,237,232,0.18); font-weight: 300; }
 
         /* ── Privacy ── */
-        .privacy { padding: 110px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
+        .privacy { padding: 124px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); scroll-margin-top: 124px; }
         .privacy-inner { max-width: 1200px; margin: 0 auto; display: grid;
           grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
         .privacy-title { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
           font-size: clamp(2rem, 3.5vw, 2.8rem); letter-spacing: -0.05em; color: #f0ede8;
           line-height: 1.08; margin-bottom: 20px; }
-        .privacy-sub { font-size: 0.92rem; line-height: 1.78; color: rgba(240,237,232,0.45);
+        .privacy-sub { font-size: 1.1rem; line-height: 1.72; color: rgba(240,237,232,0.45);
           font-weight: 300; margin-bottom: 28px; }
-        .privacy-link { font-size: 0.87rem; color: rgba(240,237,232,0.45); text-decoration: none;
+        .privacy-link { font-size: 1rem; color: rgba(240,237,232,0.45); text-decoration: none;
           border-bottom: 1px solid rgba(240,237,232,0.16); padding-bottom: 2px;
           transition: color 0.2s, border-color 0.2s; }
         .privacy-link:hover { color: #f0ede8; border-color: rgba(240,237,232,0.5); }
@@ -1128,9 +1307,9 @@ export default function Home() {
           transition: border-color 0.2s, transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.2s; }
         .privacy-badge:hover { border-color: rgba(255,255,255,0.2); transform: translateX(6px); background: rgba(255,255,255,0.055); }
         .pb-logo { flex-shrink: 0; display: flex; }
-        .pb-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.87rem; font-weight: 800;
+        .pb-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.02rem; font-weight: 800;
           color: rgba(240,237,232,0.85); letter-spacing: -0.02em; margin-bottom: 3px; }
-        .pb-sub { font-size: 0.75rem; color: rgba(240,237,232,0.35); font-weight: 300; line-height: 1.5; }
+        .pb-sub { font-size: 0.88rem; color: rgba(240,237,232,0.35); font-weight: 300; line-height: 1.5; }
 
         /* ── Powered by ── */
         .powered { padding: 60px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
@@ -1164,7 +1343,7 @@ export default function Home() {
         .footer-wordmark { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
           font-size: 0.86rem; color: rgba(240,237,232,0.28); letter-spacing: -0.03em; }
         .footer-nav { display: flex; gap: 20px; }
-        .footer-link { font-size: 0.78rem; color: rgba(240,237,232,0.26); text-decoration: none; transition: color 0.2s; }
+        .footer-link { font-size: 0.88rem; color: rgba(240,237,232,0.26); text-decoration: none; transition: color 0.2s; }
         .footer-link:hover { color: rgba(240,237,232,0.6); }
         .footer-copy { font-size: 0.74rem; color: rgba(240,237,232,0.16); }
 
