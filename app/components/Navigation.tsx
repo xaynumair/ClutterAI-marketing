@@ -8,9 +8,13 @@ export const Navigation: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Marketplace sits after Overview: someone reading about the product is
+  // ready to see what's actually in it, and it belongs before Pricing so
+  // they know what they'd be paying for.
   const links = [
     { href: "/", label: "Home" },
     { href: "/about", label: "Overview" },
+    { href: "/marketplace", label: "Marketplace" },
     { href: "/pricing", label: "Pricing" },
     { href: "/contact", label: "Support" },
   ];
@@ -186,7 +190,7 @@ export const Navigation: React.FC = () => {
           display: inline-flex;
           align-items: center;
           height: 34px;
-          padding: 0 16px;
+          padding: 0 14px;
           border-radius: 999px;
           text-decoration: none;
           color: rgba(240,237,232,0.45);
@@ -278,7 +282,9 @@ export const Navigation: React.FC = () => {
           display: none;
         }
 
-        @media (max-width: 768px) {
+        /* Five links plus the CTA is tight on a small laptop, so the pill
+           menu collapses to the hamburger a little earlier than before. */
+        @media (max-width: 900px) {
           .desktop-menu { display: none; }
           .login-button { display: none; }
           .mobile-menu-button { display: flex; }
