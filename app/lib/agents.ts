@@ -1,6 +1,6 @@
-// The eight agents, exactly as the app lists them
-// (src/components/AgentsArea.tsx in the app repo, 7 Sep 2026). Taglines are
-// the app's own. `status` mirrors the app's `available` / `teamsOnly` flags.
+// The agents, as the app lists them (src/components/AgentsArea.tsx in the
+// app repo). Taglines are the app's own. Beacon was dropped from the site on
+// 7 Sep 2026 and is being removed from the app.
 
 export type Agent = {
   id: string;
@@ -9,7 +9,7 @@ export type Agent = {
   tagline: string;
   similar: string;
   body: string;
-  status: "live" | "teams" | "soon";
+  status: "live" | "soon";
 };
 
 export const AGENTS: Agent[] = [
@@ -20,7 +20,7 @@ export const AGENTS: Agent[] = [
     tagline: "Walk in already knowing what matters",
     similar: "Like a chief of staff",
     body:
-      "Before any meeting, Pulse cross-references your Gmail, Slack and Notion or Confluence to brief you on who's involved, what was last discussed, and the open action items between you.",
+      "Before any meeting, Pulse cross-references your email, Slack and Notion or Confluence to brief you on who's involved, what was last discussed, and the open action items between you.",
     status: "live",
   },
   {
@@ -54,16 +54,6 @@ export const AGENTS: Agent[] = [
     status: "live",
   },
   {
-    id: "beacon",
-    name: "Beacon",
-    role: "Person lookup",
-    tagline: "Surface contacts from any list",
-    similar: "Like a research assistant",
-    body:
-      "Upload a CSV or Excel file of names and locations. Beacon finds and returns verified phone numbers for each contact — one by one, in the background.",
-    status: "teams",
-  },
-  {
     id: "ripple",
     name: "Ripple",
     role: "Email discovery",
@@ -92,8 +82,5 @@ export const AGENTS: Agent[] = [
   },
 ];
 
-export const STATUS_LABEL: Record<Agent["status"], string> = {
-  live: "Live",
-  teams: "Teams",
-  soon: "Coming soon",
-};
+export const LIVE_AGENTS = AGENTS.filter((a) => a.status === "live");
+export const SOON_AGENTS = AGENTS.filter((a) => a.status === "soon");

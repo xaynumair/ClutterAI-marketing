@@ -6,7 +6,7 @@ import "./why.css";
 import { Logo, Spark, Icon } from "../Logo";
 import { CountUp, InView, Reveal } from "../Reveal";
 import { at } from "../scenes/primitives";
-import { POSTAL_ADDRESS, SIGNUP_URL, SUPPORT_EMAIL, TRIAL_DAYS } from "../../lib/site";
+import { SIGNUP_URL, TRIAL_DAYS } from "../../lib/site";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` } as CSSProperties);
 
@@ -53,28 +53,37 @@ function Diagram() {
   const oy = (i: number) => 22 + i * ((H - 44) / (outs.length - 1));
   return (
     <svg viewBox={`0 0 760 ${H}`} className="wy-diagram" aria-hidden="true">
+      {/* Outer <g> positions, inner <g> animates. The .sc-node pop animation
+          sets a CSS transform, which would replace an SVG transform attribute
+          on the same element and collapse every node to the origin. */}
       {tools.map((t, i) => (
         <g key={t}>
           <path d={`M150 ${ty(i)} C 250 ${ty(i)}, 260 ${H / 2}, 330 ${H / 2}`} pathLength={1} className="sc-draw" style={at(300 + i * 90)} />
-          <g className="sc-node" style={at(120 + i * 90)} transform={`translate(30 ${ty(i) - 15})`}>
-            <rect width="120" height="30" rx="9" /><text x="60" y="19" textAnchor="middle">{t}</text>
+          <g transform={`translate(30 ${ty(i) - 15})`}>
+            <g className="sc-node" style={at(120 + i * 90)}>
+              <rect width="120" height="30" rx="9" /><text x="60" y="19" textAnchor="middle">{t}</text>
+            </g>
           </g>
         </g>
       ))}
-      <g className="sc-node" style={at(1000)} transform={`translate(330 ${H / 2 - 40})`}>
-        <rect width="100" height="80" rx="18" fill="#000" stroke="rgba(240,237,232,0.25)" />
-        <g stroke="#fff" strokeWidth="6" strokeLinecap="round" transform="translate(30 20) scale(0.4)">
-          <line x1="50" y1="16" x2="50" y2="43" /><line x1="50" y1="57" x2="50" y2="84" />
-          <line x1="20" y1="33" x2="43.5" y2="46.5" /><line x1="56.5" y1="53.5" x2="80" y2="67" />
-          <line x1="80" y1="33" x2="56.5" y2="46.5" /><line x1="43.5" y1="53.5" x2="20" y2="67" />
+      <g transform={`translate(330 ${H / 2 - 40})`}>
+        <g className="sc-node wy-mem" style={at(1000)}>
+          <rect width="100" height="80" rx="18" />
+          <g stroke="#fff" strokeWidth="6" strokeLinecap="round" transform="translate(30 20) scale(0.4)">
+            <line x1="50" y1="16" x2="50" y2="43" /><line x1="50" y1="57" x2="50" y2="84" />
+            <line x1="20" y1="33" x2="43.5" y2="46.5" /><line x1="56.5" y1="53.5" x2="80" y2="67" />
+            <line x1="80" y1="33" x2="56.5" y2="46.5" /><line x1="43.5" y1="53.5" x2="20" y2="67" />
+          </g>
+          <text x="50" y="70" textAnchor="middle" className="wy-diagram-cap">one memory</text>
         </g>
-        <text x="50" y="70" textAnchor="middle" className="wy-diagram-cap">one memory</text>
       </g>
       {outs.map((o, i) => (
         <g key={o}>
           <path d={`M430 ${H / 2} C 500 ${H / 2}, 520 ${oy(i)}, 610 ${oy(i)}`} pathLength={1} className="sc-draw" style={at(1400 + i * 80)} />
-          <g className={`sc-node ${i >= 5 ? "is-tilt" : ""}`} style={at(1700 + i * 80)} transform={`translate(610 ${oy(i) - 14})`}>
-            <rect width="110" height="28" rx="9" /><text x="55" y="18" textAnchor="middle">{o}</text>
+          <g transform={`translate(610 ${oy(i) - 14})`}>
+            <g className={`sc-node ${i >= 5 ? "is-tilt" : ""}`} style={at(1700 + i * 80)}>
+              <rect width="110" height="28" rx="9" /><text x="55" y="18" textAnchor="middle">{o}</text>
+            </g>
           </g>
         </g>
       ))}
@@ -164,7 +173,7 @@ export function WhyPage() {
         <div className="wrap">
           <div className="sec-head">
             <p className="kicker">Who it&rsquo;s for</p>
-            <h2 className="h-display h-lg">One person, a class, or the whole team.</h2>
+            <h2 className="h-display h-lg">One person, or the whole team.</h2>
           </div>
           <div className="wy-who-grid">
             <div className="reveal-child" style={d(0)}>
@@ -173,11 +182,6 @@ export function WhyPage() {
               <Link href="/pricing" className="wy-link">Pro and Max plans <Icon.Arrow /></Link>
             </div>
             <div className="reveal-child" style={d(90)}>
-              <h3 className="h-serif h-md">Students</h3>
-              <p>Attune&rsquo;s class mode turns a lecture into notes and flashcards. Notes hold the rest. The whole workspace for $9 a month with a .edu address.</p>
-              <Link href="/pricing" className="wy-link">Student plan <Icon.Arrow /></Link>
-            </div>
-            <div className="reveal-child" style={d(180)}>
               <h3 className="h-serif h-md">Teams</h3>
               <p>One shared memory of documents, boards and meetings; private inboxes; an admin console; and billing that members never have to think about.</p>
               <Link href="/pricing#teams" className="wy-link">Team plans <Icon.Arrow /></Link>
@@ -205,18 +209,11 @@ export function WhyPage() {
         </div>
       </Reveal>
 
-      <section className="section wy-company">
-        <div className="wrap wy-company-inner">
-          <div>
-            <p className="kicker">The company</p>
-            <h2 className="h-serif h-lg">Small team. Big memory.</h2>
-            <p className="lede">ClutterAI is built by a small team and registered in Sheridan, Wyoming. We answer support ourselves, usually within a day.</p>
-            <p className="small" style={{ marginTop: 12 }}>{POSTAL_ADDRESS}</p>
-          </div>
-          <div className="wy-company-actions">
-            <a href={SIGNUP_URL} className="btn btn-primary btn-lg">Start your {TRIAL_DAYS} days <Icon.Arrow /></a>
-            <a href={`mailto:${SUPPORT_EMAIL}`} className="btn btn-ghost btn-lg"><Icon.Mail size={16} /> {SUPPORT_EMAIL}</a>
-          </div>
+      <section className="section center">
+        <div className="wrap wrap-narrow wy-cta">
+          <h2 className="h-serif h-lg">Start with the {TRIAL_DAYS} days.</h2>
+          <p className="lede">Every app, every agent, no card. Chat and Notes stay free afterwards.</p>
+          <a href={SIGNUP_URL} className="btn btn-primary btn-lg">Start free <Icon.Arrow /></a>
         </div>
       </section>
     </div>

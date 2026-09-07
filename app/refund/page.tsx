@@ -50,7 +50,7 @@ export default function Refund() {
         <h2>30-Day Money-Back Guarantee</h2>
         <p>We offer a <strong>30-day money-back guarantee</strong> on new subscription purchases. It applies to:</p>
         <ul>
-          <li>Your first purchase of any ClutterAI plan — Student, Pro, Max 5×, Max 20×, Team Standard or Team Premium — on either monthly or annual billing</li>
+          <li>Your first purchase of any ClutterAI plan — Pro, Max 5×, Max 20×, Team Standard or Team Premium — on either monthly or annual billing</li>
           <li>Purchases made within the last 30 days from the date of payment</li>
           <li>Subscriptions purchased through our checkout (powered by Lemon Squeezy)</li>
           <li>Accounts that have submitted <strong>fewer than 20 queries</strong> in total since sign-up</li>

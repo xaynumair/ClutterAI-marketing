@@ -1,8 +1,8 @@
-// The public plan ladder. Every number here is copied from the app's own
-// catalogue — convex/planCatalogue.ts (PLAN_INFO) and src/lib/planCopy.ts
-// (PLAN_FEATURES / PLAN_BLURB) in the app repo, checked 7 Sep 2026 — and the
-// free tier from convex/usageLimits.ts (BUDGETS). If the app changes, change
-// this file; nothing else on the site carries a price.
+// The public plan ladder. Prices are copied from the app's catalogue
+// (convex/planCatalogue.ts in the app repo, checked 7 Sep 2026). Features are
+// described the way Claude's pricing page does it — relative usage and what
+// each tier unlocks — not as question counts. If the app changes, change this
+// file; nothing else on the site carries a price.
 
 export type Plan = {
   id: string;
@@ -15,6 +15,7 @@ export type Plan = {
   minSeats?: number;
   popular?: boolean;
   note?: string;             // one line under the price
+  plus?: string;             // "Everything in X, plus" header above the list
   features: string[];
   cta: string;
 };
@@ -30,26 +31,10 @@ export const PLANS: Plan[] = [
     perSeat: false,
     note: "Free forever",
     features: [
-      "~10 chat questions a day",
+      "Chat with everything you've connected",
+      "Notes, free forever",
       "All 13 integrations",
-      "Notes — free forever",
       "Ask from Slack",
-    ],
-    cta: "Start free",
-  },
-  {
-    id: "student",
-    name: "Student",
-    group: "personal",
-    blurb: "The full workspace, at a student price.",
-    monthly: 9,
-    annual: 90,
-    perSeat: false,
-    note: "Needs a valid .edu address",
-    features: [
-      "~20 chat questions a day",
-      "All Workspace apps and agents",
-      "Student pricing, same depth",
     ],
     cta: "Start free",
   },
@@ -62,11 +47,13 @@ export const PLANS: Plan[] = [
     annual: 192,
     perSeat: false,
     popular: true,
+    plus: "Everything in Free, plus",
     features: [
-      "~34 chat questions a day",
-      "Forge on Quick and Standard effort",
-      "All Workspace apps and agents",
-      "2 hours of Attune recording a month",
+      "Much more usage than Free",
+      "Forge coding agent on Quick and Standard effort",
+      "Pulse, Digest and Triage agents",
+      "Folio, Attune, Facet and Easel",
+      "Attune meeting recording",
     ],
     cta: "Start free",
   },
@@ -79,11 +66,12 @@ export const PLANS: Plan[] = [
     annual: null,
     perSeat: false,
     note: "Monthly only",
+    plus: "Everything in Pro, plus",
     features: [
-      "~100 chat questions a day",
-      "Forge on Deep effort — Opus, ~8 questions a day",
-      "Everything in Pro, with far higher ceilings",
-      "9 hours of Attune recording a month",
+      "5× more usage than Pro",
+      "Forge on Deep effort, its most capable mode",
+      "Far more Attune recording time",
+      "Higher ceilings on every app and agent",
     ],
     cta: "Start free",
   },
@@ -96,11 +84,12 @@ export const PLANS: Plan[] = [
     annual: null,
     perSeat: false,
     note: "Monthly only",
+    plus: "Everything in Pro, plus",
     features: [
-      "~400 chat questions a day",
-      "Forge on Deep effort — Opus, ~23 questions a day",
+      "20× more usage than Pro",
+      "Forge on Deep effort, its most capable mode",
+      "The most Attune recording time we offer",
       "The highest limits we offer",
-      "21 hours of Attune recording a month",
     ],
     cta: "Start free",
   },
@@ -114,9 +103,9 @@ export const PLANS: Plan[] = [
     perSeat: true,
     minSeats: 3,
     popular: true,
+    plus: "Everything in Pro, for every member",
     features: [
-      "Pro-level usage for every member",
-      "Shared documents, boards and notes",
+      "Shared documents, boards, tables and meetings",
       "Admin console with per-member usage",
       "Members never see billing",
       "Minimum 3 seats",
@@ -132,11 +121,11 @@ export const PLANS: Plan[] = [
     annual: 1020,
     perSeat: true,
     minSeats: 3,
+    plus: "Everything in Team Standard, plus",
     features: [
       "Max 5×-level usage for every member",
-      "Forge on Deep effort — Opus, for the whole team",
-      "Everything in Team Standard",
-      "Assign per member — mix Standard and Premium",
+      "Forge on Deep effort for the whole team",
+      "Assign per member — mix Standard and Premium seats",
     ],
     cta: "Start a team",
   },
@@ -148,20 +137,14 @@ export const TEAM_PLANS = PLANS.filter((p) => p.group === "team");
 /** Rows of the comparison table. `null` renders as a dash. */
 export type CompareRow = { label: string; values: Record<string, string | null> };
 export const COMPARE: CompareRow[] = [
-  { label: "Chat questions (approx. per day)", values: { free: "10", student: "20", pro: "34", max5: "100", max20: "400", team: "34", teamPremium: "100" } },
-  { label: "Forge coding agent", values: { free: null, student: "Quick + Standard", pro: "Quick + Standard", max5: "Deep (Opus)", max20: "Deep (Opus)", team: "Quick + Standard", teamPremium: "Deep (Opus)" } },
-  { label: "Pulse, Digest, Triage", values: { free: null, student: "Included", pro: "Included", max5: "Included", max20: "Included", team: "Included", teamPremium: "Included" } },
-  { label: "Attune recording", values: { free: null, student: "Included", pro: "2 h / month", max5: "9 h / month", max20: "21 h / month", team: "2 h / month", teamPremium: "9 h / month" } },
-  { label: "Folio, Facet, Easel", values: { free: null, student: "Included", pro: "Included", max5: "Included", max20: "Included", team: "Included", teamPremium: "Included" } },
-  { label: "Notes", values: { free: "Free forever", student: "Included", pro: "Included", max5: "Included", max20: "Included", team: "Included", teamPremium: "Included" } },
-  { label: "Integrations", values: { free: "All 13", student: "All 13", pro: "All 13", max5: "All 13", max20: "All 13", team: "All 13", teamPremium: "All 13" } },
-  { label: "Shared documents, boards, notes", values: { free: null, student: null, pro: null, max5: null, max20: null, team: "Included", teamPremium: "Included" } },
-  { label: "Admin console, per-member usage", values: { free: null, student: null, pro: null, max5: null, max20: null, team: "Included", teamPremium: "Included" } },
-  { label: "Beacon (contact lookup)", values: { free: null, student: null, pro: null, max5: null, max20: null, team: "Included", teamPremium: "Included" } },
-  { label: "Billing", values: { free: "—", student: "Monthly or annual", pro: "Monthly or annual", max5: "Monthly", max20: "Monthly", team: "Monthly or annual", teamPremium: "Monthly or annual" } },
+  { label: "Usage", values: { free: "Included", pro: "More than Free", max5: "5× Pro", max20: "20× Pro", team: "Pro-level, per member", teamPremium: "Max 5×-level, per member" } },
+  { label: "Forge coding agent", values: { free: null, pro: "Quick + Standard", max5: "Deep", max20: "Deep", team: "Quick + Standard", teamPremium: "Deep" } },
+  { label: "Pulse, Digest, Triage", values: { free: null, pro: "Included", max5: "Included", max20: "Included", team: "Included", teamPremium: "Included" } },
+  { label: "Attune meeting recording", values: { free: null, pro: "Included", max5: "More time", max20: "Most time", team: "Included", teamPremium: "More time" } },
+  { label: "Folio, Facet, Easel", values: { free: null, pro: "Included", max5: "Included", max20: "Included", team: "Included", teamPremium: "Included" } },
+  { label: "Notes", values: { free: "Free forever", pro: "Included", max5: "Included", max20: "Included", team: "Included", teamPremium: "Included" } },
+  { label: "Integrations", values: { free: "All 13", pro: "All 13", max5: "All 13", max20: "All 13", team: "All 13", teamPremium: "All 13" } },
+  { label: "Shared documents, boards, notes", values: { free: null, pro: null, max5: null, max20: null, team: "Included", teamPremium: "Included" } },
+  { label: "Admin console, per-member usage", values: { free: null, pro: null, max5: null, max20: null, team: "Included", teamPremium: "Included" } },
+  { label: "Billing", values: { free: "—", pro: "Monthly or annual", max5: "Monthly", max20: "Monthly", team: "Monthly or annual", teamPremium: "Monthly or annual" } },
 ];
-
-/** Months of the year you effectively pay for on an annual plan. */
-export function annualMonths(p: Plan) {
-  return p.annual ? Math.round((p.annual / p.monthly) * 10) / 10 : null;
-}

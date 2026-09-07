@@ -40,6 +40,17 @@ and the refund rule for credit packs, which was written conservatively as
   page falls back to a pre-filled mailto and says so.
 - `.well-known/microsoft-identity-association.json` renamed correctly.
 
+**Round 2 (7 Sep, after review):** Tuesday rail now sticks and tracks the
+card nearest the viewport middle (the grid had `align-items: start`, which
+left sticky with no room); Beacon removed everywhere and the "Live" pill
+dropped (coming-soon pills stay); ask-anywhere copy describes the real
+routing (sources first, then general knowledge, Web toggle for live search);
+Why-page diagram fixed (position transform and pop animation were on the same
+SVG group); Student plan removed from every page including legal; "The
+company" section replaced with a plain CTA; plan features rewritten Claude-style
+(relative usage, no question counts, no model names); hero kicker line removed
+and Gmail dropped from the subtitle and meta description.
+
 **Not done / follow-ups:** Lighthouse run on the deployed site; a real-browser
 pass on the below-the-fold animations (the preview pane cannot screenshot
 them); OneDrive and Teams integrations once Microsoft verification clears;

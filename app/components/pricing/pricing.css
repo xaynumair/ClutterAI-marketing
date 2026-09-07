@@ -36,6 +36,7 @@
 .pr-note { font-size: 0.8rem; color: var(--muted); min-height: 2.4em; line-height: 1.45; }
 .pr-team-total { font-size: 0.9rem; color: var(--ink-2); padding: 10px 12px; border-radius: 10px; background: rgba(240,237,232,0.04); border: 1px solid var(--line); }
 .pr-cta { width: 100%; margin: 4px 0 10px; }
+.pr-plus { font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: -2px; }
 .pr-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.9rem; color: var(--ink-2); }
 .pr-feats li { display: flex; gap: 10px; align-items: baseline; line-height: 1.5; }
 .pr-feats svg { color: var(--accent); position: relative; top: 1px; }

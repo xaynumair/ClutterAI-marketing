@@ -57,6 +57,7 @@ function PlanCard({ p, cycle, seats, i }: { p: Plan; cycle: Cycle; seats: number
         </p>
       )}
       <a href={href} className={`btn ${p.popular ? "btn-primary" : "btn-ghost"} pr-cta`}>{p.cta}</a>
+      {p.plus && <p className="pr-plus">{p.plus}:</p>}
       <ul className="pr-feats">
         {p.features.map((f) => <li key={f}><Spark size={8} />{f}</li>)}
       </ul>
@@ -65,13 +66,12 @@ function PlanCard({ p, cycle, seats, i }: { p: Plan; cycle: Cycle; seats: number
 }
 
 const FAQ = [
-  { q: "What exactly happens after the 14 days?", a: <p>Your account moves to the Free plan on its own. Nothing is deleted, nothing is charged and no card was ever asked for. You keep chat (about ten questions a day), Notes, and all of your integrations. Forge, the agents, Attune and the other apps wait until you pick a paid plan.</p> },
+  { q: "What exactly happens after the 14 days?", a: <p>Your account moves to the Free plan on its own. Nothing is deleted, nothing is charged and no card was ever asked for. You keep chat, Notes, and all of your integrations. Forge, the agents, Attune and the other apps wait until you pick a paid plan.</p> },
   { q: "Why is my card statement from Lemon Squeezy?", a: <p>Lemon Squeezy is our merchant of record: they process the payment, collect tax and issue the receipt. So the charge shows as <b>Lemon Squeezy</b>, not ClutterAI. That is expected and means the payment went through.</p> },
-  { q: "What does “~34 questions a day” mean?", a: <p>Usage is metered in rolling five-hour windows with a weekly ceiling, the same way Claude does it — so a busy afternoon doesn’t lock you out for the day, and a quiet week doesn’t bank unused questions. The daily numbers on this page are what the weekly ceiling works out to for typical questions.</p> },
+  { q: "How is usage measured?", a: <p>Usage is metered in rolling five-hour windows with a weekly ceiling, the same way Claude does it — so a busy afternoon doesn’t lock you out for the day, and a quiet week doesn’t bank unused capacity. Each tier up multiplies the allowance; the app shows you where you are at any time.</p> },
   { q: "Can I switch plans later?", a: <p>Yes, from Settings in the app. Upgrades apply immediately and are prorated. Downgrades are scheduled for the end of the period you already paid for, so you keep what you have until then.</p> },
   { q: "Do you offer refunds?", a: <p>There is a 30-day money-back guarantee on your first purchase of any plan, provided the account has made fewer than 20 queries. EU and UK consumers also keep their statutory 14-day right. The full rules are in the <Link href="/refund">Refund Policy</Link>.</p> },
   { q: "Can I cancel any time?", a: <p>Yes — from account settings or the Lemon Squeezy customer portal in your receipt email. You keep access until the end of the billing period, then move to Free.</p> },
-  { q: "How does the Student plan work?", a: <p>It is the whole workspace at $9 a month for people with a valid .edu email address. Same apps and agents as Pro, with a lower daily allowance.</p> },
   { q: "What is the difference between Team Standard and Team Premium?", a: <p>Standard gives every member Pro-level usage. Premium gives every member Max 5×-level usage, including Forge on Deep effort. You can mix them — assign Premium to the people who code all day and Standard to everyone else. Both need at least three seats.</p> },
   { q: "Do team members see billing or upgrade prompts?", a: <p>No. Billing belongs to the team owner. Members see how much of the team allowance they have used and can ask their admin for more, but never a checkout.</p> },
 ];
@@ -113,7 +113,7 @@ export function PricingPage() {
         <div className="wrap">
           <div className="pr-group-head">
             <h2 className="h-display h-md">For one person</h2>
-            <p className="small">Free, Student, Pro and the two Max tiers. Max is where Forge runs on Opus.</p>
+            <p className="small">Free, Pro and the two Max tiers. Max is where Forge runs at full depth.</p>
           </div>
           <div className="pr-grid pr-grid-5">
             {PERSONAL_PLANS.map((p, i) => <PlanCard key={p.id} p={p} cycle={cycle} seats={seats} i={i} />)}

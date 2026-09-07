@@ -31,7 +31,7 @@ export const APPS: App[] = [
       "Start from a template — meeting notes, project brief, to-do list — or a blank page",
       "Ask a question about any document without leaving it",
     ],
-    plan: "Included on Student, Pro, Max and Team plans",
+    plan: "Included on Pro, Max and Team plans",
     playsWith: [
       { name: "Chat", how: "every document you write becomes a source for answers" },
       { name: "Attune", how: "meeting notes land in a document you can keep editing" },
@@ -53,7 +53,7 @@ export const APPS: App[] = [
       "Action items become tracked follow-ups automatically",
       "Every session is searchable afterwards, alongside the rest of your work",
     ],
-    plan: "Included on Student, Pro, Max and Team plans — minutes vary by plan",
+    plan: "Included on Pro, Max and Team plans — recording time grows with the tier",
     playsWith: [
       { name: "Pulse", how: "what was promised in a meeting shows up in your next briefing" },
       { name: "Digest", how: "action items with your name on them appear in tomorrow's list" },
@@ -75,7 +75,7 @@ export const APPS: App[] = [
       "Runs tell you the cost before they start, and skip rows already filled",
       "Group, summarise and save a view, then share it with your team",
     ],
-    plan: "Included on Student, Pro, Max and Team plans",
+    plan: "Included on Pro, Max and Team plans",
     playsWith: [
       { name: "Digest", how: "track rows and they become commitments you're reminded about" },
       { name: "Chat", how: "ask about any record without leaving the grid" },
@@ -97,7 +97,7 @@ export const APPS: App[] = [
       "Turn a board into tracked tasks",
       "See who else is on the board with you",
     ],
-    plan: "Included on Student, Pro, Max and Team plans",
+    plan: "Included on Pro, Max and Team plans",
     playsWith: [
       { name: "Forge", how: "a diagram drawn from the repo is one Forge asks the same questions of" },
       { name: "Digest", how: "sticky notes turned into tasks show up in your daily list" },

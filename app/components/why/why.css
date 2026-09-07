@@ -30,7 +30,10 @@
 .wy-first-card { padding: 28px; display: flex; flex-direction: column; gap: 12px; }
 .wy-first-card p { color: var(--ink-2); line-height: 1.65; font-size: 0.98rem; }
 
-.wy-who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.wy-who-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+.wy-mem rect { fill: #000; stroke: rgba(240, 237, 232, 0.25); }
+.wy-cta { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.wy-cta .lede { text-align: center; }
 .wy-who-grid > div { display: flex; flex-direction: column; gap: 12px; padding-top: 22px; border-top: 1px solid var(--line-strong); }
 .wy-who-grid p { color: var(--ink-2); line-height: 1.65; }
 .wy-link { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 500; width: fit-content; border-bottom: 1px solid var(--line-strong); padding-bottom: 2px; }

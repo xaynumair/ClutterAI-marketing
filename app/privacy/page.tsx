@@ -88,12 +88,11 @@ export default function Privacy() {
           for obtaining any consent the law where you are requires.
         </p>
 
-        <h3>2.5 Files you upload for agents</h3>
+        <h3>2.5 Files you upload</h3>
         <p>
-          Some agents work on lists you upload. Beacon, for example, takes a file of names and locations and looks
-          up contact details for each entry through a people-search provider (see section 4). Those files may
-          contain personal data about people who are not ClutterAI users. You must have a lawful basis to
-          process it and to share it with us; we process it only to return the results to you.
+          Spreadsheets you upload to Facet (CSV or Excel) may contain personal data about people who are not
+          ClutterAI users. You must have a lawful basis to process it and to share it with us; we process it
+          only to show, filter and enrich it for you.
         </p>
 
         <h3>2.6 Usage information</h3>
@@ -179,7 +178,6 @@ export default function Privacy() {
           <li><strong>Pinecone:</strong> vector database for semantic search. <a href="https://www.pinecone.io/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
           <li><strong>Deepgram:</strong> speech-to-text for Attune. <a href="https://deepgram.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
           <li><strong>Resend:</strong> transactional email delivery. <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-          <li><strong>Whitepages:</strong> people-search lookups, used only when you run the Beacon agent on a list you upload. <a href="https://www.whitepages.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
         </ul>
 
         <h3>4.2 What we require of them</h3>
@@ -320,7 +318,7 @@ export default function Privacy() {
           <li><strong>Active accounts:</strong> data is retained while your account is active</li>
           <li><strong>Disconnected sources:</strong> indexed content deleted within 30 days of disconnection</li>
           <li><strong>Attune audio:</strong> not retained after transcription; transcripts and notes are kept with your account</li>
-          <li><strong>Uploaded files (Facet, Beacon):</strong> kept until you delete the sheet or the job, or your account</li>
+          <li><strong>Uploaded files (Facet):</strong> kept until you delete the sheet, or your account</li>
           <li><strong>After account deletion:</strong> most data deleted within 30 days; backups purged within 90 days</li>
           <li><strong>Vector embeddings:</strong> deleted from Pinecone within 30 days of account deletion</li>
           <li><strong>Usage metering events:</strong> retained for as long as needed to bill and to resolve disputes about limits</li>

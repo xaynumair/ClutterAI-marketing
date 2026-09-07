@@ -7,7 +7,7 @@ import { Logo, Spark, Icon } from "../Logo";
 import { InView, Reveal } from "../Reveal";
 import { SceneCard } from "../scenes/SceneDeck";
 import { APPS } from "../../lib/apps";
-import { AGENTS, STATUS_LABEL } from "../../lib/agents";
+import { AGENTS } from "../../lib/agents";
 import { SIGNUP_URL, TRIAL_DAYS } from "../../lib/site";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` } as CSSProperties);
@@ -45,8 +45,8 @@ export function MarketplacePage() {
           </p>
           <div className="mk-free">
             <span className="pill pill-ok">Notes: free forever</span>
-            <span className="pill">Chat: free after the trial, ~10 questions a day</span>
-            <span className="pill pill-accent">Everything else: {TRIAL_DAYS} days free, then Student, Pro, Max or Team</span>
+            <span className="pill">Chat: free after the trial</span>
+            <span className="pill pill-accent">Everything else: {TRIAL_DAYS} days free, then Pro, Max or Team</span>
           </div>
         </div>
       </section>
@@ -107,17 +107,15 @@ export function MarketplacePage() {
             </div>
             <p className="mk-app-tagline reveal-child" style={d(80)}>The apps are where you work. The agents work while you don&rsquo;t.</p>
             <p className="mk-app-body reveal-child" style={d(140)}>
-              Four are live for everyone on a paid plan. Beacon runs for teams. Three more are on the way —
-              listed here so you know where this is going, not so you pay for them today.
+              Four run today on every paid plan. Three more are on the way — listed here so you know
+              where this is going, not so you pay for them today.
             </p>
             <div className="mk-agent-grid">
               {AGENTS.map((ag, i) => (
                 <div key={ag.id} id={`agent-${ag.id}`} className={`card card-hover mk-agent reveal-child is-${ag.status}`} style={d(200 + i * 60)}>
                   <div className="mk-agent-top">
                     <Logo size={34} radius={10} className="mk-agent-logo" />
-                    <span className={`pill ${ag.status === "live" ? "pill-ok" : ag.status === "teams" ? "pill-accent" : "pill-muted"}`}>
-                      {ag.status === "live" && <span className="dot dot-live" />}{STATUS_LABEL[ag.status]}
-                    </span>
+                    {ag.status === "soon" && <span className="pill pill-muted">Coming soon</span>}
                   </div>
                   <h3 className="h-display h-sm">{ag.name}</h3>
                   <span className="mk-agent-role">{ag.role}</span>

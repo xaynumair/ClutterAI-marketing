@@ -13,7 +13,7 @@ import { FacetScene } from "../scenes/FacetScene";
 import { at, Chip, Window, useTimeline, useTyped, Caret } from "../scenes/primitives";
 import { INTEGRATIONS, INTEGRATION_COUNT } from "../../lib/integrations";
 import { APPS } from "../../lib/apps";
-import { AGENTS, STATUS_LABEL } from "../../lib/agents";
+import { AGENTS } from "../../lib/agents";
 import { PLANS } from "../../lib/plans";
 import { SIGNUP_URL, TRIAL_DAYS } from "../../lib/site";
 
@@ -126,18 +126,33 @@ const DAY = [
 function Tuesday() {
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLDivElement | null)[]>([]);
+  // The rail follows whichever card is nearest the middle of the viewport,
+  // so the clock and sentence always describe what the reader is looking at.
   useEffect(() => {
     const els = refs.current.filter(Boolean) as HTMLDivElement[];
-    if (!els.length || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (vis) setActive(Number((vis.target as HTMLElement).dataset.i));
-      },
-      { rootMargin: "-40% 0px -45% 0px", threshold: [0.1, 0.4, 0.8] }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    if (!els.length) return;
+    let raf = 0;
+    const pick = () => {
+      raf = 0;
+      const mid = window.innerHeight * 0.45;
+      let best = 0;
+      let bestDist = Infinity;
+      els.forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        const dist = Math.abs(r.top + r.height / 2 - mid);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      setActive((a) => (a === best ? a : best));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(pick); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
   const beat = DAY[active];
   return (
@@ -255,11 +270,10 @@ export function HomePage() {
       <section className="hm-hero" ref={heroRef}>
         <div className="wrap hm-hero-grid">
           <div className={`hm-hero-copy ${heroVisible ? "in" : ""}`}>
-            <p className="kicker reveal-child" style={d(0)}>Chat · Documents · Meetings · Tables · Whiteboard · Agents</p>
-            <h1 className="h-serif h-xl reveal-child" style={d(80)}>One workspace that knows your work.</h1>
-            <p className="lede reveal-child" style={d(180)}>
+            <h1 className="h-serif h-xl reveal-child" style={d(0)}>One workspace that knows your work.</h1>
+            <p className="lede reveal-child" style={d(120)}>
               Chat, documents, meetings, tables, a whiteboard and a team of agents — all sharing one
-              memory of your Gmail, Slack, GitHub and the ten other tools you&rsquo;re already paying for.
+              memory of your Slack, GitHub and the eleven other tools you&rsquo;re already paying for.
             </p>
             <div className="hm-hero-actions reveal-child" style={d(260)}>
               <a href={SIGNUP_URL} className="btn btn-primary btn-lg">Start your {TRIAL_DAYS} days <Icon.Arrow /></a>
@@ -351,7 +365,7 @@ export function HomePage() {
         <div className="wrap">
           <div className="sec-head">
             <p className="kicker">Agents</p>
-            <h2 className="h-display h-lg">Eight agents. Four of them are working right now.</h2>
+            <h2 className="h-display h-lg">Four agents today. Three more on the way.</h2>
             <p className="lede">The apps are where you work. The agents work while you don&rsquo;t — on the same memory, so a promise made in a meeting is a line in tomorrow&rsquo;s briefing.</p>
           </div>
           <div className="hm-agent-grid">
@@ -359,9 +373,7 @@ export function HomePage() {
               <Link key={ag.id} href={`/marketplace#agent-${ag.id}`} className={`card card-hover hm-agent reveal-child is-${ag.status}`} style={d(i * 60)}>
                 <div className="hm-agent-top">
                   <Logo size={34} radius={10} className="hm-agent-logo" />
-                  <span className={`pill ${ag.status === "live" ? "pill-ok" : ag.status === "teams" ? "pill-accent" : "pill-muted"}`}>
-                    {ag.status === "live" && <span className="dot dot-live" />}{STATUS_LABEL[ag.status]}
-                  </span>
+                  {ag.status === "soon" && <span className="pill pill-muted">Coming soon</span>}
                 </div>
                 <h3 className="h-display h-sm">{ag.name}</h3>
                 <span className="hm-agent-role">{ag.role}</span>
@@ -388,9 +400,9 @@ export function HomePage() {
             <p className="kicker">Ask, anywhere</p>
             <h2 className="h-display h-lg">One input. Your work, or the world.</h2>
             <p className="lede">
-              Ask about your work and it searches everything you&rsquo;ve connected. Ask about the world and it
-              just answers. Either way it tells you which it did — and flip the Web toggle when you want
-              the internet instead of your inbox.
+              Ask anything. It searches everything you&rsquo;ve connected first, and if nothing there
+              answers the question it answers from general knowledge and says so. Flip the Web toggle
+              when you want a live search of the web instead.
             </p>
             <ul className="rows">
               <li className="row"><span className="row-mark"><Spark /></span>Every answer is labelled: from your sources, general knowledge, or the web</li>
@@ -460,7 +472,7 @@ export function HomePage() {
         <div className="wrap hm-num-grid">
           <div className="hm-num"><span className="hm-num-v"><CountUp to={INTEGRATION_COUNT} /></span><span className="hm-num-l">tools connected in one place</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={5} /></span><span className="hm-num-l">apps that feed one memory</span></div>
-          <div className="hm-num"><span className="hm-num-v"><CountUp to={8} /></span><span className="hm-num-l">agents, four live today</span></div>
+          <div className="hm-num"><span className="hm-num-v"><CountUp to={7} /></span><span className="hm-num-l">agents, three on the way</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={TRIAL_DAYS} /></span><span className="hm-num-l">days of everything, free</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={1.8} decimals={1} /><small>h</small></span><span className="hm-num-l">a day the average knowledge worker spends looking for information<sup>*</sup></span></div>
         </div>
@@ -483,12 +495,13 @@ export function HomePage() {
                   <span className="hm-price-cur">$</span><span className="hm-price-n">{p.monthly}</span>
                   <span className="hm-price-per">{p.monthly === 0 ? "forever" : p.perSeat ? "/ seat / month" : "/ month"}</span>
                 </p>
+                {p.plus && <p className="hm-price-plus">{p.plus}:</p>}
                 <ul className="hm-price-feats">{p.features.slice(0, 4).map((f) => <li key={f}><Spark size={8} />{f}</li>)}</ul>
               </div>
             ))}
           </div>
           <div className="center" style={{ marginTop: 36 }}>
-            <Link href="/pricing" className="btn btn-ghost">All plans, including Student, Max and Team Premium <Icon.Arrow /></Link>
+            <Link href="/pricing" className="btn btn-ghost">All plans, including Max and Team Premium <Icon.Arrow /></Link>
           </div>
         </div>
       </Reveal>

@@ -65,8 +65,12 @@
 .hm-easy-caption { margin-top: 14px; text-align: center; font-family: var(--serif); font-size: 1.1rem; color: var(--ink); }
 
 /* A Tuesday */
-.hm-day { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 72px; align-items: start; }
-.hm-day-sticky { position: sticky; top: 120px; }
+/* The rail column must stretch to the full height of the beats, or sticky
+   has nothing to stick within. It then rides at roughly the viewport's
+   middle, beside whichever card the reader is on. */
+.hm-day { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 72px; align-items: stretch; }
+.hm-day-rail { align-self: stretch; }
+.hm-day-sticky { position: sticky; top: 24vh; }
 .hm-day-clock { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
 .hm-day-time { font-family: var(--serif); font-size: clamp(3.4rem, 6vw, 5.6rem); line-height: 1; color: var(--ink); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .hm-day-app { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); }
@@ -182,6 +186,7 @@
 .hm-price-cur { font-family: var(--display); font-size: 1.2rem; font-weight: 800; color: var(--ink-3); }
 .hm-price-n { font-family: var(--display); font-size: 3.2rem; font-weight: 800; letter-spacing: -0.05em; line-height: 1; color: var(--ink); }
 .hm-price-per { font-size: 0.86rem; color: var(--ink-3); margin-left: 6px; }
+.hm-price-plus { font-size: 0.82rem; font-weight: 600; color: var(--ink); letter-spacing: 0.01em; }
 .hm-price-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.92rem; color: var(--ink-2); }
 .hm-price-feats li { display: flex; gap: 10px; align-items: baseline; }
 .hm-price-feats svg { color: var(--accent); position: relative; top: 1px; }

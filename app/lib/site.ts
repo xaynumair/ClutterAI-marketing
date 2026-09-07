@@ -7,7 +7,7 @@ export const POSTAL_ADDRESS = "30 N Gould St Ste N, Sheridan, Wyoming 82801, Uni
 
 export const TAGLINE = "One workspace that knows your work.";
 export const DESCRIPTION =
-  "Chat, documents, meetings, tables, a whiteboard and a team of agents, all sharing one memory of your Gmail, Slack, GitHub and the other tools you already use. 14 days of everything free.";
+  "Chat, documents, meetings, tables, a whiteboard and a team of agents, all sharing one memory of your Slack, GitHub and the other tools you already use. 14 days of everything free.";
 
 /** Trial length, from convex/usageLimits.ts (TRIAL_DAYS) in the app repo. */
 export const TRIAL_DAYS = 14;

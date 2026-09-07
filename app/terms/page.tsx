@@ -51,7 +51,7 @@ export default function Terms() {
           <li><strong>Ask</strong> questions in natural language and receive AI-generated answers with links to their sources; the Service decides per question whether to answer from your sources, from general knowledge or, when you enable it, from the web, and labels the answer accordingly.</li>
           <li><strong>Use the ClutterAI app for Slack</strong> to ask the same questions by mentioning or messaging it.</li>
           <li><strong>Work in the Workspace apps:</strong> Folio (documents), Attune (live transcription and notes for meetings and classes), Facet (tables from Airtable or uploaded files, with plain-English filters and AI columns), Easel (a whiteboard that can draw from your data) and Notes (nested notebooks).</li>
-          <li><strong>Run agents</strong> that work on your connected memory: Pulse (meeting briefings), Digest (daily briefing), Triage (ticket ranking and drafts), Forge (codebase intelligence and file generation); Beacon (contact lookup) on team plans; and further agents as they are released.</li>
+          <li><strong>Run agents</strong> that work on your connected memory: Pulse (meeting briefings), Digest (daily briefing), Triage (ticket ranking and drafts), Forge (codebase intelligence and file generation); and further agents as they are released.</li>
           <li><strong>Form a team</strong> with a shared memory of explicitly shared items, an admin console and per-member usage.</li>
         </ul>
         <p>Features, integrations and agents may be added, changed or withdrawn. The current set is described at <Link href="/marketplace">clutter-ai.com/marketplace</Link>.</p>
@@ -98,7 +98,6 @@ export default function Terms() {
                   </td>
                   <td>
                     {p.id === "free" && "After the trial: chat with a daily allowance, Notes, all integrations."}
-                    {p.id === "student" && "Requires a valid .edu email address. We may ask for verification."}
                     {p.id === "pro" && "All Workspace apps and agents; Forge on Quick and Standard effort."}
                     {(p.id === "max5" || p.id === "max20") && "Higher allowances; Forge on Deep effort."}
                     {p.id === "team" && `Minimum ${p.minSeats} seats. Pro-level allowances for every member; shared memory; admin console.`}
@@ -119,8 +118,8 @@ export default function Terms() {
         <p>
           Each plan includes allowances for chat, Forge, agents, Attune recording minutes and Notes AI actions.
           Allowances are metered per user over rolling five-hour windows and a weekly ceiling, in units that
-          reflect the cost of the models used. Approximate daily figures are published on the pricing page for
-          guidance; the metering, not the approximation, is what applies. We may offer one-time credit packs
+          reflect the cost of the models used. The pricing page describes each plan&rsquo;s allowance in general
+          terms; the metering is what applies. We may offer one-time credit packs
           that add to a team&rsquo;s allowance. We may adjust allowances to keep the Service sustainable and will
           give notice of reductions that materially affect paid plans.
         </p>
@@ -263,7 +262,7 @@ export default function Terms() {
 
         <h3>6.6 Third-party personal data you upload</h3>
         <p>
-          Some features (for example Beacon, and Facet uploads) process data about people other than you. You
+          Some features (for example Facet uploads) may process data about people other than you. You
           warrant that you have a lawful basis to process that data and to share it with us, and that you will
           use the results lawfully. We act as your processor for that data.
         </p>
@@ -292,7 +291,6 @@ export default function Terms() {
           <li><strong>Convex:</strong> database and backend infrastructure</li>
           <li><strong>Vercel:</strong> hosting and deployment</li>
           <li><strong>Resend:</strong> transactional email</li>
-          <li><strong>Whitepages:</strong> people-search lookups for the Beacon agent</li>
         </ul>
         <p>
           Your use of these services through ClutterAI is subject to their respective terms and privacy policies.
