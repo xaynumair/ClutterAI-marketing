@@ -31,8 +31,6 @@
 .mk-agents { border-top: 1px solid var(--line); padding-top: 70px; }
 .mk-agent-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
 .mk-agent { display: flex; flex-direction: column; gap: 6px; padding: 26px 26px 24px; }
-.mk-agent.is-soon { opacity: 0.75; }
-.mk-agent.is-soon:hover { opacity: 1; }
 .mk-agent-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .mk-agent-logo { transition: transform 0.5s var(--ease); }
 .mk-agent:hover .mk-agent-logo { transform: rotate(90deg); }

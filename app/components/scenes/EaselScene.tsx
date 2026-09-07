@@ -7,7 +7,7 @@ import { at, Window } from "./primitives";
 
 const NODES = [
   { id: "lead", x: 62, y: 115, w: 96, h: 40, label: "Website lead", t: 300 },
-  { id: "echo", x: 200, y: 52, w: 96, h: 40, label: "Echo · enrich", t: 1100 },
+  { id: "enrich", x: 200, y: 52, w: 96, h: 40, label: "Enrich lead", t: 1100 },
   { id: "route", x: 200, y: 178, w: 96, h: 40, label: "Qualified?", t: 1900, tilt: true },
   { id: "crm", x: 348, y: 52, w: 96, h: 40, label: "CRM deal", t: 2700 },
   { id: "slack", x: 348, y: 178, w: 96, h: 40, label: "Slack · #sales", t: 3400 },

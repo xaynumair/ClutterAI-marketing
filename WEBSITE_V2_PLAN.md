@@ -42,8 +42,8 @@ and the refund rule for credit packs, which was written conservatively as
 
 **Round 2 (7 Sep, after review):** Tuesday rail now sticks and tracks the
 card nearest the viewport middle (the grid had `align-items: start`, which
-left sticky with no room); Beacon removed everywhere and the "Live" pill
-dropped (coming-soon pills stay); ask-anywhere copy describes the real
+left sticky with no room); only the four shipped agents are listed — Beacon,
+Ripple, Prism and Echo removed, no status pills at all; ask-anywhere copy describes the real
 routing (sources first, then general knowledge, Web toggle for live search);
 Why-page diagram fixed (position transform and pop animation were on the same
 SVG group); Student plan removed from every page including legal; "The

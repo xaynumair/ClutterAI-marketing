@@ -365,15 +365,14 @@ export function HomePage() {
         <div className="wrap">
           <div className="sec-head">
             <p className="kicker">Agents</p>
-            <h2 className="h-display h-lg">Four agents today. Three more on the way.</h2>
+            <h2 className="h-display h-lg">Four agents, always working.</h2>
             <p className="lede">The apps are where you work. The agents work while you don&rsquo;t — on the same memory, so a promise made in a meeting is a line in tomorrow&rsquo;s briefing.</p>
           </div>
           <div className="hm-agent-grid">
             {AGENTS.map((ag, i) => (
-              <Link key={ag.id} href={`/marketplace#agent-${ag.id}`} className={`card card-hover hm-agent reveal-child is-${ag.status}`} style={d(i * 60)}>
+              <Link key={ag.id} href={`/marketplace#agent-${ag.id}`} className="card card-hover hm-agent reveal-child" style={d(i * 60)}>
                 <div className="hm-agent-top">
                   <Logo size={34} radius={10} className="hm-agent-logo" />
-                  {ag.status === "soon" && <span className="pill pill-muted">Coming soon</span>}
                 </div>
                 <h3 className="h-display h-sm">{ag.name}</h3>
                 <span className="hm-agent-role">{ag.role}</span>
@@ -472,7 +471,7 @@ export function HomePage() {
         <div className="wrap hm-num-grid">
           <div className="hm-num"><span className="hm-num-v"><CountUp to={INTEGRATION_COUNT} /></span><span className="hm-num-l">tools connected in one place</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={5} /></span><span className="hm-num-l">apps that feed one memory</span></div>
-          <div className="hm-num"><span className="hm-num-v"><CountUp to={7} /></span><span className="hm-num-l">agents, three on the way</span></div>
+          <div className="hm-num"><span className="hm-num-v"><CountUp to={4} /></span><span className="hm-num-l">agents that work while you don&rsquo;t</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={TRIAL_DAYS} /></span><span className="hm-num-l">days of everything, free</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={1.8} decimals={1} /><small>h</small></span><span className="hm-num-l">a day the average knowledge worker spends looking for information<sup>*</sup></span></div>
         </div>

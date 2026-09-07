@@ -128,8 +128,6 @@
 /* Agents */
 .hm-agent-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .hm-agent { display: flex; flex-direction: column; gap: 6px; padding: 24px 24px 22px; color: inherit; }
-.hm-agent.is-soon { opacity: 0.72; }
-.hm-agent.is-soon:hover { opacity: 1; }
 .hm-agent-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .hm-agent-logo { transition: transform 0.5s var(--ease); }
 .hm-agent:hover .hm-agent-logo { transform: rotate(90deg); }

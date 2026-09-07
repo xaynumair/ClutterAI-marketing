@@ -61,7 +61,7 @@ export function MarketplacePage() {
           ))}
           <p className="mk-rail-label" style={{ marginTop: 18 }}>Agents</p>
           <a href="#agents" className={`mk-rail-link ${active === "agents" ? "is-on" : ""}`}>
-            All eight<span className="mk-rail-role">Always running</span>
+            All four<span className="mk-rail-role">Always running</span>
           </a>
         </aside>
 
@@ -107,15 +107,14 @@ export function MarketplacePage() {
             </div>
             <p className="mk-app-tagline reveal-child" style={d(80)}>The apps are where you work. The agents work while you don&rsquo;t.</p>
             <p className="mk-app-body reveal-child" style={d(140)}>
-              Four run today on every paid plan. Three more are on the way — listed here so you know
-              where this is going, not so you pay for them today.
+              Each one owns a different job — briefing, summarising, ranking, building — and every one
+              of them runs on the same connected memory, on every paid plan.
             </p>
             <div className="mk-agent-grid">
               {AGENTS.map((ag, i) => (
-                <div key={ag.id} id={`agent-${ag.id}`} className={`card card-hover mk-agent reveal-child is-${ag.status}`} style={d(200 + i * 60)}>
+                <div key={ag.id} id={`agent-${ag.id}`} className="card card-hover mk-agent reveal-child" style={d(200 + i * 60)}>
                   <div className="mk-agent-top">
                     <Logo size={34} radius={10} className="mk-agent-logo" />
-                    {ag.status === "soon" && <span className="pill pill-muted">Coming soon</span>}
                   </div>
                   <h3 className="h-display h-sm">{ag.name}</h3>
                   <span className="mk-agent-role">{ag.role}</span>
