@@ -1,0 +1,56 @@
+/* ── Why ClutterAI ───────────────────────────────────────────────────── */
+.wy-hero { padding: 160px 0 90px; }
+.wy-hero-inner { display: flex; flex-direction: column; gap: 22px; max-width: 860px; }
+.wy-hero .lede { max-width: 66ch; font-size: 1.22rem; }
+
+.wy-two { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.wy-two-copy { display: flex; flex-direction: column; gap: 18px; }
+.wy-two-copy .kicker, .wy-two-copy h2 { margin-bottom: 0; }
+
+.wy-calc { padding: 28px; display: flex; flex-direction: column; gap: 22px; }
+.wy-calc-controls { display: flex; flex-direction: column; gap: 14px; }
+.wy-calc-controls label { display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; align-items: center; font-size: 0.9rem; color: var(--ink-2); }
+.wy-calc-controls label span { grid-column: 1 / -1; }
+.wy-calc-controls input[type="range"] { width: 100%; accent-color: var(--accent); }
+.wy-calc-controls output { font-family: var(--display); font-weight: 800; color: var(--ink); min-width: 6ch; text-align: right; font-variant-numeric: tabular-nums; }
+.wy-calc-out { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 18px; border-top: 1px solid var(--line); }
+.wy-calc-out > div { display: flex; flex-direction: column; gap: 4px; }
+.wy-calc-n { font-family: var(--serif); font-size: 2.4rem; line-height: 1; color: var(--ink); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.wy-calc-l { font-size: 0.86rem; color: var(--ink-3); line-height: 1.4; }
+
+.wy-diagram { width: 100%; height: auto; max-width: 900px; margin: 0 auto 40px; display: block; }
+.wy-diagram text { font-family: var(--body); font-size: 12px; fill: var(--ink); }
+.wy-diagram-cap { fill: var(--ink-2) !important; font-size: 10px !important; letter-spacing: 0.08em; text-transform: uppercase; }
+.wy-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.wy-step { padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.wy-step-n { font-family: var(--display); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--accent); }
+.wy-step p { color: var(--ink-2); line-height: 1.65; font-size: 0.98rem; }
+
+.wy-first-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.wy-first-card { padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+.wy-first-card p { color: var(--ink-2); line-height: 1.65; font-size: 0.98rem; }
+
+.wy-who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.wy-who-grid > div { display: flex; flex-direction: column; gap: 12px; padding-top: 22px; border-top: 1px solid var(--line-strong); }
+.wy-who-grid p { color: var(--ink-2); line-height: 1.65; }
+.wy-link { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 500; width: fit-content; border-bottom: 1px solid var(--line-strong); padding-bottom: 2px; }
+.wy-link:hover { border-color: var(--ink); }
+.wy-link .arrow { transition: transform 0.2s var(--ease); }
+.wy-link:hover .arrow { transform: translateX(3px); }
+.wy-link-inline { color: var(--ink); border-bottom: 1px solid var(--line-strong); }
+
+.wy-security .rows { align-self: start; }
+.wy-company-inner { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
+.wy-company-inner > div:first-child { display: flex; flex-direction: column; gap: 14px; }
+.wy-company-inner .kicker, .wy-company-inner h2 { margin-bottom: 0; }
+.wy-company-actions { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+
+@media (max-width: 960px) {
+  .wy-hero { padding: 120px 0 60px; }
+  .wy-two { grid-template-columns: 1fr; gap: 36px; }
+  .wy-steps, .wy-first-grid, .wy-who-grid { grid-template-columns: 1fr; }
+  .wy-company-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .wy-calc-out { grid-template-columns: 1fr; }
+}

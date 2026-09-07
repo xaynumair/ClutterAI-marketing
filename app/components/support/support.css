@@ -1,0 +1,46 @@
+/* ── Support ─────────────────────────────────────────────────────────── */
+.sp-hero { padding: 150px 0 110px; }
+.sp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.sp-left { display: flex; flex-direction: column; gap: 20px; }
+.sp-left .kicker, .sp-left h1 { margin-bottom: 0; }
+.sp-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.sp-cards .pill { width: fit-content; margin-top: 4px; }
+.sp-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; color: inherit; }
+.sp-card > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.sp-card-icon { width: 40px; height: 40px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid var(--line); color: var(--ink-2); }
+.sp-card-l { font-size: 0.78rem; color: var(--ink-3); }
+.sp-card-v { color: var(--ink); font-weight: 500; }
+.sp-quick { margin-top: 36px; display: flex; flex-direction: column; gap: 18px; }
+
+.sp-right { position: sticky; top: 110px; }
+.sp-form { padding: 36px; display: flex; flex-direction: column; gap: 18px; }
+.sp-form .small { margin-top: -10px; }
+.sp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sp-field { display: flex; flex-direction: column; gap: 8px; }
+.sp-field > span { font-size: 0.8rem; font-weight: 500; color: var(--ink-3); letter-spacing: 0.02em; }
+.sp-field input, .sp-field select, .sp-field textarea {
+  width: 100%; padding: 12px 14px; border-radius: 10px; background: rgba(0,0,0,0.25); border: 1px solid var(--line-strong);
+  color: var(--ink); font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sp-field input::placeholder, .sp-field textarea::placeholder { color: var(--muted); }
+.sp-field input:focus, .sp-field select:focus, .sp-field textarea:focus { outline: none; border-color: rgba(240,237,232,0.5); box-shadow: 0 0 0 3px rgba(240,237,232,0.06); }
+.sp-field select { appearance: none; padding-right: 40px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23a6a199' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; }
+.sp-field select option { background: #1c1b18; }
+.sp-field textarea { resize: vertical; min-height: 140px; }
+.sp-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.sp-form .btn { width: 100%; }
+.sp-ok { padding: 12px 14px; border-radius: 10px; background: rgba(150,215,180,0.08); border: 1px solid rgba(150,215,180,0.25); color: var(--ok); font-size: 0.9rem; }
+.sp-err { padding: 12px 14px; border-radius: 10px; background: rgba(229,146,138,0.08); border: 1px solid rgba(229,146,138,0.25); color: var(--bad); font-size: 0.9rem; }
+.sp-err a { color: var(--ink); border-bottom: 1px solid var(--line-strong); }
+
+@media (max-width: 960px) {
+  .sp-hero { padding: 120px 0 70px; }
+  .sp-grid { grid-template-columns: 1fr; gap: 44px; }
+  .sp-right { position: static; }
+}
+@media (max-width: 640px) {
+  .sp-form { padding: 24px 20px; }
+  .sp-row { grid-template-columns: 1fr; }
+}
