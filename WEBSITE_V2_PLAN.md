@@ -56,6 +56,22 @@ pass on the below-the-fold animations (the preview pane cannot screenshot
 them); OneDrive and Teams integrations once Microsoft verification clears;
 the two legal questions above.
 
+**12 Sep 2026 — three new apps added.** Cadence (meetings), Stride (sales)
+and Chime (tasks and reminders) went live in the app (`WorkspacePage.tsx`,
+`CALENDAR_APP_PLAN.md`, `SALES_APP_PLAN.md`, `CHIME_PLAN.md`). On the site:
+entries in `app/lib/apps.ts` (eight apps now), three new scenes
+(`CadenceScene`, `StrideScene`, `ChimeScene`) in the hero deck and on Apps &
+agents, three new beats in "A Tuesday" (08:30 Cadence, 09:45 Stride, 16:30
+Chime), an eight-card bento with new hover peeks, Free plan and comparison
+rows (Chime and the Stride pipeline free on every plan, Stride's
+after-meeting AI on Pro+), the Why diagram, footer links, and the factual
+lists in Terms §2 and Privacy §2.3 / §3 / §4.3 / §2.6 (push subscriptions).
+Digest and Forge taglines refreshed from `AgentsArea.tsx`. Not listed:
+HubSpot sync (private beta, flag-gated in the app). Still open from the
+app's own notes: Folio, Facet and Easel are described as paid-only here but
+are not gated in the code (`GROWTH_STRATEGY.md` §1) — the user should
+decide which is true.
+
 Original plan follows.
 
 The one decision already made upstream: the sign-in page now says

@@ -10,9 +10,12 @@ import { PulseScene } from "../scenes/PulseScene";
 import { AttuneScene } from "../scenes/AttuneScene";
 import { FolioScene } from "../scenes/FolioScene";
 import { FacetScene } from "../scenes/FacetScene";
+import { CadenceScene } from "../scenes/CadenceScene";
+import { ChimeScene } from "../scenes/ChimeScene";
+import { StrideScene } from "../scenes/StrideScene";
 import { at, Chip, Window, useTimeline, useTyped, Caret } from "../scenes/primitives";
 import { INTEGRATIONS, INTEGRATION_COUNT } from "../../lib/integrations";
-import { APPS } from "../../lib/apps";
+import { APPS, APP_COUNT } from "../../lib/apps";
 import { AGENTS } from "../../lib/agents";
 import { PLANS } from "../../lib/plans";
 import { SIGNUP_URL, TRIAL_DAYS } from "../../lib/site";
@@ -115,11 +118,14 @@ function DigestMini() {
 }
 
 const DAY = [
+  { time: "08:30", app: "Cadence", line: "Your day, laid out: who's coming, what's on the agenda, what's still owed.", Scene: CadenceScene },
   { time: "08:55", app: "Pulse", line: "Pulse has read the thread you forgot about.", Scene: PulseScene },
   { time: "09:00", app: "Attune", line: "Attune takes the notes. You take the meeting.", Scene: AttuneScene },
+  { time: "09:45", app: "Stride", line: "The recording filed itself. The deal updated itself. You said yes.", Scene: StrideScene },
   { time: "10:30", app: "Folio", line: "The memo cites its sources while you type.", Scene: FolioScene },
   { time: "12:00", app: "Facet", line: "Ask the spreadsheet a question. Get a filter, not a formula.", Scene: FacetScene },
   { time: "14:00", app: "Forge", line: "Forge writes from your repo and your threads, not from a guess.", Scene: ForgeMini },
+  { time: "16:30", app: "Chime", line: "It rang. In your browser, on your phone, with Done right there.", Scene: ChimeScene },
   { time: "17:30", app: "Digest", line: "Two things still need you. One of them is that deck.", Scene: DigestMini },
 ];
 
@@ -196,6 +202,33 @@ function Peek({ id }: { id: string }) {
       return <div className="hm-peek hm-peek-easel"><svg viewBox="0 0 220 70" aria-hidden="true"><path d="M40 35 C 70 35, 70 18, 96 18" pathLength={1} className="hm-edge" /><path d="M40 35 C 70 35, 70 52, 96 52" pathLength={1} className="hm-edge" /><path d="M148 18 L 176 18" pathLength={1} className="hm-edge" /><rect x="8" y="24" width="32" height="22" rx="6" /><rect x="96" y="7" width="52" height="22" rx="6" /><rect x="96" y="41" width="52" height="22" rx="6" /><rect x="176" y="7" width="36" height="22" rx="6" /></svg></div>;
     case "notes":
       return <div className="hm-peek hm-peek-notes"><span>📓 Journal</span><span className="hm-nt-child">2026-09-07</span><span>🧪 Product</span><span className="hm-nt-child hm-nt-move">Ideas for the offsite <span className="hm-peek-chip">planning</span></span></div>;
+    case "cadence":
+      return (
+        <div className="hm-peek hm-peek-cadence">
+          <span className="hm-cd-row"><b>09:00</b> Design sync <i>Recorded</i></span>
+          <span className="hm-cd-row is-next"><b>11:30</b> Acme renewal <i className="hm-cd-swap"><span>Needs prep</span><span>Briefing ready</span></i></span>
+          <span className="hm-cd-row"><b>15:00</b> 1:1 with Lena <i>Accepted</i></span>
+        </div>
+      );
+    case "stride":
+      return (
+        <div className="hm-peek hm-peek-stride">
+          <div className="hm-sr-cols">
+            <div className="hm-sr-col"><span className="hm-sr-h">Qualified</span><span className="hm-sr-card">Northwind</span></div>
+            <div className="hm-sr-col"><span className="hm-sr-h">Proposal</span><span className="hm-sr-card hm-sr-move">Acme · $80k</span></div>
+            <div className="hm-sr-col"><span className="hm-sr-h">Contract</span><span className="hm-sr-card">Globex</span></div>
+          </div>
+          <span className="hm-peek-chip">4 updates proposed · approve</span>
+        </div>
+      );
+    case "chime":
+      return (
+        <div className="hm-peek hm-peek-chime">
+          <span className="hm-ch-row"><span className="hm-ch-bell"><Icon.Bell size={11} /></span>Send the numbers <span className="hm-ch-when">rings 18:00</span></span>
+          <span className="hm-ch-row"><span className="hm-ch-box" />Book the venue before the 20th</span>
+          <span className="hm-peek-chip">“tomorrow at 3pm #Work !!” → parsed</span>
+        </div>
+      );
     default:
       return null;
   }
@@ -272,8 +305,8 @@ export function HomePage() {
           <div className={`hm-hero-copy ${heroVisible ? "in" : ""}`}>
             <h1 className="h-serif h-xl reveal-child" style={d(0)}>One workspace that knows your work.</h1>
             <p className="lede reveal-child" style={d(120)}>
-              Chat, documents, meetings, tables, a whiteboard and a team of agents — all sharing one
-              memory of your Slack, GitHub and the eleven other tools you&rsquo;re already paying for.
+              Chat, documents, meetings, tasks, deals, tables, a whiteboard and a team of agents — all
+              sharing one memory of your Slack, GitHub and the eleven other tools you&rsquo;re already paying for.
             </p>
             <div className="hm-hero-actions reveal-child" style={d(260)}>
               <a href={SIGNUP_URL} className="btn btn-primary btn-lg">Start your {TRIAL_DAYS} days <Icon.Arrow /></a>
@@ -306,8 +339,8 @@ export function HomePage() {
             <h2 className="h-display h-lg">Search was the easy part.</h2>
             <p className="lede">
               Any tool can find the file. ClutterAI is where the file gets <em>written</em>, the meeting gets
-              <em> minuted</em>, the table gets <em>filtered</em>, the diagram gets <em>drawn</em> and the follow-up
-              gets <em>chased</em> — and every one of those feeds the same memory.
+              <em> minuted</em>, the deal gets <em>moved</em>, the table gets <em>filtered</em>, the diagram gets
+              <em> drawn</em> and the follow-up gets <em>chased</em> — and every one of those feeds the same memory.
             </p>
             <p className="lede">So the answer to &ldquo;what did we decide?&rdquo; is already in there. With the receipt.</p>
             <ul className="rows">
@@ -340,7 +373,7 @@ export function HomePage() {
           <div className="sec-head">
             <p className="kicker">Workspace</p>
             <h2 className="h-display h-lg">Where the work actually happens.</h2>
-            <p className="lede">Five apps for writing, listening, organising and drawing. Each is searchable the moment you save, so everything you make feeds the same knowledge your agents use. Hover for a peek.</p>
+            <p className="lede">Eight apps for writing, listening, meeting, selling, remembering, organising and drawing. Each is searchable the moment you save, so everything you make feeds the same knowledge your agents use. Hover for a peek.</p>
           </div>
           <div className="hm-bento">
             {APPS.map((a, i) => (
@@ -348,7 +381,7 @@ export function HomePage() {
                 <div className="hm-app-head">
                   <h3 className="h-display h-sm">{a.name}</h3>
                   <span className="pill pill-muted">{a.role}</span>
-                  {a.id === "notes" && <span className="pill pill-ok">Free forever</span>}
+                  {a.free && <span className="pill pill-ok">Free forever</span>}
                 </div>
                 <span className="hm-app-similar">{a.similar}</span>
                 <p className="hm-app-tag">{a.tagline}</p>
@@ -407,6 +440,7 @@ export function HomePage() {
               <li className="row"><span className="row-mark"><Spark /></span>Every answer is labelled: from your sources, general knowledge, or the web</li>
               <li className="row"><span className="row-mark"><Spark /></span>Mention <b>@ClutterAI</b> in Slack — replies are visible only to you until you share them</li>
               <li className="row"><span className="row-mark"><Spark /></span>Understands time: &ldquo;the latest invoice&rdquo; means the latest, down to minutes ago</li>
+              <li className="row"><span className="row-mark"><Spark /></span>Ask &ldquo;where are we with Acme?&rdquo; and get the deal&rsquo;s stage, what slipped and whose turn it is</li>
               <li className="row"><span className="row-mark"><Spark /></span>Ends every answer with the one follow-up question worth asking</li>
             </ul>
           </div>
@@ -420,7 +454,7 @@ export function HomePage() {
             <p className="kicker">Teams</p>
             <h2 className="h-display h-lg">One shared memory. Nobody else&rsquo;s inbox.</h2>
             <p className="lede">
-              Share a document, a board, a table or a meeting and the whole team can search it. Your
+              Share a document, a board, a table, a meeting or a deal and the whole team can search it. Your
               connected Gmail and Slack stay yours — sharing is always something you do, never something
               that happens to you.
             </p>
@@ -470,7 +504,7 @@ export function HomePage() {
       <section className="section-tight hm-numbers">
         <div className="wrap hm-num-grid">
           <div className="hm-num"><span className="hm-num-v"><CountUp to={INTEGRATION_COUNT} /></span><span className="hm-num-l">tools connected in one place</span></div>
-          <div className="hm-num"><span className="hm-num-v"><CountUp to={5} /></span><span className="hm-num-l">apps that feed one memory</span></div>
+          <div className="hm-num"><span className="hm-num-v"><CountUp to={APP_COUNT} /></span><span className="hm-num-l">apps that feed one memory</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={4} /></span><span className="hm-num-l">agents that work while you don&rsquo;t</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={TRIAL_DAYS} /></span><span className="hm-num-l">days of everything, free</span></div>
           <div className="hm-num"><span className="hm-num-v"><CountUp to={1.8} decimals={1} /><small>h</small></span><span className="hm-num-l">a day the average knowledge worker spends looking for information<sup>*</sup></span></div>

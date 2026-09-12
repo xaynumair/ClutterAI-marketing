@@ -1,9 +1,12 @@
-// The five Workspace apps. Taglines and behaviour match the app
+// The eight Workspace apps. Taglines and behaviour match the app
 // (src/components/WorkspacePage.tsx and the per-app plan docs in the app
-// repo). `similar` is a foothold, not a claim of compatibility.
+// repo, checked 12 Sep 2026). `similar` is a foothold, not a claim of
+// compatibility. Order is the order they appear on the site.
+
+export type AppId = "folio" | "attune" | "cadence" | "stride" | "facet" | "easel" | "chime" | "notes";
 
 export type App = {
-  id: "folio" | "attune" | "facet" | "easel" | "notes";
+  id: AppId;
   name: string;
   role: string;
   similar: string;
@@ -11,6 +14,7 @@ export type App = {
   body: string;
   features: string[];
   plan: string;
+  free?: boolean; // shown with a "Free forever" pill
   playsWith: { name: string; how: string }[];
 };
 
@@ -34,7 +38,7 @@ export const APPS: App[] = [
     plan: "Included on Pro, Max and Team plans",
     playsWith: [
       { name: "Chat", how: "every document you write becomes a source for answers" },
-      { name: "Attune", how: "meeting notes land in a document you can keep editing" },
+      { name: "Stride", how: "a weekly pipeline review or a proposal lands here as a document" },
     ],
   },
   {
@@ -44,19 +48,63 @@ export const APPS: App[] = [
     similar: "Like Otter.ai or Granola",
     tagline: "Listen once. Keep everything.",
     body:
-      "Attune transcribes live — from your microphone or straight from a browser tab — and writes the notes as it goes. Afterwards it pulls out who committed to what, and those commitments land in the same task layer your agents read from.",
+      "Attune transcribes live — from your microphone or straight from a browser tab, with no bot joining the call — and writes the notes as it goes. Afterwards it pulls out who committed to what, and those commitments land in the same task layer your agents read from.",
     features: [
-      "Live transcription from your mic or from a shared browser tab",
+      "Live transcription from your mic or from a shared browser tab — no bot in the meeting",
       "Notes written as the meeting happens, not fifteen minutes after",
       "Ask questions about anything said, with the full transcript in context",
       "Class mode turns a lecture into flashcards for revision",
       "Action items become tracked follow-ups automatically",
-      "Every session is searchable afterwards, alongside the rest of your work",
+      "A recording that overlaps a deal's meeting files itself in Stride",
     ],
     plan: "Included on Pro, Max and Team plans — recording time grows with the tier",
     playsWith: [
+      { name: "Cadence", how: "start a recording from the meeting and it's already titled and linked" },
       { name: "Pulse", how: "what was promised in a meeting shows up in your next briefing" },
-      { name: "Digest", how: "action items with your name on them appear in tomorrow's list" },
+    ],
+  },
+  {
+    id: "cadence",
+    name: "Cadence",
+    role: "Meetings",
+    similar: "Like Google Calendar, with a memory",
+    tagline: "Your meetings, with everything you know about the people in them.",
+    body:
+      "Cadence is where meetings live: when, who's coming, what's on the agenda, and what's known about each attendee. Every meeting has a lifecycle — needs prep, happening, needs follow-up, done — and Pulse is called at the two moments that matter, so you walk in briefed and walk out with the follow-up written.",
+    features: [
+      "Agenda, week, day and month views of your connected calendar and the meetings you create here",
+      "Attendees, agenda and links on every meeting; a people directory that remembers roles and companies",
+      "Invite anyone by email — people on ClutterAI see it in their own Cadence and can accept or decline",
+      "A lifecycle strip with one primary action: Prepare, Record with Attune, Follow up",
+      "Pulse briefings and follow-ups a click away, with their status shown on the meeting",
+      "Share manual meetings and contacts with your team",
+    ],
+    plan: "Included on every plan; Pulse briefings come with Pro and above",
+    playsWith: [
+      { name: "Pulse", how: "Cadence owns the meeting, Pulse owns the intelligence about it" },
+      { name: "Chime", how: "today's meetings sit in your Today view next to your tasks" },
+    ],
+  },
+  {
+    id: "stride",
+    name: "Stride",
+    role: "Sales",
+    similar: "Like a CRM that fills itself in",
+    tagline: "Your deals, kept moving. Nothing typed.",
+    body:
+      "A pipeline for people who sell: accounts, deals, stages and the people on each one. Meetings and recordings file themselves against the right deal. After every meeting Stride proposes the updates — next step, close date, who promised what — each with a verbatim quote from the transcript, and you approve them item by item. Each morning, Today tells you whose turn it is.",
+    features: [
+      "Pipeline board and table, a deal page with next step, timeline, people and memory with evidence",
+      "Attune recordings and Cadence meetings file themselves against the deal",
+      "After-meeting proposals, every item quoting the transcript — approve, edit or skip each one",
+      "Follow-up emails drafted from the meeting, ready to send",
+      "Ask chat “where are we with Acme?” and get the deal's status with its sources",
+      "Account research with citations, a proof finder over your own docs, and a weekly review you can export to Folio",
+    ],
+    plan: "Pipeline included on every plan; after-meeting AI on Pro and above",
+    playsWith: [
+      { name: "Digest", how: "a Pipeline section in your morning briefing, deals that need you first" },
+      { name: "Teams", how: "share a deal, comment with @mentions, hand it off, review the team's pipeline" },
     ],
   },
   {
@@ -100,7 +148,30 @@ export const APPS: App[] = [
     plan: "Included on Pro, Max and Team plans",
     playsWith: [
       { name: "Forge", how: "a diagram drawn from the repo is one Forge asks the same questions of" },
-      { name: "Digest", how: "sticky notes turned into tasks show up in your daily list" },
+      { name: "Chime", how: "sticky notes turned into tasks show up in your Today" },
+    ],
+  },
+  {
+    id: "chime",
+    name: "Chime",
+    role: "Tasks & reminders",
+    similar: "Like Todoist, with a memory of what you promised",
+    tagline: "Tasks and reminders that find you.",
+    body:
+      "Type a task the way you'd say it — “send Susan the deck tomorrow at 3pm #Work !!” — and Chime files the date, time, list and priority. Reminders ring as system notifications with sound, in your browser and on your phone, with Done and Snooze right on them. And it watches what you've promised across your tools, so the things you said you'd do turn up as suggestions.",
+    features: [
+      "Quick-add in plain English: dates, times, “every weekday”, lists and priorities, all parsed as you type",
+      "Tasks and reminders kept distinct — a reminder always rings at its time",
+      "Today shows what's overdue, what's due and today's meetings from Cadence",
+      "Repeat, snooze, subtasks, priorities and lists with colours",
+      "Notifications that reach you outside the app, with Done and Snooze buttons on them",
+      "Suggested: commitments spotted in your tools and meetings, one click to track",
+    ],
+    plan: "Free forever, on every plan",
+    free: true,
+    playsWith: [
+      { name: "Stride", how: "an approved next step becomes a task with the deal attached" },
+      { name: "Attune", how: "action items with your name on them arrive as suggestions" },
     ],
   },
   {
@@ -120,9 +191,12 @@ export const APPS: App[] = [
       "Download any page as Markdown or HTML",
     ],
     plan: "Free forever, on every plan",
+    free: true,
     playsWith: [
       { name: "Chat", how: "your notes are searched alongside everything else" },
-      { name: "Digest", how: "tasks pulled out of a page are tracked" },
+      { name: "Chime", how: "tasks pulled out of a page are tracked and remind you" },
     ],
   },
 ];
+
+export const APP_COUNT = APPS.length;

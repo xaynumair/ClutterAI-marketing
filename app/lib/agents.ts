@@ -25,10 +25,10 @@ export const AGENTS: Agent[] = [
     id: "digest",
     name: "Digest",
     role: "Daily briefing",
-    tagline: "Your day, summarised at a glance",
+    tagline: "Know your day before it starts",
     similar: "Like a morning stand-up",
     body:
-      "Every morning, Digest reads the last 24 hours across your integrations and writes back what needs you: commitments you made, replies you're owed, and questions still open. Items close themselves when the reply lands.",
+      "Every morning, Digest reads your calendar, open threads, tickets, your pipeline and the last 24 hours across every tool — then hands you a headline, your top three priorities, who's waiting on you and what you promised. Items close themselves when the reply lands.",
   },
   {
     id: "triage",
@@ -42,10 +42,10 @@ export const AGENTS: Agent[] = [
   {
     id: "forge",
     name: "Forge",
-    role: "Codebase intelligence",
-    tagline: "Every answer your codebase has, but never told you",
+    role: "Coding agent",
+    tagline: "Build with your codebase already in context",
     similar: "Like Claude Code or Cursor",
     body:
-      "Ask anything about your codebase. Forge searches GitHub, GitLab, Linear, Jira, Confluence and Slack at once, writes complete files into a side panel, versions every revision, and lets you pick how much effort a question deserves.",
+      "Write, debug and refactor alongside your repos, issues and docs. Forge writes complete files you can preview, edit and save, versions every revision, reads screenshots of errors, searches the web when it helps, and lets you pick how much effort a question deserves.",
   },
 ];

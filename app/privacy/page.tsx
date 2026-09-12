@@ -74,6 +74,9 @@ export default function Privacy() {
         <ul>
           <li>Questions you ask and the answers you receive, including which sources were used</li>
           <li>Folio documents, Notes pages and labels, Easel boards and Facet sheets, including files you upload to Facet (CSV or Excel)</li>
+          <li>Cadence meetings you create, their agendas, links and invitations, and the people directory you build (names, roles, companies and email addresses of attendees)</li>
+          <li>Chime tasks, reminders and the notification history that goes with them</li>
+          <li>Stride accounts, deals, contacts, logged activity (notes, calls and emails you log or paste), proposed updates and their transcript quotes, drafts and research briefs</li>
           <li>Files generated and saved by Forge, and their versions</li>
           <li>Attune transcripts, notes, flashcards and the action items extracted from them</li>
           <li>Tasks, commitments and decisions that agents extract from the above</li>
@@ -99,6 +102,7 @@ export default function Privacy() {
         <ul>
           <li>Usage metering events: which features you used, when, and approximately how much model capacity they consumed. These are needed to enforce plan limits and to bill correctly.</li>
           <li>Device information, IP address, browser type and operating system</li>
+          <li>If you turn notifications on, the browser&rsquo;s push subscription (an endpoint and keys issued by your browser) so reminders can reach you when the tab is closed, and a delivery record per notification</li>
           <li>Diagnostic logs and error reports</li>
         </ul>
         <p>We do not run third-party analytics or advertising scripts in the application or on this website.</p>
@@ -141,6 +145,8 @@ export default function Privacy() {
           <li>Decide, for each question, whether to answer from your sources, from general knowledge or from the web, and generate the answer with citations</li>
           <li>Run agents on your behalf, including scheduled ones such as Digest each morning and Pulse before meetings, and produce briefings, rankings, drafts, code and extracted tasks</li>
           <li>Transcribe Attune sessions and produce notes, flashcards and action items</li>
+          <li>Ring the reminders you set and deliver notifications through the channels you turned on</li>
+          <li>Propose deal updates and follow-up drafts from your meetings, and research accounts on the web when you ask</li>
           <li>Meter usage against your plan and enforce limits</li>
           <li>Verify subscription status and grant access (via Lemon Squeezy)</li>
           <li>Send transactional email: sign-in codes, team invitations, service updates and support replies</li>
@@ -191,7 +197,7 @@ export default function Privacy() {
         <h3>4.3 Teams</h3>
         <p>If you are part of a team on ClutterAI:</p>
         <ul>
-          <li>Teammates can see only the items you explicitly share: Folio documents, Easel boards, Facet views and Attune sessions you mark as shared. Shared items are searchable by every member.</li>
+          <li>Teammates can see only the items you explicitly share: Folio documents, Easel boards, Facet views, Attune sessions, Cadence meetings and contacts, and Stride deals you mark as shared. Shared items are searchable by every member. A shared deal shows teammates its facts, summary, people and activity metadata; the bodies of logged emails, proposals and your tasks stay with you.</li>
           <li><strong>Your connected sources — Gmail, Slack, Drive and the rest — are never visible to teammates.</strong> Answers to your questions are private to you.</li>
           <li>Team owners and admins can see member email addresses, roles, seat assignments and usage totals. They cannot read your questions, answers or private content.</li>
           <li>If you leave or are removed from a team, items you shared remain available to the team unless you unshare or delete them first. Your private content stays with your account.</li>

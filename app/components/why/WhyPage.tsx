@@ -47,8 +47,8 @@ function Calculator() {
 
 function Diagram() {
   const tools = ["Gmail", "Slack", "GitHub", "Notion", "Jira", "Drive", "Calendar"];
-  const outs = ["Chat", "Folio", "Attune", "Facet", "Easel", "Pulse", "Digest", "Forge"];
-  const H = 360;
+  const outs = ["Chat", "Folio", "Attune", "Cadence", "Stride", "Chime", "Facet", "Easel", "Pulse", "Digest", "Forge"];
+  const H = 440;
   const ty = (i: number) => 28 + i * ((H - 56) / (tools.length - 1));
   const oy = (i: number) => 22 + i * ((H - 44) / (outs.length - 1));
   return (
@@ -81,7 +81,7 @@ function Diagram() {
         <g key={o}>
           <path d={`M430 ${H / 2} C 500 ${H / 2}, 520 ${oy(i)}, 610 ${oy(i)}`} pathLength={1} className="sc-draw" style={at(1400 + i * 80)} />
           <g transform={`translate(610 ${oy(i) - 14})`}>
-            <g className={`sc-node ${i >= 5 ? "is-tilt" : ""}`} style={at(1700 + i * 80)}>
+            <g className={`sc-node ${i >= 8 ? "is-tilt" : ""}`} style={at(1700 + i * 80)}>
               <rect width="110" height="28" rx="9" /><text x="55" y="18" textAnchor="middle">{o}</text>
             </g>
           </g>
@@ -134,7 +134,7 @@ export function WhyPage() {
           <div className="wy-steps">
             {[
               { n: "01", t: "Connect", s: "Link Gmail, Slack, GitHub and the rest with OAuth — read-only wherever the provider offers it. Indexing starts immediately and stays current." },
-              { n: "02", t: "Work here", s: "Write in Folio, listen with Attune, filter in Facet, draw in Easel, keep notes. Every save becomes part of the memory, cited by source." },
+              { n: "02", t: "Work here", s: "Write in Folio, listen with Attune, run your meetings in Cadence, move deals in Stride, filter in Facet, draw in Easel, keep tasks in Chime and notes in Notes. Every save becomes part of the memory, cited by source." },
               { n: "03", t: "Let the agents run", s: "Pulse briefs you before meetings, Digest each morning, Triage on the queue, Forge on the codebase — from the same memory, never a stale copy." },
             ].map((s, i) => (
               <div key={s.n} className="card wy-step reveal-child" style={d(i * 100)}>

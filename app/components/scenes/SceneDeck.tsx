@@ -9,6 +9,9 @@ import { AttuneScene } from "./AttuneScene";
 import { FacetScene } from "./FacetScene";
 import { EaselScene } from "./EaselScene";
 import { NotesScene } from "./NotesScene";
+import { CadenceScene } from "./CadenceScene";
+import { ChimeScene } from "./ChimeScene";
+import { StrideScene } from "./StrideScene";
 
 // ── SCENE DECK ───────────────────────────────────────────────────────────
 // The same deck the sign-in page plays: one miniature of each surface doing
@@ -16,7 +19,7 @@ import { NotesScene } from "./NotesScene";
 // foundation, not the product. Each scene owns its timeline; this file only
 // sequences, cross-fades and shows the tab strip.
 
-export type SceneId = "chat" | "pulse" | "folio" | "attune" | "facet" | "easel" | "notes";
+export type SceneId = "chat" | "pulse" | "folio" | "attune" | "cadence" | "stride" | "chime" | "facet" | "easel" | "notes";
 
 export interface SceneDef {
   id: SceneId;
@@ -31,6 +34,9 @@ export const SCENES: SceneDef[] = [
   { id: "pulse", label: "Pulse", duration: 7200, Scene: PulseScene, caption: "Walk into meetings already knowing what matters." },
   { id: "folio", label: "Folio", duration: 8000, Scene: FolioScene, caption: "Documents that write themselves from what your team knows." },
   { id: "attune", label: "Attune", duration: 8000, Scene: AttuneScene, caption: "Live meeting notes, with the action items already assigned." },
+  { id: "cadence", label: "Cadence", duration: 7600, Scene: CadenceScene, caption: "Your meetings, with everything you know about the people in them." },
+  { id: "stride", label: "Stride", duration: 8200, Scene: StrideScene, caption: "Your deals, kept moving. Nothing typed." },
+  { id: "chime", label: "Chime", duration: 8000, Scene: ChimeScene, caption: "Tasks and reminders that find you." },
   { id: "facet", label: "Facet", duration: 8000, Scene: FacetScene, caption: "Your tables, filtered in plain English." },
   { id: "easel", label: "Easel", duration: 7800, Scene: EaselScene, caption: "A whiteboard that draws from your own work." },
   { id: "notes", label: "Notes", duration: 7600, Scene: NotesScene, caption: "A notebook that's free forever, and feeds everything else." },

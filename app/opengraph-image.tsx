@@ -40,7 +40,7 @@ export default function OpenGraphImage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
           <div style={{ fontSize: 84, lineHeight: 1.02, letterSpacing: -2, maxWidth: 1000 }}>{TAGLINE}</div>
           <div style={{ fontSize: 30, lineHeight: 1.4, color: "#a6a199", fontFamily: "sans-serif", maxWidth: 940 }}>
-            Chat, documents, meetings, tables, a whiteboard and a team of agents — sharing one memory of your tools.
+            Chat, documents, meetings, tasks, deals, tables, a whiteboard and a team of agents — sharing one memory of your tools.
           </div>
         </div>
         <div style={{ display: "flex", gap: 14, fontFamily: "sans-serif", fontSize: 22, color: "#d97757" }}>

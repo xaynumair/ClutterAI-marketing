@@ -66,7 +66,7 @@ function PlanCard({ p, cycle, seats, i }: { p: Plan; cycle: Cycle; seats: number
 }
 
 const FAQ = [
-  { q: "What exactly happens after the 14 days?", a: <p>Your account moves to the Free plan on its own. Nothing is deleted, nothing is charged and no card was ever asked for. You keep chat, Notes, and all of your integrations. Forge, the agents, Attune and the other apps wait until you pick a paid plan.</p> },
+  { q: "What exactly happens after the 14 days?", a: <p>Your account moves to the Free plan on its own. Nothing is deleted, nothing is charged and no card was ever asked for. You keep chat, Notes, Chime, Cadence, your Stride pipeline and all of your integrations. Forge, the agents, Attune, Stride&rsquo;s after-meeting AI and the other apps wait until you pick a paid plan.</p> },
   { q: "Why is my card statement from Lemon Squeezy?", a: <p>Lemon Squeezy is our merchant of record: they process the payment, collect tax and issue the receipt. So the charge shows as <b>Lemon Squeezy</b>, not ClutterAI. That is expected and means the payment went through.</p> },
   { q: "How is usage measured?", a: <p>Usage is metered in rolling five-hour windows with a weekly ceiling, the same way Claude does it — so a busy afternoon doesn’t lock you out for the day, and a quiet week doesn’t bank unused capacity. Each tier up multiplies the allowance; the app shows you where you are at any time.</p> },
   { q: "Can I switch plans later?", a: <p>Yes, from Settings in the app. Upgrades apply immediately and are prorated. Downgrades are scheduled for the end of the period you already paid for, so you keep what you have until then.</p> },

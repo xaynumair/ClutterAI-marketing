@@ -20,7 +20,7 @@ Then open http://localhost:3000. `npm run build` type-checks and builds;
 |---|---|
 | `app/globals.css` | Design tokens, typography, buttons, nav, footer, and the shared `.sc-*` scene styles |
 | `app/lib/plans.ts` | **The only place with a price.** Copied from the app's `convex/planCatalogue.ts` and `src/lib/planCopy.ts` |
-| `app/lib/apps.ts`, `app/lib/agents.ts` | The five Workspace apps and eight agents, with taglines from the app |
+| `app/lib/apps.ts`, `app/lib/agents.ts` | The eight Workspace apps and four agents, with taglines from the app |
 | `app/lib/integrations.tsx` | The thirteen live integrations, inline SVG marks |
 | `app/lib/site.ts` | URLs, support address, tagline, trial length |
 | `app/components/scenes/` | The animated product miniatures, a copy of the app's sign-in scenes |

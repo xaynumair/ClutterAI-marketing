@@ -39,12 +39,13 @@ export function MarketplacePage() {
           <p className="kicker">Apps &amp; agents</p>
           <h1 className="h-serif h-xl">Everything in the workspace.</h1>
           <p className="lede">
-            Five apps you work in and eight agents that work while you don&rsquo;t, all reading from the same
+            Eight apps you work in and four agents that work while you don&rsquo;t, all reading from the same
             connected memory. Anything you make in one becomes searchable everywhere else — and every entry
             below is a real miniature of the app doing its job. Hover to replay.
           </p>
           <div className="mk-free">
-            <span className="pill pill-ok">Notes: free forever</span>
+            <span className="pill pill-ok">Notes and Chime: free forever</span>
+            <span className="pill pill-ok">Cadence and the Stride pipeline: on every plan</span>
             <span className="pill">Chat: free after the trial</span>
             <span className="pill pill-accent">Everything else: {TRIAL_DAYS} days free, then Pro, Max or Team</span>
           </div>
@@ -71,7 +72,7 @@ export function MarketplacePage() {
               <div className="mk-app-head reveal-child" style={d(0)}>
                 <h2 className="h-display mk-app-name">{app.name}</h2>
                 <span className="mk-app-role">{app.role}</span>
-                {app.id === "notes" && <span className="pill pill-ok">Free forever</span>}
+                {app.free && <span className="pill pill-ok">Free forever</span>}
               </div>
               <span className="pill pill-accent reveal-child" style={d(60)}>{app.similar}</span>
               <p className="mk-app-tagline reveal-child" style={d(120)}>{app.tagline}</p>

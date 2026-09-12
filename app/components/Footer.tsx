@@ -26,8 +26,11 @@ export function Footer() {
             <h4>Workspace</h4>
             <Link href="/marketplace#folio">Folio</Link>
             <Link href="/marketplace#attune">Attune</Link>
+            <Link href="/marketplace#cadence">Cadence</Link>
+            <Link href="/marketplace#stride">Stride</Link>
             <Link href="/marketplace#facet">Facet</Link>
             <Link href="/marketplace#easel">Easel</Link>
+            <Link href="/marketplace#chime">Chime</Link>
             <Link href="/marketplace#notes">Notes</Link>
             <Link href="/marketplace#agents">Agents</Link>
           </div>

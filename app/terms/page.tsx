@@ -50,7 +50,7 @@ export default function Terms() {
           <li><strong>Connect</strong> third-party services — Gmail, Google Drive, Google Calendar, Slack, Notion, GitHub, GitLab, Linear, Jira, Confluence, Trello, Airtable and Zendesk — and keep their content indexed and current, including real-time updates where the provider supports them.</li>
           <li><strong>Ask</strong> questions in natural language and receive AI-generated answers with links to their sources; the Service decides per question whether to answer from your sources, from general knowledge or, when you enable it, from the web, and labels the answer accordingly.</li>
           <li><strong>Use the ClutterAI app for Slack</strong> to ask the same questions by mentioning or messaging it.</li>
-          <li><strong>Work in the Workspace apps:</strong> Folio (documents), Attune (live transcription and notes for meetings and classes), Facet (tables from Airtable or uploaded files, with plain-English filters and AI columns), Easel (a whiteboard that can draw from your data) and Notes (nested notebooks).</li>
+          <li><strong>Work in the Workspace apps:</strong> Folio (documents), Attune (live transcription and notes for meetings and classes), Cadence (meetings, attendees, agendas and invitations), Stride (a sales pipeline whose updates are proposed from your meetings for your approval), Chime (tasks and reminders with notifications), Facet (tables from Airtable or uploaded files, with plain-English filters and AI columns), Easel (a whiteboard that can draw from your data) and Notes (nested notebooks).</li>
           <li><strong>Run agents</strong> that work on your connected memory: Pulse (meeting briefings), Digest (daily briefing), Triage (ticket ranking and drafts), Forge (codebase intelligence and file generation); and further agents as they are released.</li>
           <li><strong>Form a team</strong> with a shared memory of explicitly shared items, an admin console and per-member usage.</li>
         </ul>
@@ -97,7 +97,7 @@ export default function Terms() {
                     {p.annual ? `, or $${p.annual}${p.perSeat ? " per seat" : ""} per year` : p.monthly > 0 ? " (monthly billing only)" : ""}
                   </td>
                   <td>
-                    {p.id === "free" && "After the trial: chat with a daily allowance, Notes, all integrations."}
+                    {p.id === "free" && "After the trial: chat with a daily allowance, Notes, Chime, Cadence, the Stride pipeline, all integrations."}
                     {p.id === "pro" && "All Workspace apps and agents; Forge on Quick and Standard effort."}
                     {(p.id === "max5" || p.id === "max20") && "Higher allowances; Forge on Deep effort."}
                     {p.id === "team" && `Minimum ${p.minSeats} seats. Pro-level allowances for every member; shared memory; admin console.`}
