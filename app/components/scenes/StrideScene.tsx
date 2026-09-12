@@ -24,9 +24,9 @@ export function StrideScene() {
   return (
     <Window app="Stride" title="Acme Logistics — annual plan" right={<span className={`sc-pill${phase >= 1 ? " is-ok" : ""}`}>Health {health}</span>}>
       <div className="sc-stride">
-        <div className="sc-stages sc-in" style={at(100)}>
+        <div className="sc-stg-row sc-in" style={at(100)}>
           {STAGES.map((s, i) => (
-            <span key={s} className={`sc-stage${i === 1 ? " is-on" : ""}${i < 1 ? " is-done" : ""}`}>{s}</span>
+            <span key={s} className={`sc-stg${i === 1 ? " is-on" : ""}${i < 1 ? " is-done" : ""}`}>{s}</span>
           ))}
         </div>
 
